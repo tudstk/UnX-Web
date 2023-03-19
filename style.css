@@ -1,0 +1,45 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  font-family: "Sora", sans-serif;
+}
+
+nav {
+  background: linear-gradient(to bottom, #000, #333);
+  height: 4.75rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  opacity: 0.95;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  display: block;
+  color: #dedede;
+  text-align: center;
+  padding: 1.5rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.logo,
+.login {
+  color: #dedede;
+}
+
+a:hover {
+  color: gray;
+}
