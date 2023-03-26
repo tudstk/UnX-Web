@@ -5,17 +5,19 @@
 
 body {
   font-family: "Sora", sans-serif;
+  background: url("../img/bg.jpg");
+  background-size: cover;
 }
 
 nav {
-  background: linear-gradient(to bottom, #000, #333);
-  height: 4.75rem;
+  background: #0a0a0a;
+  height: 4.25rem;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-around;
   opacity: 0.95;
-  position: sticky;
+  position: fixed;
 }
 
 .links {
@@ -34,10 +36,12 @@ a {
   padding: 1.5rem;
   text-decoration: none;
   transition: color 0.3s ease-in-out;
+  letter-spacing: 0.1rem;
+  font-size: 0.8rem;
 }
 
 .logo {
-  width: 3rem;
+  width: 2.75rem;
 }
 
 .login-img {
