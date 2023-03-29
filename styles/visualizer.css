@@ -1,0 +1,81 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  font-family: "Sora", sans-serif;
+  background: url("../img/bg.jpg");
+  background-size: cover;
+}
+
+nav {
+  z-index: 10;
+  background: #0a0a0a;
+  height: 4.25rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  opacity: 0.95;
+  position: fixed;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  display: block;
+  color: #dedede;
+  text-align: center;
+  padding: 1.5rem;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+  letter-spacing: 0.1rem;
+  font-size: 0.8rem;
+}
+
+.logo {
+  width: 2.75rem;
+}
+
+.login-img {
+  width: 1.6rem;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.login-img:hover {
+  opacity: 1;
+}
+
+a:hover {
+  color: #fabc5f;
+  opacity: 0.8;
+}
+
+.chart-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#pie-chart {
+  margin-top: 7rem;
+  border: 1rem solid rgba(255, 82, 8, 0.6);
+  border-radius: 0.5rem;
+}
+#bar-chart,
+#line-chart {
+  border: 1rem solid rgba(255, 82, 8, 0.6);
+  border-radius: 0.5rem;
+  margin-top: 3rem;
+}

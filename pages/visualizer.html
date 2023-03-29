@@ -5,13 +5,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../styles/visualizer.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora&display=swap" rel="stylesheet">
     <title>Visualizer</title>
 </head>
 
 <body>
-    <div id="pie-chart"></div>
-    <div id="bar-chart"></div>
-    <div id="line-chart"></div>
+    <nav>
+        <div class="logo-wrapper">
+            <img src="/img/logo.png" class="logo">
+        </div>
+        <ul class="links">
+            <li><a href="#">HOME</a></li>
+            <li><a href="pages/visualizer.html">VISUALIZER</a></li>
+            <li><a href="#">ABOUT</a></li>
+        </ul>
+        <a href="./login.html">
+            <img src="/img/icons/account_icon.png" class="login-img">
+        </a>
+    </nav>
+
+    <div class="chart-wrapper">
+        <div id="pie-chart"></div>
+        <div id="bar-chart"></div>
+        <div id="line-chart"></div>
+    </div>
 
     <!-- https://developers.google.com/chart/interactive/docs/quick_start -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
