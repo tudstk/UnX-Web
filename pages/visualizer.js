@@ -1,3 +1,27 @@
+const listaJudete = ["Alba", "Arad", "Arges", "Bacau", "Bistrita-Nasaud", "Botosani", "Braila", "Brasov", "Bucuresti", "Buzau", "Calarasi", "Caras-Severin", "Cluj", "Constanta", "Covasna", "Dambovita", "Dolj", "Galati", "Giurgiu", "Gorj", "Harghita", "Hunedoara", "Ialomita", "Iasi", "Ilfov", "Maramures", "Mehedinti", "Mures", "Neamt", "Olt", "Prahova", "Salaj", "Satu Mare", "Sibiu", "Suceava", "Teleorman", "Timis", "Tulcea", "Vaslui", "Valcea", "Vrancea"];
+
+listaJudete.forEach(createDivs);
+
+function createDivs(value, index, array) {
+  const newInput = document.createElement('input');
+  const newLabel = document.createElement('label');
+  const lineBreak = document.createElement('br');
+
+  newInput.setAttribute('type', 'checkbox');
+  newInput.setAttribute('id', value);
+  newInput.setAttribute('name', value);
+  newInput.setAttribute('value', value);
+  newLabel.setAttribute('for', value);
+  newLabel.textContent = value;
+
+  const formJudete = document.getElementById('judete');
+
+  formJudete.appendChild(newInput);
+  formJudete.appendChild(newLabel);
+  formJudete.appendChild(lineBreak);
+}
+
+
 const pieChart = {
   chart: null,
   data: [
@@ -27,7 +51,7 @@ const barChart = {
     ['Restul judetelor', 125000]
   ],
   element: '#bar-chart',
-  options:  {
+  options: {
     title: 'Someri pe judete',
     width: 500,
     height: 300
@@ -65,7 +89,7 @@ const init = () => {
     google.visualization.arrayToDataTable(pieChart.data),
     pieChart.options
   );
-  
+
   barChart.chart = new google.visualization.BarChart(
     document.querySelector(barChart.element)
   );
@@ -73,7 +97,7 @@ const init = () => {
     google.visualization.arrayToDataTable(barChart.data),
     barChart.options
   );
-  
+
   lineChart.chart = new google.visualization.LineChart(
     document.querySelector(lineChart.element)
   );
