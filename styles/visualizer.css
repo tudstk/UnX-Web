@@ -41,6 +41,14 @@ a {
   font-size: 0.8rem;
 }
 
+.scrollable-list {
+  margin-top: 7rem;
+  background-color: lightgray;
+  width: 11rem;
+  height: 11rem;
+  overflow: auto;
+}
+
 .logo {
   width: 2.75rem;
 }
