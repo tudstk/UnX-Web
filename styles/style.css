@@ -5,12 +5,11 @@
 
 body {
   font-family: "Sora", sans-serif;
-  background: url("../img/bg.jpg");
-  background-size: cover;
+  overflow-x: hidden;
 }
 
 nav {
-  background: #0a0a0a;
+  background: #081b38;
   height: 4.25rem;
   width: 100%;
   display: flex;
@@ -30,6 +29,11 @@ ul {
 }
 
 a {
+  text-decoration: none;
+  color: #c5d6f0;
+}
+
+ul > li > a {
   display: block;
   color: #dedede;
   text-align: center;
@@ -58,4 +62,130 @@ a {
 a:hover {
   color: #fabc5f;
   opacity: 0.8;
+}
+
+.welcome-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  background: url("../img/bg3.jpg");
+  background-size: cover;
+  border-bottom: 0.4rem solid #081b38;
+}
+
+.welcome-wrapper > h1 {
+  font-weight: 800;
+  font-size: 3.7rem;
+  color: #081b38;
+}
+
+.welcome-wrapper > button {
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #c5d6f0;
+  background: #081b38;
+  border-radius: 0.5rem;
+  border: 2px solid #0c264f;
+}
+
+.welcome-wrapper > button:hover {
+  background: #0d2954;
+  color: white;
+}
+
+.members-wrapper {
+  width: 100vw;
+  height: 30rem;
+  background: linear-gradient(
+      135deg,
+      #0c264f 21px,
+      black 24px,
+      black 22px,
+      transparent 24px,
+      transparent 67px,
+      black 67px,
+      black 69px,
+      transparent 69px
+    ),
+    linear-gradient(
+        225deg,
+        #0c264f 21px,
+        black 22px,
+        black 24px,
+        transparent 24px,
+        transparent 67px,
+        black 67px,
+        black 69px,
+        transparent 69px
+      )
+      0 64px;
+  background-color: #0c264f;
+  background-size: 64px 128px;
+}
+
+.members-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.members-wrapper > h1 {
+  color: #c5d6f0;
+}
+
+.members-left-container,
+.members-right-container {
+  width: 50vw;
+  padding: 8rem 6rem;
+}
+
+.members-left-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  color: #c5d6f0;
+}
+
+.image-holder {
+  border: 0.2rem solid #c5d6f0;
+  border-radius: 100%;
+  width: 6rem;
+  height: 6rem;
+}
+
+.image-holder > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+}
+
+.members-right-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.member-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.5rem;
+  padding: 1rem 2rem;
+  background: #081b38;
+  margin: 0 1rem;
+  border: 0.15rem solid #051124;
+}
+.member-card > h4 {
+  margin-top: 1rem;
+  color: #c5d6f0;
+}
+.member-card > h6 {
+  color: white;
+  font-weight: 300;
 }
