@@ -7,6 +7,7 @@ body {
   font-family: "Sora", sans-serif;
   background: url("../img/bg2.jpg") center no-repeat;
   background-size: cover;
+  overflow-x: hidden;
 }
 
 .form-wrapper,
@@ -48,7 +49,7 @@ body {
 .form-box {
   width: 26rem;
   height: 26rem;
-  background: #1a1a1a;
+  background: #081b38;
   border-radius: 1rem;
   opacity: 0.9;
   flex-direction: column;

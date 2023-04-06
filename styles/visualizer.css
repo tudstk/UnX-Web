@@ -7,11 +7,12 @@ body {
   font-family: "Sora", sans-serif;
   background: url("../img/bg2.jpg");
   background-size: cover;
+  overflow-x: hidden;
 }
 
 nav {
   z-index: 10;
-  background: #0a0a0a;
+  background: #081b38;
   height: 4.25rem;
   width: 100%;
   display: flex;
