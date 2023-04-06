@@ -1,79 +1,147 @@
-const listaJudete = ["Alba", "Arad", "Arges", "Bacau", "Bistrita-Nasaud", "Botosani", "Braila", "Brasov", "Bucuresti", "Buzau", "Calarasi", "Caras-Severin", "Cluj", "Constanta", "Covasna", "Dambovita", "Dolj", "Galati", "Giurgiu", "Gorj", "Harghita", "Hunedoara", "Ialomita", "Iasi", "Ilfov", "Maramures", "Mehedinti", "Mures", "Neamt", "Olt", "Prahova", "Salaj", "Satu Mare", "Sibiu", "Suceava", "Teleorman", "Timis", "Tulcea", "Vaslui", "Valcea", "Vrancea"];
+const listaJudete = [
+  "Alba",
+  "Arad",
+  "Arges",
+  "Bacau",
+  "Bistrita-Nasaud",
+  "Botosani",
+  "Braila",
+  "Brasov",
+  "Bucuresti",
+  "Buzau",
+  "Calarasi",
+  "Caras-Severin",
+  "Cluj",
+  "Constanta",
+  "Covasna",
+  "Dambovita",
+  "Dolj",
+  "Galati",
+  "Giurgiu",
+  "Gorj",
+  "Harghita",
+  "Hunedoara",
+  "Ialomita",
+  "Iasi",
+  "Ilfov",
+  "Maramures",
+  "Mehedinti",
+  "Mures",
+  "Neamt",
+  "Olt",
+  "Prahova",
+  "Salaj",
+  "Satu Mare",
+  "Sibiu",
+  "Suceava",
+  "Teleorman",
+  "Timis",
+  "Tulcea",
+  "Vaslui",
+  "Valcea",
+  "Vrancea",
+];
 
-listaJudete.forEach(createDivs);
+const listaPerioade = [
+  "Ultima luna",
+  "Ultimele 3 luni",
+  "Ultimele 6 luni",
+  "Ultimul an",
+  "Ultimii 2 ani",
+  "Ultimii 3 ani",
+];
 
-function createDivs(value, index, array) {
-  const newInput = document.createElement('input');
-  const newLabel = document.createElement('label');
-  const lineBreak = document.createElement('br');
+const listaVarste = [
+  "16-18 ani",
+  "18-23 ani",
+  "23-30 ani",
+  "30-40 ani",
+  "40-50 ani",
+  "50-60 ani",
+];
 
-  newInput.setAttribute('type', 'checkbox');
-  newInput.setAttribute('id', value);
-  newInput.setAttribute('name', value);
-  newInput.setAttribute('value', value);
-  newLabel.setAttribute('for', value);
+const listaNiveleEducatie = ["Liceu", "Postliceal", "Facultate", "Master"];
+const listaMedii = ["Rural", "Urban", "Diaspora"];
+
+function createDivs(value, parentId) {
+  const newInput = document.createElement("input");
+  const newLabel = document.createElement("label");
+  const lineBreak = document.createElement("br");
+
+  newInput.setAttribute("type", "checkbox");
+  newInput.setAttribute("id", value);
+  newInput.setAttribute("name", value);
+  newInput.setAttribute("value", value);
+  newLabel.setAttribute("for", value);
   newLabel.textContent = value;
 
-  const formJudete = document.getElementById('judete');
+  const parentElement = document.getElementById(parentId);
 
-  formJudete.appendChild(newInput);
-  formJudete.appendChild(newLabel);
-  formJudete.appendChild(lineBreak);
+  parentElement.appendChild(newInput);
+  parentElement.appendChild(newLabel);
+  parentElement.appendChild(lineBreak);
 }
 
+listaJudete.forEach((judet) => createDivs(judet, "judete"));
+listaPerioade.forEach((perioada) => createDivs(perioada, "perioade"));
+listaNiveleEducatie.forEach((nivelEducatie) =>
+  createDivs(nivelEducatie, "nivel-educatie")
+);
+listaVarste.forEach((varsta) => createDivs(varsta, "varste"));
+listaMedii.forEach((mediu) => createDivs(mediu, "medii"));
 
 const pieChart = {
   chart: null,
   data: [
-    ['Judet', 'Numar someri'],
-    ['Bucuresti', 100000],
-    ['Iasi', 25000],
-    ['Cluj', 30000],
-    ['Constanta', 17000],
-    ['Restul judetelor', 125000]
+    ["Judet", "Numar someri"],
+    ["Bucuresti", 100000],
+    ["Iasi", 25000],
+    ["Cluj", 30000],
+    ["Constanta", 17000],
+    ["Restul judetelor", 125000],
   ],
-  element: '#pie-chart',
+  element: "#pie-chart",
   options: {
-    title: 'Someri pe judete',
+    title: "Someri pe judete",
     width: 500,
-    height: 300
-  }
+    height: 300,
+  },
 };
 
 const barChart = {
   chart: null,
   data: [
-    ['Judet', 'Numar someri'],
-    ['Bucuresti', 100000],
-    ['Iasi', 25000],
-    ['Cluj', 30000],
-    ['Constanta', 17000],
-    ['Restul judetelor', 125000]
+    ["Judet", "Numar someri"],
+    ["Bucuresti", 100000],
+    ["Iasi", 25000],
+    ["Cluj", 30000],
+    ["Constanta", 17000],
+    ["Restul judetelor", 125000],
   ],
-  element: '#bar-chart',
+  element: "#bar-chart",
   options: {
-    title: 'Someri pe judete',
+    title: "Someri pe judete",
     width: 500,
-    height: 300
-  }
+    height: 300,
+  },
 };
 
 const lineChart = {
   chart: null,
   data: [
-    ['Year', 'Procent'],
-    ['2015', 4],
-    ['2016', 4.5],
-    ['2017', 4],
-    ['2018', 4.9],
-    ['2019', 5.5]
+    ["Year", "Procent"],
+    ["2015", 4],
+    ["2016", 4.5],
+    ["2017", 4],
+    ["2018", 4.9],
+    ["2019", 5.5],
   ],
-  element: '#line-chart',
+  element: "#line-chart",
   options: {
-    title: 'Procentul somerilor raportat la totalul populatiei pe ani',
+    title: "Procentul somerilor raportat la totalul populatiei pe ani",
     width: 600,
-    height: 300
-  }
+    height: 300,
+  },
 };
 
 // https://developers.google.com/chart/interactive/docs/gallery/piechart
@@ -108,9 +176,9 @@ const init = () => {
 };
 
 // https://developers.google.com/chart/interactive/docs/quick_start
-google.charts.load('current', {
-  packages: ['corechart'],
-  callback: init
+google.charts.load("current", {
+  packages: ["corechart"],
+  callback: init,
 });
 
 /*
@@ -131,3 +199,14 @@ document.querySelector('#update-pie-chart').addEventListener('click', () => {
   );
 });
 */
+
+function showDiv(id) {
+  var charts = document.getElementsByClassName("chart");
+  for (var i = 0; i < charts.length; i++) {
+    if (charts[i].id == id) {
+      charts[i].style.display = "block";
+    } else {
+      charts[i].style.display = "none";
+    }
+  }
+}

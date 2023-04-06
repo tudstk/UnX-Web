@@ -8,6 +8,7 @@ body {
   background: url("../img/bg2.jpg");
   background-size: cover;
   overflow-x: hidden;
+  display: flex;
 }
 
 nav {
@@ -43,11 +44,15 @@ a {
 }
 
 .scrollable-list {
-  margin-top: 7rem;
   background-color: lightgray;
-  width: 11rem;
-  height: 11rem;
+  width: 8rem;
+  height: 6rem;
   overflow: auto;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  margin-right: 1rem;
+  border-radius: 0.4rem;
+  padding: 0.8rem;
 }
 
 .logo {
@@ -74,17 +79,45 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
+  background: rgba(8, 27, 56, 0.6);
+  padding: 3rem;
+  border-radius: 0.5rem;
+  margin-top: 7rem;
 }
 
-#pie-chart {
-  margin-top: 7rem;
-  border: 1rem solid rgba(255, 82, 8, 0.6);
+.chart {
+  border: 1rem solid rgba(8, 27, 56);
   border-radius: 0.5rem;
 }
-#bar-chart,
-#line-chart {
-  border: 1rem solid rgba(255, 82, 8, 0.6);
+
+.chart {
+  display: none;
+}
+
+.visualizer-wrapper {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filters {
+  padding: 2rem;
+  width: 10rem;
+  height: 18rem;
+  overflow: auto;
+  background: #081b38;
   border-radius: 0.5rem;
-  margin-top: 3rem;
+  margin-right: 1rem;
+}
+
+.filters > h4 {
+  color: white;
+}
+
+.chart-btn {
+  padding: 0.3rem;
+  cursor: pointer;
+  color: ;
 }

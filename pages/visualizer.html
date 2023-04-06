@@ -28,15 +28,43 @@
         </a>
     </nav>
 
-    <div class="chart-wrapper">
-        <div class="scrollable-list">
-            <form id="judete" action="/action_page.php">
+    <div class="visualizer-wrapper">
+        <div class="chart-wrapper">
+            <div class="filters">
+                <h4>Filters</h4>
+                <div class="scrollable-list">
+                    <form id="judete" action="/action_page.php">
+                    </form>
+                </div>
+                <div class="scrollable-list">
+                    <form id="perioade" action="/action_page.php">
+                    </form>
+                </div>
+                <div class="scrollable-list">
+                    <form id="nivel-educatie" action="/action_page.php">
+                    </form>
+                </div>
+                <div class="scrollable-list">
+                    <form id="varste" action="/action_page.php">
+                    </form>
+                </div>
+                <div class="scrollable-list">
+                    <form id="medii" action="/action_page.php">
+                    </form>
+                </div>
+            </div>
+            <div class="chart-view">
+                <div class="chart-options">
+                    <button onclick="showDiv('pie-chart')" class="chart-btn">Show Pie Chart</button>
+                    <button onclick="showDiv('bar-chart')" class="chart-btn">Show Bar Chart</button>
+                    <button onclick="showDiv('line-chart')" class="chart-btn">Show Line Chart</button>
+                </div>
+                <div id="pie-chart" class="chart"></div>
+                <div id="bar-chart" class="chart"></div>
+                <div id="line-chart" class="chart"></div>
+            </div>
 
-            </form>
         </div>
-        <div id="pie-chart"></div>
-        <div id="bar-chart"></div>
-        <div id="line-chart"></div>
     </div>
 
     <!-- https://developers.google.com/chart/interactive/docs/quick_start -->
