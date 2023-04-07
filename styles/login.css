@@ -16,106 +16,206 @@ body {
   justify-content: center;
   align-items: center;
 }
-
 .my-form {
   display: flex;
   flex-direction: column;
   color: white;
 }
+@media only screen and (min-width: 768px) {
+  .my-form > input {
+    font-family: "Sora", sans-serif;
+    width: 17rem;
+    height: 2rem;
+    margin-bottom: 1rem;
+    padding: 0rem 0.5rem;
+    opacity: 0.85;
+  }
 
-.my-form > input {
-  font-family: "Sora", sans-serif;
-  width: 17rem;
-  height: 2rem;
-  margin-bottom: 1rem;
-  padding: 0rem 0.5rem;
-  opacity: 0.85;
-}
+  .my-form > input:focus {
+    opacity: 1;
+  }
 
-.my-form > input:focus {
-  opacity: 1;
-}
+  .my-form > label {
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+  }
 
-.my-form > label {
-  font-size: 0.9rem;
-  margin-bottom: 0.2rem;
-}
+  .form-wrapper {
+    width: 100vw;
+    height: 100vh;
+  }
 
-.form-wrapper {
-  width: 100vw;
-  height: 100vh;
-}
+  .form-box {
+    width: 26rem;
+    height: 26rem;
+    background: #081b38;
+    border-radius: 1rem;
+    opacity: 0.9;
+    flex-direction: column;
+    color: white;
+  }
 
-.form-box {
-  width: 26rem;
-  height: 26rem;
-  background: #081b38;
-  border-radius: 1rem;
-  opacity: 0.9;
-  flex-direction: column;
-  color: white;
-}
+  .my-form {
+    opacity: 1;
+    flex-direction: column;
+  }
 
-.my-form {
-  opacity: 1;
-  flex-direction: column;
-}
+  .register-btn {
+    height: 2.75rem;
+    margin-top: 0.75rem;
+    border-radius: 0;
+    border: none;
+    color: #1a1a1a;
+    font-family: "Sora", sans-serif;
+    font-size: 1rem;
+  }
 
-.register-btn {
-  height: 2.75rem;
-  margin-top: 0.75rem;
-  border-radius: 0;
-  border: none;
-  color: #1a1a1a;
-  font-family: "Sora", sans-serif;
-  font-size: 1rem;
-}
+  .register-btn:hover {
+    background: #fabc5f;
+    cursor: pointer;
+  }
 
-.register-btn:hover {
-  background: #fabc5f;
-  cursor: pointer;
-}
+  .welcome-text {
+    font-weight: bold;
+  }
+  .description-text {
+    opacity: 0.8;
+    font-weight: 200;
+  }
 
-.welcome-text {
-  font-weight: bold;
-}
-.description-text {
-  opacity: 0.8;
-  font-weight: 200;
-}
+  .terms-checkbox {
+    display: flex;
+    flex-direction: row;
+  }
+  .checkbox-text {
+    margin-left: 0.2rem;
+    font-weight: 300;
+    font-size: 0.8rem;
+  }
 
-.terms-checkbox {
-  display: flex;
-  flex-direction: row;
-}
-.checkbox-text {
-  margin-left: 0.2rem;
-  font-weight: 300;
-  font-size: 0.8rem;
-}
+  .already {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-direction: row;
+  }
 
-.already {
-  margin-top: 0.75rem;
-  display: flex;
-  flex-direction: row;
-}
+  .already-text {
+    font-weight: 200;
+    font-size: 0.8rem;
+  }
+  .login-link {
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: white;
+    opacity: 0.7;
+    margin-left: 0.25rem;
+  }
 
-.already-text {
-  font-weight: 200;
-  font-size: 0.8rem;
-}
-.login-link {
-  font-size: 0.8rem;
-  text-decoration: none;
-  color: white;
-  opacity: 0.7;
-  margin-left: 0.25rem;
-}
+  .login-link:hover {
+    opacity: 1;
+  }
 
-.login-link:hover {
-  opacity: 1;
+  .top-text-login {
+    margin: 0.5rem 3.9rem;
+  }
 }
+@media only screen and (max-width: 768px) {
+  .my-form > input {
+    font-family: "Sora", sans-serif;
+    width: 14rem;
+    height: 2rem;
+    margin-bottom: 1rem;
+    padding: 0rem 0.5rem;
+    opacity: 0.85;
+  }
 
-.top-text-login {
-  margin: 0.5rem 3.9rem;
+  .my-form > input:focus {
+    opacity: 1;
+  }
+
+  .my-form > label {
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .form-wrapper {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .form-box {
+    margin: 0rem 2rem;
+    width: 26rem;
+    height: 24rem;
+    background: #081b38;
+    border-radius: 1rem;
+    opacity: 0.9;
+    flex-direction: column;
+    color: white;
+  }
+
+  .my-form {
+    opacity: 1;
+    flex-direction: column;
+  }
+
+  .register-btn {
+    height: 2.25rem;
+    margin-top: 0.75rem;
+    border-radius: 0;
+    border: none;
+    color: #1a1a1a;
+    font-family: "Sora", sans-serif;
+    font-size: 0.9rem;
+  }
+
+  .register-btn:hover {
+    background: #fabc5f;
+    cursor: pointer;
+  }
+
+  .welcome-text {
+    font-weight: bold;
+    text-align: left;
+  }
+  .description-text {
+    opacity: 0.8;
+    font-weight: 200;
+  }
+
+  .terms-checkbox {
+    display: flex;
+    flex-direction: row;
+  }
+  .checkbox-text {
+    margin-left: 0.2rem;
+    font-weight: 300;
+    font-size: 0.8rem;
+  }
+
+  .already {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .already-text {
+    font-weight: 200;
+    font-size: 0.8rem;
+  }
+  .login-link {
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: white;
+    opacity: 0.7;
+    margin-left: 0.25rem;
+  }
+
+  .login-link:hover {
+    opacity: 1;
+  }
+
+  .top-text-login {
+    margin: 0.5rem 2rem;
+  }
 }
