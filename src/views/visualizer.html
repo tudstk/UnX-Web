@@ -80,11 +80,21 @@
                     <button onclick="showDiv('pie-chart')" class="chart-btn">Show Pie Chart</button>
                     <button onclick="showDiv('bar-chart')" class="chart-btn">Show Bar Chart</button>
                     <button onclick="showDiv('line-chart')" class="chart-btn">Show Line Chart</button>
+                    <div class="export-wrapper" placeholder="Export as...">
+                        <button for="export-format" class="export-btn">Export document</button>
+                        <select id="export-format">
+                            <option>CSV</option>
+                            <option>SVG</option>
+                            <option>PDF</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
+
+
 
     <!-- https://developers.google.com/chart/interactive/docs/quick_start -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
