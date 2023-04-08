@@ -11,113 +11,292 @@ body {
   display: flex;
 }
 
-nav {
-  z-index: 10;
-  background: #081b38;
-  height: 4.25rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  opacity: 0.95;
-  position: fixed;
-}
+@media only screen and (min-width: 768px) {
+  .openMenu,
+  .closeMenu,
+  .show-filters-btn {
+    display: none;
+  }
 
-.links {
-  display: flex;
-  justify-content: center;
-}
+  .login-link {
+    display: none;
+  }
+  body {
+    font-family: "Sora", sans-serif;
+    background: url("../img/bg2.jpg");
+    background-size: cover;
+    overflow-x: hidden;
+    display: flex;
+  }
 
-ul {
-  list-style-type: none;
-}
+  nav {
+    z-index: 10;
+    background: #081b38;
+    height: 4.25rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    opacity: 0.95;
+    position: fixed;
+  }
 
-a {
-  display: block;
-  color: #dedede;
-  text-align: center;
-  padding: 1.5rem;
-  text-decoration: none;
-  transition: color 0.3s ease-in-out;
-  letter-spacing: 0.1rem;
-  font-size: 0.8rem;
-}
+  .links {
+    display: flex;
+    justify-content: center;
+  }
 
-.scrollable-list {
-  background-color: lightgray;
-  width: 8rem;
-  height: 6rem;
-  overflow: auto;
-  margin-bottom: 0.5rem;
-  font-size: 0.8rem;
-  margin-right: 1rem;
-  border-radius: 0.4rem;
-  padding: 0.8rem;
-}
+  ul {
+    list-style-type: none;
+  }
 
-.logo {
-  width: 2.75rem;
-}
+  a {
+    display: block;
+    color: #dedede;
+    text-align: center;
+    padding: 1.5rem;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+    letter-spacing: 0.1rem;
+    font-size: 0.8rem;
+  }
 
-.login-img {
-  width: 1.6rem;
-  transition: opacity 0.3s ease-in-out;
-  opacity: 0.8;
-  cursor: pointer;
-}
+  .scrollable-list {
+    background-color: lightgray;
+    width: 8rem;
+    height: 6rem;
+    overflow: auto;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+    margin-right: 1rem;
+    border-radius: 0.4rem;
+    padding: 0.8rem;
+  }
 
-.login-img:hover {
-  opacity: 1;
-}
+  .logo {
+    width: 2.75rem;
+  }
 
-a:hover {
-  color: #fabc5f;
-  opacity: 0.8;
-}
+  .login-img {
+    width: 1.6rem;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0.8;
+    cursor: pointer;
+  }
 
-.chart-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  background: rgba(8, 27, 56, 0.6);
-  padding: 3rem;
-  border-radius: 0.5rem;
-  margin-top: 7rem;
-}
+  .login-img:hover {
+    opacity: 1;
+  }
 
-.chart {
-  border: 1rem solid rgba(8, 27, 56);
-  border-radius: 0.5rem;
-}
+  a:hover {
+    color: #fabc5f;
+    opacity: 0.8;
+  }
 
-.chart {
-  display: none;
-}
+  .chart-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    background: rgba(8, 27, 56, 0.6);
+    padding: 3rem;
+    border-radius: 0.5rem;
+    margin-top: 7rem;
+  }
 
-.visualizer-wrapper {
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .chart {
+    border: 1rem solid rgba(8, 27, 56);
+    border-radius: 0.5rem;
+  }
 
-.filters {
-  padding: 2rem;
-  width: 10rem;
-  height: 18rem;
-  overflow: auto;
-  background: #081b38;
-  border-radius: 0.5rem;
-  margin-right: 1rem;
-}
+  .chart {
+    display: none;
+  }
 
-.filters > h4 {
-  color: white;
-}
+  .visualizer-wrapper {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.chart-btn {
-  padding: 0.3rem;
-  cursor: pointer;
-  color: ;
+  .filters {
+    padding: 2rem;
+    width: 10rem;
+    height: 18rem;
+    overflow: auto;
+    background: #081b38;
+    border-radius: 0.5rem;
+    margin-right: 1rem;
+  }
+
+  .filters > h4 {
+    color: white;
+  }
+
+  .chart-btn {
+    padding: 0.3rem;
+    cursor: pointer;
+    color: ;
+  }
+}
+@media only screen and (max-width: 768px) {
+  nav {
+    background: #081b38;
+    width: 100vw;
+    display: flex;
+    opacity: 0.95;
+    position: fixed;
+    padding: 1rem 0rem;
+    z-index: 20;
+  }
+  .links {
+    display: flex;
+    justify-content: center;
+  }
+
+  ul {
+    list-style-type: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: #c5d6f0;
+  }
+
+  ul > li > a {
+    display: block;
+    color: #dedede;
+    text-align: center;
+    padding: 1.5rem;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+    letter-spacing: 0.1rem;
+    font-size: 0.8rem;
+  }
+
+  .logo {
+    display: none;
+    width: 2.75rem;
+  }
+
+  .login-img {
+    display: none;
+    width: 1.6rem;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0.8;
+    cursor: pointer;
+  }
+
+  .login-img:hover {
+    opacity: 1;
+  }
+  nav .links {
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    z-index: 10;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #081b38;
+    transition: top 1s ease 0s;
+    display: none;
+  }
+  nav .links .closeMenu {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  nav .openMenu {
+    display: block;
+    margin-left: 2rem;
+    color: white;
+  }
+  nav .links li a:hover {
+    background: none;
+    color: rgb(255, 123, 0);
+  }
+  .icons i {
+    display: inline-block;
+    padding: 12px;
+  }
+
+  a:hover {
+    color: #fabc5f;
+    opacity: 0.8;
+  }
+
+  nav .links {
+    display: none;
+  }
+  nav .closeMenu {
+    display: none;
+    color: white;
+  }
+
+  .chart-wrapper {
+    margin-top: 7rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .chart-view {
+    position: relative;
+    padding-bottom: 100%;
+    height: 0;
+    width: 100%;
+    overflow: auto;
+  }
+  .chart {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+  }
+  .nav {
+    z-index: 1147483647;
+  }
+  .filters {
+    padding: 2rem;
+    width: 70vw;
+    height: 18rem;
+    overflow: auto;
+    background: #081b38;
+    margin-right: 1rem;
+    display: none;
+
+    /* display: flex;
+    justify-content: center;
+    flex-direction: column; */
+  }
+
+  .filters > h4 {
+    color: white;
+  }
+
+  .chart-btn {
+    padding: 0.3rem;
+    cursor: pointer;
+  }
+
+  .scrollable-list {
+    background-color: lightgray;
+    width: 8rem;
+
+    overflow: auto;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+    margin-right: 1rem;
+    border-radius: 0.4rem;
+    padding: 0.8rem;
+    min-height: 2rem;
+    max-height: 5rem;
+  }
 }

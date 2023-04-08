@@ -139,7 +139,7 @@ const lineChart = {
   element: "#line-chart",
   options: {
     title: "Procentul somerilor raportat la totalul populatiei pe ani",
-    width: 600,
+    width: 500,
     height: 300,
   },
 };
@@ -208,5 +208,19 @@ function showDiv(id) {
     } else {
       charts[i].style.display = "none";
     }
+  }
+}
+
+const showFiltersBtn = document.querySelector(".show-filters-btn");
+showFiltersBtn.addEventListener("click", showFilters);
+
+function showFilters() {
+  const filters = document.querySelector(".filters");
+  if (filters.style.display === "block") {
+    filters.style.display = "none";
+    showFiltersBtn.textContent = "Show filters";
+  } else {
+    filters.style.display = "block";
+    showFiltersBtn.textContent = "Hide filters";
   }
 }

@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <script src="https://kit.fontawesome.com/be0511c2b3.js" crossorigin="anonymous"></script>
     <title>Visualizer</title>
 </head>
 
@@ -18,50 +19,69 @@
         <div class="logo-wrapper">
             <img src="/img/logo.png" class="logo">
         </div>
+        <div class="openMenu"><i class="fa fa-bars"></i></div>
         <ul class="links">
+            <li class="login-link"><a href="./pages/login.html">LOGIN</a></li>
             <li><a href="../index.html">HOME</a></li>
-            <li><a href="pages/visualizer.html">VISUALIZER</a></li>
-            <li><a href="#">ABOUT</a></li>
+            <li><a href="./visualizer.html">VISUALIZER</a></li>
+            <li><a href="../index.html">ABOUT</a></li>
+            <div class="closeMenu"><i class="fa fa-times"></i></div>
         </ul>
-        <a href="./login.html">
+        <a href="pages/register.html">
             <img src="/img/icons/account_icon.png" class="login-img">
         </a>
     </nav>
 
     <div class="visualizer-wrapper">
         <div class="chart-wrapper">
+            <button class="show-filters-btn">Show filters</button>
             <div class="filters">
                 <h4>Filters</h4>
                 <div class="scrollable-list">
+                    <h5>Judete</h5>
                     <form id="judete" action="/action_page.php">
                     </form>
                 </div>
                 <div class="scrollable-list">
+                    <h5>Perioada</h5>
                     <form id="perioade" action="/action_page.php">
                     </form>
                 </div>
                 <div class="scrollable-list">
+                    <h5>Nivel de educatie</h5>
                     <form id="nivel-educatie" action="/action_page.php">
                     </form>
                 </div>
                 <div class="scrollable-list">
+                    <h5>Varsta</h5>
                     <form id="varste" action="/action_page.php">
                     </form>
                 </div>
                 <div class="scrollable-list">
+                    <h5>Mediul de provenienta</h5>
                     <form id="medii" action="/action_page.php">
                     </form>
                 </div>
             </div>
-            <div class="chart-view">
+
+            <div class="chart-panel">
+                <div class="chart-view">
+                    <div class="chart-wrap">
+                        <div id="pie-chart" class="chart"></div>
+                    </div>
+                    <div class="chart-wrap">
+                        <div id="bar-chart" class="chart"></div>
+                    </div>
+
+                    <div class="chart-wrap">
+                        <div id="line-chart" class="chart"></div>
+                    </div>
+                </div>
                 <div class="chart-options">
                     <button onclick="showDiv('pie-chart')" class="chart-btn">Show Pie Chart</button>
                     <button onclick="showDiv('bar-chart')" class="chart-btn">Show Bar Chart</button>
                     <button onclick="showDiv('line-chart')" class="chart-btn">Show Line Chart</button>
                 </div>
-                <div id="pie-chart" class="chart"></div>
-                <div id="bar-chart" class="chart"></div>
-                <div id="line-chart" class="chart"></div>
             </div>
 
         </div>
@@ -70,6 +90,7 @@
     <!-- https://developers.google.com/chart/interactive/docs/quick_start -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="visualizer.js"></script>
+    <script src="../hamburger.js"></script>
 </body>
 
 </html>

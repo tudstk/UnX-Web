@@ -377,7 +377,7 @@ body {
   }
 
   nav .links {
-    display: block;
+    display: none;
   }
   nav .closeMenu {
     display: none;
