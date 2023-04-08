@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "fs": "^0.0.1-security",
-    "import-http": "^0.3.1"
-  }
-}

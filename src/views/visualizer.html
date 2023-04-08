@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../styles/visualizer.css">
+    <link rel="stylesheet" type="text/css" href="../static/styles/visualizer.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap"
@@ -17,18 +17,18 @@
 <body>
     <nav>
         <div class="logo-wrapper">
-            <img src="/img/logo.png" class="logo">
+            <img src="../static/img/logo.png" class="logo">
         </div>
         <div class="openMenu"><i class="fa fa-bars"></i></div>
         <ul class="links">
-            <li class="login-link"><a href="./pages/login.html">LOGIN</a></li>
-            <li><a href="../index.html">HOME</a></li>
-            <li><a href="./visualizer.html">VISUALIZER</a></li>
-            <li><a href="../index.html">ABOUT</a></li>
+            <li class="login-link"><a href="login.html">LOGIN</a></li>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="visualizer.html">VISUALIZER</a></li>
+            <li><a href="index.html">ABOUT</a></li>
             <div class="closeMenu"><i class="fa fa-times"></i></div>
         </ul>
-        <a href="pages/register.html">
-            <img src="/img/icons/account_icon.png" class="login-img">
+        <a href="register.html">
+            <img src="../static/img/icons/account_icon.png" class="login-img">
         </a>
     </nav>
 
@@ -36,7 +36,6 @@
         <div class="chart-wrapper">
             <button class="show-filters-btn">Show filters</button>
             <div class="filters">
-                <h4>Filters</h4>
                 <div class="scrollable-list">
                     <h5>Judete</h5>
                     <form id="judete" action="/action_page.php">
@@ -89,8 +88,8 @@
 
     <!-- https://developers.google.com/chart/interactive/docs/quick_start -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="visualizer.js"></script>
-    <script src="../hamburger.js"></script>
+    <script src="../static/scripts/visualizer.js"></script>
+    <script src="../static/scripts/hamburger.js"></script>
 </body>
 
 </html>

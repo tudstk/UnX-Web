@@ -3,15 +3,15 @@
   padding: 0px;
 }
 
-body {
-  font-family: "Sora", sans-serif;
-  background: url("../img/bg2.jpg");
-  background-size: cover;
-  overflow-x: hidden;
-  display: flex;
-}
-
 @media only screen and (min-width: 768px) {
+  body {
+    font-family: "Sora", sans-serif;
+    background: url("../img/bg2.jpg");
+    background-size: cover;
+    overflow-x: hidden;
+    display: flex;
+  }
+
   .openMenu,
   .closeMenu,
   .show-filters-btn {
@@ -141,6 +141,16 @@ body {
   }
 }
 @media only screen and (max-width: 768px) {
+  body {
+    font-family: "Sora", sans-serif;
+    background: url("../img/bg2.jpg");
+    background-size: cover;
+    overflow-x: hidden;
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+  }
+
   nav {
     background: #081b38;
     width: 100vw;
@@ -260,23 +270,25 @@ body {
     width: 100%;
     height: 300px;
   }
-  .nav {
-    z-index: 1147483647;
-  }
   .filters {
-    padding: 2rem;
-    width: 70vw;
+    width: 90vw;
     height: 18rem;
     overflow: auto;
-    background: #081b38;
-    margin-right: 1rem;
+    background: #092042;
     display: none;
-
-    /* display: flex;
-    justify-content: center;
-    flex-direction: column; */
+    margin-bottom: 2rem;
   }
 
+  .show-filters-btn {
+    width: 90vw;
+    border-radius: 0;
+    height: 2rem;
+    background: #081b38;
+    border: none;
+    color: #c5d6f0;
+    cursor: pointer;
+    font-weight: 500;
+  }
   .filters > h4 {
     color: white;
   }
@@ -289,14 +301,13 @@ body {
   .scrollable-list {
     background-color: lightgray;
     width: 8rem;
-
     overflow: auto;
     margin-bottom: 0.5rem;
     font-size: 0.8rem;
-    margin-right: 1rem;
     border-radius: 0.4rem;
     padding: 0.8rem;
     min-height: 2rem;
     max-height: 5rem;
+    margin-left: 25%;
   }
 }
