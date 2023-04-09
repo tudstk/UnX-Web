@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docs</title>
+    <link rel="stylesheet" href="../static/styles/about.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/be0511c2b3.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo-wrapper">
+            <img src="../static/img/logo.png" class="logo">
+        </div>
+        <div class="openMenu"><i class="fa fa-bars"></i></div>
+        <ul class="links">
+            <li class="login-link"><a href="login.html">LOGIN</a></li>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="visualizer.html">VISUALIZER</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <div class="closeMenu"><i class="fa fa-times"></i></div>
+        </ul>
+        <a href="register.html">
+            <img src="../static/img/icons/account_icon.png" class="login-img">
+        </a>
+    </nav>
+    <div class="content-wrapper">
+        <header>
+            <h1>Unemployment Explorer</h1>
+            <p class="subtitle">This is the documentation for the Unemployment Explorer(UnX) Project.</p>
+            <p class="author">By Team Pixels</p>
+        </header>
+        <section class="summary">
+            <ul>
+                <li><a href="#abstract">Abstract</a></li>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#overall-description">Overall Description</a></li>
+                <li><a href="#external-interface-requirements">External Interface Requirements</a></li>
+                <li><a href="#system-features">System Features</a></li>
+                <li><a href="#other-nonfunctional-requirements">Other Nonfunctional Requirements</a></li>
+            </ul>
+        </section>
+
+        <main>
+            <section id="abstract">
+                <h2>Abstract</h2>
+                <p>The goal of this project is to develop a web-based tool that visualizes and allows for multi-criteria
+                    comparison of
+                    public data on unemployment in Romania over the past 24 months (minimum 12 months). The tool will be
+                    built using
+                    REST/GraphQL API and will provide various statistical and cartographic visualizations, along with
+                    the ability to export
+                    data in CSV, SVG, and PDF formats.</p>
+            </section>
+
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>Welcome to Unemployment Explorer!<br> Unemployment Explorer is a web-based platform that offers a
+                    comprehensive analysis of unemployment data. We understand that unemployment is a critical
+                    socioeconomic
+                    issue that affects individuals, families, and communities. Our goal is to provide users with
+                    valuable
+                    insights into the dynamics of unemployment, including trends, demographics, and economic factors.
+                    Through interactive visualizations and data analysis tools, Unemployment Explorer aims to empower
+                    policymakers, researchers, and the general public with the information needed to better understand
+                    the
+                    complex issue of unemployment.</p>
+            </section>
+
+            <section id="overall-description">
+                <h2>Overall Description</h2>
+                <p>This product is developed in the context of unemployment being rampant and society being misinformed
+                    about it. It includes functionalities such as data retrieval, multi-criteria visualisation,
+                    cartographic
+                    visualisation and export functionality.
+                    Some of the user classes expected are the general public, goverment officials, researchers and
+                    journalists. The software operates on computers and mobile web browsers. The only design constrain
+                    that
+                    we have identified is the desire to use open-source tools only.
+                    This product depends on the information provided by the public website <a
+                        href="https://data.gov.ro/dataset?q=somaj">data.gov.ro</a> .
+                </p>
+            </section>
+
+            <section id="external-interface-requirements">
+                <h2>External Interface Requirements</h2>
+                <p>Our product utilises Google Charts in order to render the visual representations of the data.</p>
+            </section>
+
+            <section id="system-features">
+                <h2>System Features</h2>
+                <p>
+                    &#x2022;<b>Data Retrieval:</b> The tool will fetch unemployment data from a proprietary REST/GraphQL
+                    API
+                    that
+                    contains public data on unemployment in Romania. The data will be retrieved for the past L months
+                    (minimum 12 months) and will include information on counties, education levels, age groups,
+                    environment,
+                    time periods, and other relevant criteria.<br>
+
+                    <br> &#x2022;<b>Multi-Criteria Visualization:</b> The tool will provide multiple ways to visualize
+                    the
+                    unemployment data, allowing users to select and compare different criteria. The visualizations
+                    may
+                    include bar charts, line charts, pie charts, scatter plots, heatmaps, and other relevant visual
+                    representations. The tool will also allow users to customize the visualizations based on their
+                    preferences. <br>
+
+                    <br>&#x2022;<b>Cartographic Visualization:</b> The tool will incorporate cartographic visualizations
+                    using
+                    web-based mapping services to display the unemployment data on maps. Users will be able to view
+                    the
+                    data
+                    geographically, by county or other relevant geographic boundaries, and explore the data
+                    spatially.<br>
+
+                    <br> &#x2022;<b>Export Functionality:</b> The tool will allow users to export the visualized data in
+                    CSV,
+                    SVG,
+                    and PDF formats. This will enable users to download the data for further analysis or share it
+                    with
+                    others. <br>
+                </p>
+            </section>
+
+            <section id="other-nonfunctional-requirements">
+                <h2>Other Nonfunctional Requirements</h2>
+                <p>As security requirements, we suggest that users utilise secure passwords, not shared by accounts with
+                    the same mail
+                    adress on other platforms.</p>
+            </section>
+        </main>
+        <footer>
+            <p>© 2023 Team Pixels
+        </footer>
+    </div>
+    <script src="../static/scripts/hamburger.js"></script>
+</body>
+
+</html>
