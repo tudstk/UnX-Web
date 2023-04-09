@@ -34,6 +34,9 @@
   #submit-stars {
     cursor: pointer;
   }
+  .stars > i:hover {
+    color: lightgray;
+  }
   nav {
     z-index: 10;
     background: #081b38;
@@ -426,5 +429,8 @@
   }
   #submit-stars {
     cursor: pointer;
+  }
+  #submit-stars:hover: {
+    color: lightgray;
   }
 }
