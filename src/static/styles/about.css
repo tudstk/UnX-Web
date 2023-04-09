@@ -257,4 +257,8 @@ body {
   main > section > h2 {
     margin-bottom: 0.5rem;
   }
+
+  #overall-description > p > a {
+    color: #081b38;
+  }
 }
