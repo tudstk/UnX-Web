@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Unemployment Explorer Documentation</title>
     <link rel="stylesheet" href="styles.css"> <!-- Include external CSS file for styling -->
 </head>
+
 <body>
     <header>
         <h1>Unemployment Explorer</h1>
@@ -21,51 +23,80 @@
             <li><a href="#other-nonfunctional-requirements">Other Nonfunctional Requirements</a></li>
         </ul>
     </nav>
-    
+
     <main>
         <section id="abstract">
             <h2>Abstract</h2>
-            <p>The goal of this project is to develop a web-based tool that visualizes and allows for multi-criteria comparison of public data on unemployment in Romania over the past L months (minimum 12 months). The tool will be built using REST/GraphQL API and will provide various statistical and cartographic visualizations, along with the ability to export data in CSV, SVG, and PDF formats.</p>
+            <p>The goal of this project is to develop a web-based tool that visualizes and allows for multi-criteria
+                comparison of public data on unemployment in Romania over the past L months (minimum 12 months). The
+                tool will be built using REST/GraphQL API and will provide various statistical and cartographic
+                visualizations, along with the ability to export data in CSV, SVG, and PDF formats.</p>
         </section>
-    
+
         <section id="introduction">
             <h2>Introduction</h2>
-            <p>Welcome to Unemployment Explorer!<br> Unemployment Explorer is a web-based platform that offers a comprehensive analysis of unemployment data. We understand that unemployment is a critical socioeconomic issue that affects individuals, families, and communities. Our goal is to provide users with valuable insights into the dynamics of unemployment, including trends, demographics, and economic factors. Through interactive visualizations and data analysis tools, Unemployment Explorer aims to empower policymakers, researchers, and the general public with the information needed to better understand the complex issue of unemployment.</p>
+            <p>Welcome to Unemployment Explorer!<br> Unemployment Explorer is a web-based platform that offers a
+                comprehensive analysis of unemployment data. We understand that unemployment is a critical socioeconomic
+                issue that affects individuals, families, and communities.
+                Our goal is to provide users with valuable insights into the dynamics of unemployment, including trends,
+                demographics, and economic factors.
+                Through interactive visualizations and data analysis tools, Unemployment Explorer aims to empower
+                policymakers, researchers, and the general public with the information needed to better understand the
+                complex issue of unemployment.</p>
         </section>
-    
+
         <section id="overall-description">
             <h2>Overall Description</h2>
-            <p>This product is developed in the context of unemployment being rampant and society being misinformed about it. It includes functionalities such as data retrieval, multi-criteria visualisation, cartographic visualisation and export functionality. 
-                Some of the user classes expected are the general public, goverment officials, researchers and journalists. The software operates on computers and mobile web browsers. The only design constrain that we have identified is the desire to use open-source tools only.
-                This product depends on the information provided by the public website <a href="https://data.gov.ro/dataset?q=somaj">data.gov.ro</a> .
+            <p>This product is developed in the context of unemployment being rampant and society being misinformed
+                about it. It includes functionalities such as data retrieval, multi-criteria visualisation, cartographic
+                visualisation and export functionality.
+                Some of the user classes expected are the general public, goverment officials, researchers and
+                journalists. The software operates on computers and mobile web browsers. The only design constrain that
+                we have identified is the desire to use open-source tools only.
+                This product depends on the information provided by the public website <a
+                    href="https://data.gov.ro/dataset?q=somaj">data.gov.ro</a> .
             </p>
         </section>
-    
+
         <section id="external-interface-requirements">
             <h2>External Interface Requirements</h2>
-            <p>[Describe the research design, data collection methods, and data analysis techniques used in your study. Provide detailed information on how you conducted your research, including any relevant ethical considerations.]</p>
+            <p>Our product utilises Google Charts in order to render the visual representations of the data.</p>
         </section>
-    
+
         <section id="system-features">
             <h2>System Features</h2>
-            <p> 
-                &#x2022;Data Retrieval: The tool will fetch unemployment data from a proprietary REST/GraphQL API that contains public data on unemployment in Romania. The data will be retrieved for the past L months (minimum 12 months) and will include information on counties, education levels, age groups, environment, time periods, and other relevant criteria.
-                
-                <br> &#x2022;Multi-Criteria Visualization: The tool will provide multiple ways to visualize the unemployment data, allowing users to select and compare different criteria. The visualizations may include bar charts, line charts, pie charts, scatter plots, heatmaps, and other relevant visual representations. The tool will also allow users to customize the visualizations based on their preferences.
-                
-                <br>&#x2022;Cartographic Visualization: The tool will incorporate cartographic visualizations using web-based mapping services to display the unemployment data on maps. Users will be able to view the data geographically, by county or other relevant geographic boundaries, and explore the data spatially.
-                
-                <br> &#x2022;Export Functionality: The tool will allow users to export the visualized data in CSV, SVG, and PDF formats. This will enable users to download the data for further analysis or share it with others.</p>
+            <p>
+                &#x2022;Data Retrieval: The tool will fetch unemployment data from a proprietary REST/GraphQL API that
+                contains public data on unemployment in Romania. The data will be retrieved for the past L months
+                (minimum 12 months) and will include information on counties, education levels, age groups, environment,
+                time periods, and other relevant criteria.
+
+                <br> &#x2022;Multi-Criteria Visualization: The tool will provide multiple ways to visualize the
+                unemployment data, allowing users to select and compare different criteria. The visualizations may
+                include bar charts, line charts, pie charts, scatter plots, heatmaps, and other relevant visual
+                representations. The tool will also allow users to customize the visualizations based on their
+                preferences.
+
+                <br>&#x2022;Cartographic Visualization: The tool will incorporate cartographic visualizations using
+                web-based mapping services to display the unemployment data on maps. Users will be able to view the data
+                geographically, by county or other relevant geographic boundaries, and explore the data spatially.
+
+                <br> &#x2022;Export Functionality: The tool will allow users to export the visualized data in CSV, SVG,
+                and PDF formats. This will enable users to download the data for further analysis or share it with
+                others.
+            </p>
         </section>
-    
+
         <section id="other-nonfunctional-requirements">
             <h2>Other Nonfunctional Requirements</h2>
-            <p>[Summarize the main findings of your study and their implications. Discuss the limitations of your research and suggest directions for future research. Provide a concise and meaningful conclusion that reinforces the significance of your study.]</p>
+            <p>As security requirements, we suggest that users utilise secure passwords, not shared by accounts with the
+                same mail adress on other platforms.</p>
         </section>
     </main>
-    
+
     <footer>
         <p>© 2023 Team Pixels
     </footer>
 </body>
-</html>    
+
+</html>
