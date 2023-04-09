@@ -34,10 +34,10 @@
     <div class="welcome-wrapper">
         <h1>Welcome to UnX!</h1>
         <button>
-            Learn more
+            <a href="#whatis">Learn more</a>
         </button>
     </div>
-    <div class="whatis-wrapper" href="#whatis">
+    <div class="whatis-wrapper" id="whatis">
         <div class="whatis-left-container">
             <h1>What is UnX?</h1>
             <p>Unemployment Explorer is a web-based platform that offers a comprehensive analysis of unemployment data.
@@ -87,20 +87,34 @@
                     <img src="../static/img/pfpic2.jpg">
                 </div>
                 <h4><a href="https://github.com/stefali1-dev" target="_blank">stefali1-dev</a></h4>
-                <h6>Stefan Leustean</h6>
+                <h6>Ștefan Leuștean</h6>
             </div>
             <div class="member-card">
                 <div class="image-holder">
                     <img src="../static/img/pfpic3.jpg">
                 </div>
                 <h4><a href="https://github.com/db2257" target="_blank">db2257</a></h4>
-                <h6>Dragos Bejan</h6>
+                <h6>Dragoș Bejan</h6>
             </div>
         </div>
 
     </div>
 
+    <script>
+        const learnMoreButton = document.querySelector('.welcome-wrapper button');
+        const whatisSection = document.querySelector('#whatis');
+        learnMoreButton.addEventListener('click', (event) => {
+            event.preventDefault(); // prevent the default link behavior
+            const sectionPosition = whatisSection.offsetTop; // get the position of the section
+            window.scrollTo({
+                top: sectionPosition,
+                behavior: 'smooth' // smooth scrolling transition
+            });
+        });
+
+    </script>
     <script src="../static/scripts/hamburger.js"></script>
+
 
 </body>
 
