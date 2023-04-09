@@ -31,7 +31,13 @@ function ready(error, counties){
         .enter()
         .append("path")
         .attr( "d", geoPath )
-        .attr("class","county");  
+        .attr("class","county");
     
-    console.log(romania[8].properties.NAME_1);
+    var id = 0;
+    d3.selectAll("path")
+    .attr('id', function() {
+        return id++;
+    })
+
+    //console.log(romania[8].properties.NAME_1);
 }
