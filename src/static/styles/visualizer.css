@@ -10,6 +10,8 @@
     background-size: cover;
     overflow-x: hidden;
     display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .openMenu,
@@ -29,6 +31,9 @@
     display: flex;
   }
 
+  #submit-stars {
+    cursor: pointer;
+  }
   nav {
     z-index: 10;
     background: #081b38;
@@ -145,6 +150,54 @@
   #export-format {
     padding: 0.3rem;
   }
+
+  .feedback-section {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+  .feedback-section > h1 {
+    color: #081b38;
+  }
+  .feedback-card {
+    display: flex;
+    padding: 2rem 2.5rem;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30rem;
+    height: 8rem;
+    background: white;
+    border-radius: 0.5rem;
+    font-weight: 300;
+    font-size: 0.8rem;
+    border: 0.3rem solid rgba(8, 27, 56, 0.5);
+    margin-bottom: 1rem;
+  }
+
+  .submit-feedback {
+    display: flex;
+    padding: 2rem 2.5rem;
+    flex-direction: column;
+    width: 30rem;
+    height: 11rem;
+    background: white;
+    border-radius: 0.5rem;
+    font-weight: 300;
+    font-size: 0.8rem;
+    border: 0.3rem solid rgba(8, 27, 56, 0.5);
+  }
+  .submit-feedback > textarea {
+    margin-top: 1rem;
+    height: 8rem;
+    font-family: "Sora", sans-serif;
+    padding: 1rem;
+    font-size: 0.8rem;
+  }
+  .submit-feedback > button {
+    font-family: "Sora", sans-serif;
+    height: 3rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
 }
 @media only screen and (max-width: 768px) {
   body {
@@ -154,7 +207,8 @@
     overflow-x: hidden;
     display: flex;
     width: 100vw;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
   }
 
   nav {
@@ -320,5 +374,57 @@
     min-height: 2rem;
     max-height: 5rem;
     margin-left: 25%;
+  }
+
+  .feedback-section {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+  .feedback-section > h1 {
+    color: #081b38;
+  }
+  .feedback-card {
+    display: flex;
+    padding: 2rem 2.5rem;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 15rem;
+    height: 12rem;
+    background: white;
+    border-radius: 0.5rem;
+    font-weight: 300;
+    font-size: 0.8rem;
+    border: 0.3rem solid rgba(8, 27, 56, 0.5);
+    margin-bottom: 1rem;
+  }
+
+  .submit-feedback {
+    display: flex;
+    padding: 2rem 2.5rem;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 15rem;
+    height: 11rem;
+    background: white;
+    border-radius: 0.5rem;
+    font-weight: 300;
+    font-size: 0.8rem;
+    border: 0.3rem solid rgba(8, 27, 56, 0.5);
+  }
+  .submit-feedback > textarea {
+    margin-top: 1rem;
+    height: 8rem;
+    font-family: "Sora", sans-serif;
+    padding: 1rem;
+    font-size: 0.8rem;
+  }
+  .submit-feedback > button {
+    font-family: "Sora", sans-serif;
+    height: 3rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+  #submit-stars {
+    cursor: pointer;
   }
 }
