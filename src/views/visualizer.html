@@ -35,122 +35,123 @@
         </a>
     </nav>
 
+    <div class="visualizer-content">
+        <h3 class="chart-visualizer-text">Chart Visualizer</h3>
+        <section class="visualizer-wrapper">
+            <div class="chart-wrapper">
+                <button class="show-filters-btn">Show filters</button>
+                <div class="filters">
+                    <div class="scrollable-list">
+                        <h5>Judete</h5>
+                        <form id="judete" action="/action_page.php">
+                        </form>
+                    </div>
+                    <div class="scrollable-list">
+                        <h5>Perioada</h5>
+                        <form id="perioade" action="/action_page.php">
+                        </form>
+                    </div>
+                    <div class="scrollable-list">
+                        <h5>Nivel de educatie</h5>
+                        <form id="nivel-educatie" action="/action_page.php">
+                        </form>
+                    </div>
+                    <div class="scrollable-list">
+                        <h5>Varsta</h5>
+                        <form id="varste" action="/action_page.php">
+                        </form>
+                    </div>
+                    <div class="scrollable-list">
+                        <h5>Mediul de provenienta</h5>
+                        <form id="medii" action="/action_page.php">
+                        </form>
+                    </div>
+                </div>
 
-    <h3 class="chart-visualizer-text">Chart Visualizer</h3>
-    <section class="visualizer-wrapper">
-        <div class="chart-wrapper">
-            <button class="show-filters-btn">Show filters</button>
-            <div class="filters">
-                <div class="scrollable-list">
-                    <h5>Judete</h5>
-                    <form id="judete" action="/action_page.php">
-                    </form>
-                </div>
-                <div class="scrollable-list">
-                    <h5>Perioada</h5>
-                    <form id="perioade" action="/action_page.php">
-                    </form>
-                </div>
-                <div class="scrollable-list">
-                    <h5>Nivel de educatie</h5>
-                    <form id="nivel-educatie" action="/action_page.php">
-                    </form>
-                </div>
-                <div class="scrollable-list">
-                    <h5>Varsta</h5>
-                    <form id="varste" action="/action_page.php">
-                    </form>
-                </div>
-                <div class="scrollable-list">
-                    <h5>Mediul de provenienta</h5>
-                    <form id="medii" action="/action_page.php">
-                    </form>
+                <div class="chart-panel">
+                    <div class="chart-view">
+                        <div class="chart-wrap">
+                            <div id="pie-chart" class="chart"></div>
+                        </div>
+                        <div class="chart-wrap">
+                            <div id="bar-chart" class="chart"></div>
+                        </div>
+
+                        <div class="chart-wrap">
+                            <div id="line-chart" class="chart"></div>
+                        </div>
+                    </div>
+                    <div class="chart-options">
+                        <button onclick="showDiv('pie-chart')" class="chart-btn">Pie Chart</button>
+                        <button onclick="showDiv('bar-chart')" class="chart-btn">Bar Chart</button>
+                        <button onclick="showDiv('line-chart')" class="chart-btn">Line Chart</button>
+                        <div class="export-wrapper" placeholder="Export as...">
+                            <button for="export-format" class="export-btn">Export</button>
+                            <select id="export-format">
+                                <option>CSV</option>
+                                <option>SVG</option>
+                                <option>PDF</option>
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-
-            <div class="chart-panel">
-                <div class="chart-view">
-                    <div class="chart-wrap">
-                        <div id="pie-chart" class="chart"></div>
-                    </div>
-                    <div class="chart-wrap">
-                        <div id="bar-chart" class="chart"></div>
-                    </div>
-
-                    <div class="chart-wrap">
-                        <div id="line-chart" class="chart"></div>
-                    </div>
-                </div>
-                <div class="chart-options">
-                    <button onclick="showDiv('pie-chart')" class="chart-btn">Pie Chart</button>
-                    <button onclick="showDiv('bar-chart')" class="chart-btn">Bar Chart</button>
-                    <button onclick="showDiv('line-chart')" class="chart-btn">Line Chart</button>
-                    <div class="export-wrapper" placeholder="Export as...">
-                        <button for="export-format" class="export-btn">Export</button>
-                        <select id="export-format">
-                            <option>CSV</option>
-                            <option>SVG</option>
-                            <option>PDF</option>
-                        </select>
-                    </div>
-                </div>
-
+        </section>
+        <h3 class="cartographic-visualizer-text">Cartographic Visualizer</h3>
+        <h4 id="county_info">
+            ‎
+        </h4>
+        <div class="map-wrapper">
+            <div id="map_container">
             </div>
         </div>
-    </section>
-    <h3 class="cartographic-visualizer-text">Cartographic Visualizer</h3>
-    <h4 id="county_info">
-        ‎
-    </h4>
-    <div class="map-wrapper">
-        <div id="map_container">
-        </div>
+        <section class="feedback-section" id="feedback-section">
+            <h1>Feedback</h1>
+            <div class="feedback-card">
+                <h4>John Cena</h4>
+                <div class="stars">
+                    <i class="fa-sharp fa-solid fa-star"></i>
+                    <i class="fa-sharp fa-solid fa-star"></i>
+                    <i class="fa-sharp fa-solid fa-star"></i>
+                    <i class="fa-sharp fa-solid fa-star"></i>
+                    <i class="fa-sharp fa-regular fa-star"></i>
+                </div>
+                <p>Very cool app. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis, nesciunt
+                    quisquam.
+                    Nisi ab architecto deserunt repudiandae tempore inventore eos iste incidunt? Libero exercitationem
+                    quis
+                    harum et molestias est reiciendis recusandae?</p>
+            </div>
+            <div class="feedback-card">
+                <h4>Chuck Norris</h4>
+                <div class="stars">
+                    <i class="fa-sharp fa-solid fa-star"></i>
+                    <i class="fa-sharp fa-solid fa-star"></i>
+                    <i class="fa-sharp fa-solid fa-star"></i>
+                    <i class="fa-sharp fa-solid fa-star"></i>
+                    <i class="fa-sharp fa-solid fa-star"></i>
+                </div>
+                <p>SUPER. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis, nesciunt quisquam.
+                    Nisi ab architecto deserunt repudiandae tempore inventore eos iste incidunt? Libero exercitationem
+                    quis
+                    harum et molestias est reiciendis recusandae?</p>
+            </div>
+            <div class="submit-feedback">
+                <h4>Your username</h4>
+                <div class="stars" id="submit-stars">
+                    <i class="fa-sharp fa-regular fa-star"></i>
+                    <i class="fa-sharp fa-regular fa-star"></i>
+                    <i class="fa-sharp fa-regular fa-star"></i>
+                    <i class="fa-sharp fa-regular fa-star"></i>
+                    <i class="fa-sharp fa-regular fa-star"></i>
+                </div>
+                <textarea placeholder="Write your feedback..." id="feedback-textarea"></textarea>
+                <button id="submit-feedback-button">Submit Feedback</button>
+            </div>
+
+        </section>
     </div>
-    <section class="feedback-section" id="feedback-section">
-        <h1>Feedback</h1>
-        <div class="feedback-card">
-            <h4>John Cena</h4>
-            <div class="stars">
-                <i class="fa-sharp fa-solid fa-star"></i>
-                <i class="fa-sharp fa-solid fa-star"></i>
-                <i class="fa-sharp fa-solid fa-star"></i>
-                <i class="fa-sharp fa-solid fa-star"></i>
-                <i class="fa-sharp fa-regular fa-star"></i>
-            </div>
-            <p>Very cool app. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis, nesciunt quisquam.
-                Nisi ab architecto deserunt repudiandae tempore inventore eos iste incidunt? Libero exercitationem quis
-                harum et molestias est reiciendis recusandae?</p>
-        </div>
-        <div class="feedback-card">
-            <h4>Chuck Norris</h4>
-            <div class="stars">
-                <i class="fa-sharp fa-solid fa-star"></i>
-                <i class="fa-sharp fa-solid fa-star"></i>
-                <i class="fa-sharp fa-solid fa-star"></i>
-                <i class="fa-sharp fa-solid fa-star"></i>
-                <i class="fa-sharp fa-solid fa-star"></i>
-            </div>
-            <p>SUPER. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis, nesciunt quisquam.
-                Nisi ab architecto deserunt repudiandae tempore inventore eos iste incidunt? Libero exercitationem quis
-                harum et molestias est reiciendis recusandae?</p>
-        </div>
-        <div class="submit-feedback">
-            <h4>Your username</h4>
-            <div class="stars" id="submit-stars">
-                <i class="fa-sharp fa-regular fa-star"></i>
-                <i class="fa-sharp fa-regular fa-star"></i>
-                <i class="fa-sharp fa-regular fa-star"></i>
-                <i class="fa-sharp fa-regular fa-star"></i>
-                <i class="fa-sharp fa-regular fa-star"></i>
-            </div>
-            <textarea placeholder="Write your feedback..." id="feedback-textarea"></textarea>
-            <button id="submit-feedback-button">Submit Feedback</button>
-        </div>
-        <script src="../static/scripts/submitFeedback.js">
-
-        </script>
-    </section>
-
 
 
     <!-- https://developers.google.com/chart/interactive/docs/quick_start -->
@@ -158,6 +159,7 @@
     <script src="../static/scripts/visualizer.js"></script>
     <script src="../static/scripts/hamburger.js"></script>
     <script src="../static/scripts/cartographic.js"></script>
+    <script src="../static/scripts/submitFeedback.js"></script>
 </body>
 
 </html>

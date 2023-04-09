@@ -8,7 +8,7 @@ body {
   overflow-x: hidden;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 936px) {
   .closeMenu {
     display: none;
   }
@@ -276,17 +276,17 @@ body {
   }
 
   .whatis-right-container > img {
-    width: 16rem;
+    width: 13rem;
   }
   .whatis-right-container > h1 {
-    font-size: 5rem;
+    font-size: 4rem;
     margin-left: 1.5rem;
   }
 }
 
 /* ---------------------------------------------- M O B I L E -------------------------------------------------  */
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 936px) {
   nav {
     background: #081b38;
     width: 100vw;

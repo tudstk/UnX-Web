@@ -127,8 +127,7 @@
   }
 
   .chart {
-    border: 1rem solid rgba(8, 27, 56);
-    border-radius: 0.5rem;
+    border: 0.5rem solid rgba(8, 27, 56);
   }
 
   .chart {
@@ -143,13 +142,11 @@
   }
 
   .filters {
-    padding: 2rem;
+    padding: 1.5rem;
     width: 10rem;
-    height: 21rem;
+    height: 20.3rem;
     overflow: auto;
     background: #081b38;
-    border-radius: 0.5rem;
-    margin-right: 1rem;
   }
 
   .filters > h4 {
@@ -178,7 +175,7 @@
     padding: 2rem 2.5rem;
     flex-direction: column;
     justify-content: space-around;
-    width: 30rem;
+    width: 38rem;
     height: 8rem;
     background: white;
     border-radius: 0.5rem;
@@ -192,7 +189,7 @@
     display: flex;
     padding: 2rem 2.5rem;
     flex-direction: column;
-    width: 30rem;
+    width: 38rem;
     height: 11rem;
     background: white;
     border-radius: 0.5rem;
@@ -229,6 +226,14 @@
   }
   .chart-visualizer-text {
     margin-top: 6rem;
+    color: #081b38;
+  }
+  .visualizer-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 60rem;
+    background: white;
   }
 }
 @media only screen and (max-width: 768px) {
@@ -391,7 +396,7 @@
   .chart-btn,
   .export-btn {
     padding: 0.3rem;
-    width: 7rem;
+    width: 6.5rem;
     cursor: pointer;
   }
   #export-format {
@@ -462,8 +467,12 @@
   #submit-stars {
     cursor: pointer;
   }
-  #submit-stars:hover: {
-    color: lightgray;
+  .cartographic-visualizer-text {
+    margin-top: 4rem;
+    color: #081b38;
+  }
+  .chart-visualizer-text {
+    color: #081b38;
   }
   .map-wrapper {
     width: 20rem;
@@ -471,5 +480,10 @@
     background: white;
     overflow: auto;
     margin-top: 1rem;
+  }
+  .visualizer-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
 }
