@@ -11,6 +11,11 @@
   fill: grey;
 }
 
+#county_info {
+  margin-top: 10em;
+  margin-bottom: 3em;
+}
+
 @media only screen and (min-width: 768px) {
   body {
     font-family: "Sora", sans-serif;
@@ -119,7 +124,7 @@
     background: rgba(8, 27, 56, 0.6);
     padding: 3rem;
     border-radius: 0.5rem;
-    margin-top: 7rem;
+    margin-top: 5rem;
   }
 
   .chart {
@@ -320,7 +325,7 @@
   }
 
   .chart-wrapper {
-    margin-top: 7rem;
+    margin-top: 5rem;
     display: flex;
     justify-content: center;
     flex-direction: column;
