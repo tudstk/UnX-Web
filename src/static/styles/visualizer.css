@@ -3,6 +3,14 @@
   padding: 0px;
 }
 
+.county {
+  fill:#005DAA;
+}
+
+.county:hover {
+  fill: grey;
+}
+
 @media only screen and (min-width: 768px) {
   body {
     font-family: "Sora", sans-serif;

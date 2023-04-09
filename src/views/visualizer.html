@@ -11,6 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <script src="https://kit.fontawesome.com/be0511c2b3.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
     <title>Visualizer</title>
 </head>
 
@@ -31,6 +34,8 @@
             <img src="../static/img/icons/account_icon.png" class="login-img">
         </a>
     </nav>
+
+    <div id="map_container"></div>
 
     <section class="visualizer-wrapper">
         <div class="chart-wrapper">
@@ -144,6 +149,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="../static/scripts/visualizer.js"></script>
     <script src="../static/scripts/hamburger.js"></script>
+    <script src="../static/scripts/cartographic.js"></script>
 </body>
 
 </html>
