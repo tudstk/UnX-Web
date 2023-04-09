@@ -1,0 +1,260 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  font-family: "Sora", sans-serif;
+  overflow-x: hidden;
+  background: url("../img/bg3.jpg");
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (min-width: 768px) {
+  .closeMenu {
+    display: none;
+  }
+  .openMenu {
+    display: none;
+  }
+  .links li:first-child {
+    display: none;
+  }
+  nav {
+    background: #081b38;
+    height: 4.25rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    opacity: 0.95;
+    position: fixed;
+  }
+
+  .links {
+    display: flex;
+    justify-content: center;
+  }
+
+  ul {
+    list-style-type: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: #c5d6f0;
+  }
+
+  ul > li > a {
+    display: block;
+    color: #dedede;
+    text-align: center;
+    padding: 1.5rem;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+    letter-spacing: 0.1rem;
+    font-size: 0.8rem;
+  }
+
+  .logo {
+    width: 2.75rem;
+  }
+
+  .login-img {
+    width: 1.6rem;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0.8;
+    cursor: pointer;
+  }
+
+  .login-img:hover {
+    opacity: 1;
+  }
+
+  a:hover {
+    color: #fabc5f;
+    opacity: 0.8;
+  }
+
+  .content-wrapper {
+    min-width: 30rem;
+    max-width: 45rem;
+    background: white;
+    font-family: "Sora", sans-serif;
+    padding: 5rem;
+    font-size: 0.8rem;
+  }
+
+  .summary > ul > li > a {
+    color: #1f1f1f;
+  }
+
+  section > h2 {
+    color: #081b38;
+  }
+  header,
+  section > p,
+  .summary > ul > li > a:hover {
+    color: color;
+    opacity: 0.8;
+  }
+
+  header {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 0rem;
+  }
+  header > h1 {
+    color: #081b38;
+  }
+  main > section {
+    margin-bottom: 2rem;
+  }
+  main > section > h2 {
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  nav {
+    background: #081b38;
+    width: 100vw;
+    display: flex;
+    opacity: 0.95;
+    position: fixed;
+    padding: 1rem 0rem;
+  }
+  .links {
+    display: flex;
+    justify-content: center;
+  }
+
+  ul {
+    list-style-type: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: #c5d6f0;
+  }
+
+  ul > li > a {
+    display: block;
+    color: #dedede;
+    text-align: center;
+    padding: 1.5rem;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+    letter-spacing: 0.1rem;
+    font-size: 0.8rem;
+  }
+
+  .logo {
+    display: none;
+    width: 2.75rem;
+  }
+
+  .login-img {
+    display: none;
+    width: 1.6rem;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0.8;
+    cursor: pointer;
+  }
+
+  .login-img:hover {
+    opacity: 1;
+  }
+  nav .links {
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    z-index: 10;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #081b38;
+    transition: top 1s ease 0s;
+    display: none;
+  }
+  nav .links .closeMenu {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  nav .openMenu {
+    display: block;
+    margin-left: 2rem;
+    color: white;
+  }
+  nav .links li a:hover {
+    background: none;
+    color: rgb(255, 123, 0);
+  }
+  .icons i {
+    display: inline-block;
+    padding: 12px;
+  }
+
+  a:hover {
+    color: #fabc5f;
+    opacity: 0.8;
+  }
+
+  nav .links {
+    display: none;
+  }
+  nav .closeMenu {
+    display: none;
+    color: white;
+  }
+  .content-wrapper {
+    min-width: 17rem;
+    max-width: 25rem;
+    background: white;
+    font-family: "Sora", sans-serif;
+    padding: 5rem;
+    font-size: 0.8rem;
+  }
+
+  .summary > ul > li > a {
+    color: #1f1f1f;
+  }
+
+  section > h2 {
+    color: #081b38;
+  }
+  header,
+  section > p,
+  .summary > ul > li > a:hover {
+    color: color;
+    opacity: 0.8;
+  }
+
+  header {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 1rem 0rem;
+  }
+  header > h1 {
+    color: #081b38;
+    font-size: 1.2rem;
+  }
+  header > p {
+    font-size: 0.7rem;
+  }
+  main > section {
+    margin-bottom: 2rem;
+  }
+  main > section > h2 {
+    margin-bottom: 0.5rem;
+  }
+}
