@@ -124,7 +124,7 @@
     background: rgba(8, 27, 56, 0.6);
     padding: 3rem;
     border-radius: 0.5rem;
-    margin-top: 5rem;
+    margin-top: 7rem;
   }
 
   .chart {
@@ -325,7 +325,7 @@
   }
 
   .chart-wrapper {
-    margin-top: 5rem;
+    margin-top: 7rem;
     display: flex;
     justify-content: center;
     flex-direction: column;
