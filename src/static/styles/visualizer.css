@@ -123,11 +123,7 @@
     background: rgba(8, 27, 56, 0.6);
     padding: 3rem;
     border-radius: 0.5rem;
-    margin-top: 1rem;
-  }
-  .chart-visualizer-text {
-    margin-top: 6rem;
-    color: #081b38;
+    margin-top: 7rem;
   }
 
   .chart {
@@ -342,17 +338,13 @@
   }
 
   .chart-wrapper {
-    margin-top: 2rem;
+    margin-top: 7rem;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
   }
 
-  .chart-visualizer-text {
-    margin-top: 6rem;
-    color: #081b38;
-  }
   .chart-view {
     position: relative;
     padding-bottom: 100%;
@@ -466,16 +458,5 @@
   }
   #submit-stars:hover: {
     color: lightgray;
-  }
-  .map-wrapper {
-    width: 20rem;
-    height: 20rem;
-    background: white;
-    overflow: auto;
-    margin-top: 1rem;
-  }
-  .cartographic-visualizer-text {
-    margin-top: 4rem;
-    color: #081b38;
   }
 }
