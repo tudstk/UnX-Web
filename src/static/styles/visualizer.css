@@ -123,7 +123,7 @@
     background: rgba(8, 27, 56, 0.6);
     padding: 3rem;
     border-radius: 0.5rem;
-    margin-top: 7rem;
+    margin-top: 1rem;
   }
 
   .chart {
@@ -226,6 +226,9 @@
   }
   #pie-chart {
     display: block;
+  }
+  .chart-visualizer-text {
+    margin-top: 6rem;
   }
 }
 @media only screen and (max-width: 768px) {
@@ -338,13 +341,16 @@
   }
 
   .chart-wrapper {
-    margin-top: 7rem;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    margin-top: 1rem;
   }
 
+  .chart-visualizer-text {
+    margin-top: 4.5rem;
+  }
   .chart-view {
     position: relative;
     padding-bottom: 100%;
@@ -458,5 +464,12 @@
   }
   #submit-stars:hover: {
     color: lightgray;
+  }
+  .map-wrapper {
+    width: 20rem;
+    height: 20rem;
+    background: white;
+    overflow: auto;
+    margin-top: 1rem;
   }
 }
