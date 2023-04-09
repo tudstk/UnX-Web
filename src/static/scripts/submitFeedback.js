@@ -36,10 +36,12 @@ submitFeedbackButton.addEventListener("click", () => {
   feedbackCard.innerHTML = `
               <h4>${username}</h4>
               <div class="stars">
-                ${`<i class="fa-sharp fa-regular fa-star"></i>`.repeat(
+                ${`<i class="fa-sharp fa-solid fa-star"></i>`.repeat(
                   starRating
                 )}
-                ${"☆".repeat(5 - starRating)}
+                ${`<i class="fa-sharp fa-regular fa-star"></i>`.repeat(
+                  5 - starRating
+                )}
               </div>
               <p>${feedbackText}</p>
             `;
