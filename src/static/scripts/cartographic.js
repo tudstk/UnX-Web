@@ -16,7 +16,7 @@ var projection = d3.geo
 
 var geoPath = d3.geo.path().projection(projection);
 
-queue().defer(d3.json, "../topojson/romania-counties.json").await(ready);
+queue().defer(d3.json, "../static/topojson/romania-counties.json").await(ready);
 
 function ready(error, counties) {
   var romania = topojson.feature(counties, counties.objects.ROU_adm1).features;
