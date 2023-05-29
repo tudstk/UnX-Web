@@ -20,7 +20,7 @@
                 <h5 class="description-text">Begin your journey to our platform by creating an account:</h5>
             </div>
 
-            <form class="my-form">
+            <form class="my-form" id="register-form">
                 <label for="email"> Email </label>
                 <input type="text" name="email" placeholder="Your email address">
                 <label for="username"> Username </label>
@@ -41,6 +41,39 @@
             </form>
         </div>
     </div>
+
+    <script>
+        document.getElementById('register-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const email = form.elements.email.value;
+            const username = form.elements.username.value;
+            const password = form.elements.password.value;
+
+            const userData = {
+                email: email,
+                username: username,
+                password: password
+            };
+
+            fetch('http://localhost:3000/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    window.location.href = "/src/views/login.html";
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+    </script>
 </body>
 
 </html>

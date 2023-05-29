@@ -28,7 +28,9 @@
             <div class="closeMenu"><i class="fa fa-times"></i></div>
         </ul>
         <a href="register.html">
-            <img src="../static/img/icons/account_icon.png" class="login-img">
+            <div class="milbei">
+                <img src="../static/img/icons/account_icon.png" class="login-img">
+            </div>
         </a>
     </nav>
     <div class="welcome-wrapper">
@@ -104,13 +106,55 @@
         const learnMoreButton = document.querySelector('.welcome-wrapper button');
         const whatisSection = document.querySelector('#whatis');
         learnMoreButton.addEventListener('click', (event) => {
-            event.preventDefault(); // prevent the default link behavior
-            const sectionPosition = whatisSection.offsetTop; // get the position of the section
+            event.preventDefault();
+            const sectionPosition = whatisSection.offsetTop;
             window.scrollTo({
                 top: sectionPosition,
-                behavior: 'smooth' // smooth scrolling transition
+                behavior: 'smooth'
             });
         });
+
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = '/src/views/login.html';
+        }
+
+        function getEmailFromToken() {
+            const token = localStorage.getItem('token');
+            if (token) {
+                const [, payload] = token.split('.');
+                const decodedPayload = atob(payload);
+                const { username } = JSON.parse(decodedPayload);
+                // return email.split('@')[0];;
+                return username;
+            }
+            return null;
+        }
+
+        function updateUI() {
+            const milbeiElement = document.querySelector('.milbei');
+            const email = getEmailFromToken();
+            if (email) {
+                milbeiElement.style.display = 'none';
+                const nav = document.querySelector('nav');
+                const emailElement = document.createElement('span');
+                const logoutElement = document.createElement('span');
+                logoutElement.textContent = 'Logout';
+                emailElement.textContent = "salut, " + email;
+                emailElement.style.color = 'white';
+                emailElement.style.fontSize = "0.9rem";
+                logoutElement.style.color = 'white';
+                logoutElement.style.cursor = 'pointer';
+                logoutElement.addEventListener('click', logout);
+                logoutElement.style.fontSize = "0.9rem";
+
+                nav.insertAdjacentElement('beforeend', emailElement);
+                nav.insertAdjacentElement('beforeend', logoutElement);
+            } else {
+                milbeiElement.style.display = 'block';
+            }
+        }
+        window.addEventListener('DOMContentLoaded', updateUI);
 
     </script>
     <script src="../static/scripts/hamburger.js"></script>
