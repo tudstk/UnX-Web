@@ -108,7 +108,7 @@ async function handleLogin(req, res) {
       }
 
       const token = jwt.sign(
-        { userId: user.id, email: user.email },
+        { userId: user.id, email: user.email, username: user.username },
         JWT_SECRET,
         {
           expiresIn: "1h",
