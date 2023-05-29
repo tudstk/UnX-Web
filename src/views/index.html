@@ -124,8 +124,9 @@
             if (token) {
                 const [, payload] = token.split('.');
                 const decodedPayload = atob(payload);
-                const { email } = JSON.parse(decodedPayload);
-                return email.split('@')[0];;
+                const { username } = JSON.parse(decodedPayload);
+                // return email.split('@')[0];;
+                return username;
             }
             return null;
         }
