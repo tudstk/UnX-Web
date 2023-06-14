@@ -1,4 +1,3 @@
-// Function to extract the username from the URL
 function getUsernameFromToken() {
   const token = localStorage.getItem("token");
   if (token) {
@@ -10,12 +9,28 @@ function getUsernameFromToken() {
   return null;
 }
 
-// Function to display the username on the page
+function getEmailFromToken() {
+  const token = localStorage.getItem("token");
+  if (token) {
+    const [, payload] = token.split(".");
+    const decodedPayload = atob(payload);
+    const { email } = JSON.parse(decodedPayload);
+    return email;
+  }
+  return null;
+}
+
 function displayUsername() {
   const usernamePlaceholder = document.getElementById("username-placeholder");
   const username = getUsernameFromToken();
   usernamePlaceholder.textContent = `Hello, ${username}`;
 }
 
-// Call the displayUsername function when the page loads
+function setEmailValueFromToken() {
+  const emailInput = document.querySelector('input[name="email"]');
+  const email = getEmailFromToken();
+  emailInput.value = email;
+}
+
+window.addEventListener("DOMContentLoaded", setEmailValueFromToken);
 window.addEventListener("DOMContentLoaded", displayUsername);

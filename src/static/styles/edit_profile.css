@@ -62,7 +62,7 @@ body {
     width: 26rem;
     height: 32rem;
     background: #081b38;
-    border-radius: 1rem;
+    border-radius: 0 1rem 1rem 0;
     opacity: 0.9;
     flex-direction: column;
     color: white;
@@ -95,10 +95,57 @@ body {
     padding: 1rem;
   }
 
+  .option-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 4.5rem;
+    border-radius: 0;
+    border-bottom: 1px solid #c9c9c9;
+    color: #1a1a1a;
+    font-family: "Sora", sans-serif;
+    font-size: 0.75rem;
+    padding: 1rem;
+    background: #f5f5f5;
+  }
+
+  .logout-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 4.5rem;
+    border-radius: 0;
+    border-bottom: 1px solid #c9c9c9;
+    color: #ed5151;
+    font-family: "Sora", sans-serif;
+    font-size: 0.75rem;
+    padding: 1rem;
+    background: #f5f5f5;
+  }
+
   .register-btn:hover,
-  .form-btn:hover {
+  .form-btn:hover,
+  .option-btn:hover {
     background: #fabc5f;
     cursor: pointer;
+  }
+
+  .logout-btn:hover {
+    background: #fabc5f;
+    cursor: pointer;
+    color: white;
+  }
+  .option-wrapper {
+    border-radius: 1rem 0 0 1rem;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    height: 32rem;
+    width: 12rem;
+    background-color: white;
+    justify-content: space-between;
   }
 
   .top-text-register {
@@ -139,6 +186,10 @@ body {
     color: white;
     opacity: 0.7;
     margin-left: 0.25rem;
+  }
+
+  .top-buttons {
+    width: 100%;
   }
 
   .login-link:hover {
