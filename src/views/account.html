@@ -13,17 +13,25 @@
 </head>
 
 <body>
+
+
     <div class="form-wrapper">
+
+        <div class="option-wrapper">
+            <div class="top-buttons">
+                <button class="option-btn" id="accountDetailsButton">Account Details</button>
+                <button class="option-btn" id="resetPasswordButton">Reset Password</button>
+            </div>
+            <button class="logout-btn" id="logoutButton">Logout</button>
+        </div>
+
         <div class="form-box">
             <div class="top-text-register">
                 <div id="username-placeholder"></div>
                 <h2 class="welcome-text">Account details</h2>
                 <h5 class="description-text">Input the details that you wish to change and then press save to...save
                     them!</h5>
-                <div>
-                    <button id="accountDetailsButton">Account Details</button>
-                    <button id="resetPasswordButton">Reset Password</button>
-                </div>
+
             </div>
             <form class="my-form" id="accountDetailsForm">
                 <div class="form-group">
@@ -36,7 +44,7 @@
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="text" name="email" placeholder="Your email address">
+                    <input type="text" name="email" placeholder="Your email address" value="dorel@yahoo.com" readonly>
                 </div>
                 <button type="submit" class="form-btn" id="saveChangesButton">Save Changes</button>
             </form>
@@ -60,12 +68,13 @@
         </div>
     </div>
 
-    <script src="../api/account.js"></script>
+    <script src="../api/utils/account.js"></script>
     <script>
         const accountDetailsButton = document.getElementById("accountDetailsButton");
         const resetPasswordButton = document.getElementById("resetPasswordButton");
         const accountDetailsForm = document.getElementById("accountDetailsForm");
         const resetPasswordForm = document.getElementById("resetPasswordForm");
+        const logoutButton = document.getElementById("logoutButton");
 
         accountDetailsButton.addEventListener("click", () => {
             accountDetailsForm.style.display = "block";
@@ -77,9 +86,14 @@
             resetPasswordForm.style.display = "block";
         });
 
-        // Display Account Details form by default
         accountDetailsForm.style.display = "block";
         resetPasswordForm.style.display = "none";
+
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = '/src/views/login.html';
+        }
+        logoutButton.addEventListener("click", logout); 
     </script>
 
 </body>
