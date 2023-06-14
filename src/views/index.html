@@ -27,8 +27,8 @@
             <li><a href="about.html">ABOUT</a></li>
             <div class="closeMenu"><i class="fa fa-times"></i></div>
         </ul>
-        <a href="register.html">
-            <div class="milbei">
+        <a href="register.html" class="account_link">
+            <div class="account">
                 <img src="../static/img/icons/account_icon.png" class="login-img">
             </div>
         </a>
@@ -119,7 +119,7 @@
             window.location.href = '/src/views/login.html';
         }
 
-        function getEmailFromToken() {
+        function getUsernameFromToken() {
             const token = localStorage.getItem('token');
             if (token) {
                 const [, payload] = token.split('.');
@@ -132,28 +132,49 @@
         }
 
         function updateUI() {
-            const milbeiElement = document.querySelector('.milbei');
-            const email = getEmailFromToken();
-            if (email) {
-                milbeiElement.style.display = 'none';
+            const accountElement = document.querySelector('.account');
+            const accountLinkElement = document.querySelector('.account_link');
+            const username = getUsernameFromToken();
+            if (username) {
+                accountElement.style.display = 'none';
+                accountLinkElement.style.display = 'none';
                 const nav = document.querySelector('nav');
-                const emailElement = document.createElement('span');
+
+                const userContainer = document.createElement('div');
+                userContainer.style.display = 'flex';
+                userContainer.style.alignItems = 'center';
+
+                const usernameElement = document.createElement('span');
                 const logoutElement = document.createElement('span');
                 logoutElement.textContent = 'Logout';
-                emailElement.textContent = "salut, " + email;
-                emailElement.style.color = 'white';
-                emailElement.style.fontSize = "0.9rem";
+
+                const usernameLink = document.createElement('a');
+                usernameLink.href = `account.html`;
+                usernameLink.textContent = username;
+                usernameLink.style.fontStyle = 'italic';
+                usernameLink.style.textDecoration = 'underline';
+
+                usernameElement.textContent = 'Hello, ';
+                usernameElement.style.color = 'white';
+                usernameElement.style.fontSize = '0.9rem';
+
                 logoutElement.style.color = 'white';
                 logoutElement.style.cursor = 'pointer';
                 logoutElement.addEventListener('click', logout);
-                logoutElement.style.fontSize = "0.9rem";
+                logoutElement.style.fontSize = '0.8rem';
 
-                nav.insertAdjacentElement('beforeend', emailElement);
-                nav.insertAdjacentElement('beforeend', logoutElement);
+                usernameElement.appendChild(usernameLink);
+
+                userContainer.appendChild(usernameElement);
+                // userContainer.appendChild(logoutElement);
+
+                nav.appendChild(userContainer);
             } else {
-                milbeiElement.style.display = 'block';
+                accountElement.style.display = 'block';
             }
         }
+
+
         window.addEventListener('DOMContentLoaded', updateUI);
 
     </script>

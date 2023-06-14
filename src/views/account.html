@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/styles/edit_profile.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora&display=swap" rel="stylesheet">
+    <title>edit_profile</title>
+</head>
+
+<body>
+    <div class="form-wrapper">
+        <div class="form-box">
+            <div class="top-text-register">
+                <div id="username-placeholder"></div>
+                <h2 class="welcome-text">Account details</h2>
+                <h5 class="description-text">Input the details that you wish to change and then press save to...save
+                    them!</h5>
+                <div>
+                    <button id="accountDetailsButton">Account Details</button>
+                    <button id="resetPasswordButton">Reset Password</button>
+                </div>
+            </div>
+            <form class="my-form" id="accountDetailsForm">
+                <div class="form-group">
+                    <label for="fName">First Name</label>
+                    <input type="text" name="fName" placeholder="Your first name...">
+                </div>
+                <div class="form-group">
+                    <label for="lName">Last Name</label>
+                    <input type="text" name="lName" placeholder="Your last name...">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" placeholder="Your email address">
+                </div>
+                <button type="submit" class="form-btn" id="saveChangesButton">Save Changes</button>
+            </form>
+
+            <form class="my-form" id="resetPasswordForm">
+                <div class="form-group">
+                    <label for="currentPassowrd">Current Password</label>
+                    <input type="password" name="currentPassword" placeholder="Enter current password...">
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" name="newPassword" placeholder="Enter new password...">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm New Password</label>
+                    <input type="password" name="confirmPassword" placeholder="Confirm new password...">
+                </div>
+                <button type="submit" class="form-btn" id="resetPasswordSubmitButton">Reset Password</button>
+            </form>
+
+        </div>
+    </div>
+
+    <script src="../api/account.js"></script>
+    <script>
+        const accountDetailsButton = document.getElementById("accountDetailsButton");
+        const resetPasswordButton = document.getElementById("resetPasswordButton");
+        const accountDetailsForm = document.getElementById("accountDetailsForm");
+        const resetPasswordForm = document.getElementById("resetPasswordForm");
+
+        accountDetailsButton.addEventListener("click", () => {
+            accountDetailsForm.style.display = "block";
+            resetPasswordForm.style.display = "none";
+        });
+
+        resetPasswordButton.addEventListener("click", () => {
+            accountDetailsForm.style.display = "none";
+            resetPasswordForm.style.display = "block";
+        });
+
+        // Display Account Details form by default
+        accountDetailsForm.style.display = "block";
+        resetPasswordForm.style.display = "none";
+    </script>
+
+</body>
+
+</html>
