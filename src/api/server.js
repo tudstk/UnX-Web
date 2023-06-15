@@ -4,20 +4,21 @@ const { Pool } = require("pg");
 const crypto = require("crypto");
 const { parse } = require("querystring");
 
+// Function to generate a random secret key
 const generateSecretKey = () => {
   return crypto.randomBytes(32).toString("hex");
 };
 
-const JWT_SECRET = generateSecretKey();
+const JWT_SECRET = generateSecretKey(); // Generating a secret key for JWT
 console.log("JWT Secret Key:", JWT_SECRET);
 
 const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "unx",
-  password: "postgres",
+  password: "b4",
   port: 5432,
-});
+}); // Creating a PostgreSQL database connection pool
 
 const { handleLogin } = require("./controllers/login_controller");
 const { handleRegistration } = require("./controllers/register_controller");
@@ -38,7 +39,7 @@ const server = http.createServer((req, res) => {
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
 
-  const reqUrl = url.parse(req.url);
+  const reqUrl = url.parse(req.url); // Parsing the request URL
   const reqPath = reqUrl.pathname;
   const reqMethod = req.method;
 
@@ -55,7 +56,7 @@ const server = http.createServer((req, res) => {
   } else if (reqPath === "/getAccountDetails" && reqMethod === "GET") {
     handleGetAccount(req, res);
   } else {
-    res.statusCode = 404;
+    res.statusCode = 404; // Handling unknown routes
     res.end("Not found");
   }
 });
@@ -125,7 +126,7 @@ function handleUpdateAccount(req, res) {
     });
 }
 
-const port = 3000;
+const port = 3000; // Port for the server to listen on
 server.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
