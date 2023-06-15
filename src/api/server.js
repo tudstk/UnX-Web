@@ -22,6 +22,8 @@ const pool = new Pool({
 
 const { handleLogin } = require("./controllers/login_controller");
 const { handleRegistration } = require("./controllers/register_controller");
+const { addUser } = require("./controllers/admin_controller");
+
 
 const server = http.createServer((req, res) => {
   const headers = {
@@ -55,7 +57,16 @@ const server = http.createServer((req, res) => {
     handleUpdateAccount(req, res);
   } else if (reqPath === "/getAccountDetails" && reqMethod === "GET") {
     handleGetAccount(req, res);
-  } else {
+  } else if (reqPath === "/admin/user/get-all" && reqMethod === "GET") {
+    handleGetAccount(req, res);
+  } else if (reqPath === `/admin/user/delete/${username}` && reqMethod === "DELETE") {
+    handleGetAccount(req, res);
+  } else if (reqPath === "/admin/user/add" && reqMethod === "POST") {
+    addUser(req, res);
+  } else if (reqPath === `/admin/review/delete/${id}` && reqMethod === "DELETE") {
+    handleGetAccount(req, res);
+  } 
+  else {
     res.statusCode = 404; // Handling unknown routes
     res.end("Not found");
   }
