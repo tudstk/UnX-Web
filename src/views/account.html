@@ -47,6 +47,9 @@
                     <input type="text" name="email" placeholder="Your email address" value="dorel@yahoo.com" readonly>
                 </div>
                 <button type="submit" class="form-btn" id="saveChangesButton">Save Changes</button>
+                <div id="successMessage" style="display: none;">
+                    Details updated successfully!
+                </div>
             </form>
 
             <form class="my-form" id="resetPasswordForm">
@@ -75,15 +78,43 @@
         const accountDetailsForm = document.getElementById("accountDetailsForm");
         const resetPasswordForm = document.getElementById("resetPasswordForm");
         const logoutButton = document.getElementById("logoutButton");
+        const saveChangesButton = document.getElementById("saveChangesButton");
+        const successMessage = document.getElementById("successMessage");
+
+        function handleGetAccount() {
+            const token = localStorage.getItem("token");
+
+            fetch("http://localhost:3000/getAccountDetails", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: token,
+                },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    const firstNameInput = document.querySelector('input[name="fName"]');
+                    const lastNameInput = document.querySelector('input[name="lName"]');
+                    firstNameInput.value = data.first_name;
+                    lastNameInput.value = data.last_name;
+                })
+                .catch((error) => {
+                    console.error("Error retrieving account details:", error);
+                });
+        }
+
+        handleGetAccount();
 
         accountDetailsButton.addEventListener("click", () => {
             accountDetailsForm.style.display = "block";
             resetPasswordForm.style.display = "none";
+            successMessage.style.display = "none";
         });
 
         resetPasswordButton.addEventListener("click", () => {
             accountDetailsForm.style.display = "none";
             resetPasswordForm.style.display = "block";
+            successMessage.style.display = "none";
         });
 
         accountDetailsForm.style.display = "block";
@@ -93,9 +124,44 @@
             localStorage.removeItem('token');
             window.location.href = '/src/views/login.html';
         }
-        logoutButton.addEventListener("click", logout); 
-    </script>
+        logoutButton.addEventListener("click", logout);
 
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const firstNameInput = document.querySelector('input[name="fName"]');
+            const lastNameInput = document.querySelector('input[name="lName"]');
+            const firstName = firstNameInput.value;
+            const lastName = lastNameInput.value;
+
+            const token = localStorage.getItem("token");
+
+            const data = {
+                firstName,
+                lastName,
+            };
+
+            fetch("http://localhost:3000/updateAccount", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: token,
+                },
+                body: JSON.stringify(data),
+            }).then((response) => {
+                if (response.ok) {
+                    console.log("Account updated successfully");
+                    successMessage.style.display = "block";
+                } else {
+                    console.error("Error updating account");
+                }
+            }).catch((error) => {
+                console.error("Error updating account:", error);
+            });
+        }
+
+        accountDetailsForm.addEventListener("submit", handleFormSubmit);
+    </script>
 </body>
 
 </html>
