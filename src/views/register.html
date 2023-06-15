@@ -21,6 +21,9 @@
             </div>
 
             <form class="my-form" id="register-form">
+                <div class="invalid-input">
+
+                </div>
                 <label for="email"> Email </label>
                 <input type="text" name="email" placeholder="Your email address">
                 <label for="username"> Username </label>
@@ -31,7 +34,7 @@
                     <input type="checkbox">
                     <h6 class="checkbox-text">I have read the terms and conditions.</h6>
                 </div>
-                <button class="register-btn" type="submit" href="login.html">Register</button>
+                <button class="register-btn" type="submit">Register</button>
                 <div class="already">
                     <h6 class="already-text">Already have an account?</h6>
                     <a href="login.html" class="login-link">
@@ -66,8 +69,44 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
-                    window.location.href = "/src/views/login.html";
+
+                    if (typeof data.error === 'undefined') { // registration succeded
+                        window.location.href = "/src/views/login.html";
+                    }
+
+                    else{ // there is an input error
+
+                        // Find the div element with the class "invalid-input"
+                        const invalidDiv = document.querySelector('.invalid-input');
+                        invalidDiv.innerHTML = '';
+
+                        if(data.error == "Invalid password format"){
+                                const texts = [
+                            "The password must:",
+                            "• contain at least one letter",
+                            "• contain at least one digit",
+                            "• be at least 6 characters long"
+                            ];
+
+                            texts.forEach(text => {
+                            const h5 = document.createElement("h5");
+                            h5.textContent =text;
+                            invalidDiv.appendChild(h5);
+                            });
+                        }
+                        
+                        else if (data.error == "Invalid email format"){
+
+                            const h5 = document.createElement('h5');
+                            h5.textContent = data.error;
+
+                            // Append the h5 element to the div
+                            invalidDiv.appendChild(h5);
+                        }
+                    }
+                    
+                    console.log(data.error);
+
                 })
                 .catch(error => {
                     console.error(error);
