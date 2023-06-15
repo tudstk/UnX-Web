@@ -66,6 +66,9 @@
                     <input type="password" name="confirmPassword" placeholder="Confirm new password...">
                 </div>
                 <button type="submit" class="form-btn" id="resetPasswordSubmitButton">Reset Password</button>
+                <div id="successMessageResetPassword" style="display: none;">
+                    Password updated successfully!
+                </div>
             </form>
 
         </div>
@@ -80,6 +83,7 @@
         const logoutButton = document.getElementById("logoutButton");
         const saveChangesButton = document.getElementById("saveChangesButton");
         const successMessage = document.getElementById("successMessage");
+        const successMessageResetPassword = document.getElementById("successMessageResetPassword");
 
         function handleGetAccount() {
             const token = localStorage.getItem("token");
@@ -125,6 +129,47 @@
             window.location.href = '/src/views/login.html';
         }
         logoutButton.addEventListener("click", logout);
+
+        function handlePasswordSubmit(event) {
+            event.preventDefault();
+
+            const currentPasswordInput = document.querySelector('input[name="currentPassword"]');
+            const newPasswordInput = document.querySelector('input[name="newPassword"]');
+            const confirmPasswordInput = document.querySelector('input[name="confirmPassword"]');
+            const currentPassword = currentPasswordInput.value;
+            const newPassword = newPasswordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            const token = localStorage.getItem("token");
+
+            const data = {
+                currentPassword,
+                newPassword,
+                confirmPassword,
+            };
+
+            fetch("http://localhost:3000/resetPassword", {
+                method: "PUT", // Use the PUT method
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: token,
+                },
+                body: JSON.stringify(data),
+            }).then((response) => {
+                console.log(response);
+                if (response.ok) {
+                    console.log("Password updated successfully");
+                    successMessageResetPassword.style.display = "block";
+                } else {
+                    console.error("Error updating password");
+
+                }
+            }).catch((error) => {
+                console.error("Error updating password:", error);
+            });
+        }
+
+        resetPasswordForm.addEventListener("submit", handlePasswordSubmit);
 
         function handleFormSubmit(event) {
             event.preventDefault();
