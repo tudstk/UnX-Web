@@ -1,9 +1,8 @@
 const http = require("http");
 const url = require("url");
 const { Pool } = require("pg");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
+const { parse } = require("querystring");
 
 const generateSecretKey = () => {
   return crypto.randomBytes(32).toString("hex");
@@ -20,112 +19,110 @@ const pool = new Pool({
   port: 5432,
 });
 
+const { handleLogin } = require("./controllers/login_controller");
+const { handleRegistration } = require("./controllers/register_controller");
+
 const server = http.createServer((req, res) => {
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS",
+    "Access-Control-Allow-Headers":
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+    "Access-Control-Max-Age": "86400", // 24h
+  };
+
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
   res.setHeader(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
 
   const reqUrl = url.parse(req.url);
   const reqPath = reqUrl.pathname;
   const reqMethod = req.method;
 
-  // pt CORS preflight
+  // preflight
   if (reqMethod === "OPTIONS") {
-    res.statusCode = 200;
+    res.writeHead(200, headers);
     res.end();
   } else if (reqPath === "/register" && reqMethod === "POST") {
     handleRegistration(req, res);
   } else if (reqPath === "/login" && reqMethod === "POST") {
-    handleLogin(req, res);
+    handleLogin(req, res, JWT_SECRET);
+  } else if (reqPath === "/updateAccount" && reqMethod === "POST") {
+    handleUpdateAccount(req, res);
+  } else if (reqPath === "/getAccountDetails" && reqMethod === "GET") {
+    handleGetAccount(req, res);
   } else {
     res.statusCode = 404;
     res.end("Not found");
   }
 });
 
-async function handleRegistration(req, res) {
-  try {
-    let requestBody = "";
+function handleGetAccount(req, res) {
+  console.log("GET /getAccountDetails");
+  const token = req.headers.authorization;
+  const [, payload] = token.split(".");
+  const decodedPayload = Buffer.from(payload, "base64").toString();
+  const { username } = JSON.parse(decodedPayload);
 
-    req.on("data", (chunk) => {
-      requestBody += chunk;
-    });
-
-    req.on("end", async () => {
-      const { email, username, password } = JSON.parse(requestBody);
-      const hashedPassword = await bcrypt.hash(password, 10);
-
-      const query =
-        "INSERT INTO users (email, username, password) VALUES ($1, $2, $3)";
-      await pool.query(query, [email, username, hashedPassword]);
-
-      res.statusCode = 201;
-      res.setHeader("Content-Type", "application/json");
-      res.end(JSON.stringify({ message: "User registered successfully!" }));
-    });
-  } catch (error) {
-    console.error(error);
-    res.statusCode = 500;
-    res.setHeader("Content-Type", "application/json");
-    res.end(
-      JSON.stringify({ error: "An error occurred while registering the user." })
-    );
-  }
+  pool.query(
+    "SELECT first_name, last_name FROM users WHERE username = $1",
+    [username],
+    (error, results) => {
+      if (error) {
+        console.error("Error retrieving account:", error);
+        res.statusCode = 500;
+        res.setHeader("Content-Type", "text/plain");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.end("Internal Server Error");
+      } else {
+        console.log("Account details retrieved:", results.rows[0]);
+        const accountDetails = results.rows[0];
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.end(JSON.stringify(accountDetails));
+      }
+    }
+  );
 }
 
-async function handleLogin(req, res) {
-  try {
-    let requestBody = "";
+function handleUpdateAccount(req, res) {
+  let body = [];
+  req
+    .on("data", (chunk) => {
+      body.push(chunk);
+    })
+    .on("end", () => {
+      body = Buffer.concat(body).toString();
+      const { firstName, lastName } = JSON.parse(body);
 
-    req.on("data", (chunk) => {
-      requestBody += chunk;
-    });
+      const token = req.headers.authorization;
+      const [, payload] = token.split(".");
+      const decodedPayload = Buffer.from(payload, "base64").toString();
+      const { username } = JSON.parse(decodedPayload);
 
-    req.on("end", async () => {
-      const { email, password } = JSON.parse(requestBody);
-
-      const query = "SELECT * FROM users WHERE email = $1";
-      const result = await pool.query(query, [email]);
-
-      if (result.rows.length === 0) {
-        res.statusCode = 401;
-        res.setHeader("Content-Type", "application/json");
-        res.end(JSON.stringify({ error: "Invalid email or password." }));
-        return;
-      }
-
-      const user = result.rows[0];
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-
-      if (!isPasswordValid) {
-        res.statusCode = 401;
-        res.setHeader("Content-Type", "application/json");
-        res.end(JSON.stringify({ error: "Invalid email or password." }));
-        return;
-      }
-
-      const token = jwt.sign(
-        { userId: user.id, email: user.email, username: user.username },
-        JWT_SECRET,
-        {
-          expiresIn: "1h",
+      pool.query(
+        "UPDATE users SET first_name = $1, last_name = $2 WHERE username = $3",
+        [firstName, lastName, username],
+        (error, results) => {
+          if (error) {
+            console.error("Error updating account:", error);
+            res.statusCode = 500;
+            res.setHeader("Content-Type", "text/plain");
+            res.setHeader("Access-Control-Allow-Origin", "*");
+            res.end("Internal Server Error");
+          } else {
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "text/plain");
+            res.setHeader("Access-Control-Allow-Origin", "*");
+            res.end("Account updated successfully");
+          }
         }
       );
-
-      console.log("Login successful!");
-      res.statusCode = 200;
-      res.setHeader("Content-Type", "application/json");
-      res.end(JSON.stringify({ token }));
     });
-  } catch (error) {
-    console.error(error);
-    res.statusCode = 500;
-    res.setHeader("Content-Type", "application/json");
-    res.end(JSON.stringify({ error: "An error occurred while logging in." }));
-  }
 }
 
 const port = 3000;
