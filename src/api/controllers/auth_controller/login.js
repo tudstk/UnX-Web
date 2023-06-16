@@ -6,7 +6,7 @@ const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "unx",
-  password: "b4",
+  password: "postgres",
   port: 5432,
 });
 
@@ -41,7 +41,12 @@ async function handleLogin(req, res, JWT_SECRET) {
       }
 
       const token = jwt.sign(
-        { userId: user.id, email: user.email, username: user.username, isAdmin: user.is_admin },
+        {
+          userId: user.id,
+          email: user.email,
+          username: user.username,
+          isAdmin: user.is_admin,
+        },
         JWT_SECRET,
         {
           expiresIn: "1h",
