@@ -102,7 +102,7 @@ const server = http.createServer((req, res) => {
   }
 });
 
-const fileNames = [
+const educatieCSV = [
   "educatie_1.csv",
   "educatie_2.csv",
   "educatie_3.csv",
@@ -113,17 +113,47 @@ const fileNames = [
   "educatie_8.csv",
   "educatie_9.csv",
   "educatie_10.csv",
+  "educatie_11.csv",
+  "educatie_12.csv",
+];
+const mediiCSV = [
+  "medii_1.csv",
+  "medii_2.csv",
+  "medii_3.csv",
+  "medii_4.csv",
+  "medii_5.csv",
+  "medii_6.csv",
+  "medii_7.csv",
+  "medii_8.csv",
+  "medii_9.csv",
+  "medii_10.csv",
+  "medii_11.csv",
+  "medii_12.csv",
 ];
 
-insertDataFromCSVFiles(fileNames)
+// problema e ca se pot insera doar 10 deodata... nu stiu de ce
+
+insertDataFromCSVFiles(educatieCSV, "someri_educatie_judet")
   .then(() => {
-    console.log("All data inserted successfully.");
+    console.log("All enviroment data inserted successfully.");
     pool.end();
   })
   .catch((error) => {
     console.error("Error inserting data:", error);
     pool.end();
   });
+
+// daca ambele sunt decomentate, tot 10 se vor insera, 5 dintr-o parte si 5 din cealalta
+
+// insertDataFromCSVFiles(mediiCSV, "someri_mediu_judet")
+//   .then(() => {
+//     console.log("All enviroment data inserted successfully.");
+//     pool.end();
+//   })
+//   .catch((error) => {
+//     console.error("Error inserting data:", error);
+//     pool.end();
+//   });
 
 const port = 3000;
 server.listen(port, () => {
