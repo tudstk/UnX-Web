@@ -9,7 +9,6 @@ const pool = new Pool({
   port: 5432,
 });
 
-
 // Regular expression pattern for email validation
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -43,7 +42,7 @@ async function handleRegistration(req, res) {
 
       // Validate email format
       if (!isValidEmail(email)) {
-        console.log("INVALID EMAIL")
+        console.log("INVALID EMAIL");
         res.statusCode = 400; // Bad Request status code
         res.setHeader("Content-Type", "application/json"); // Setting response content type
         res.end(JSON.stringify({ error: "Invalid email format" })); // Sending error response
@@ -65,13 +64,13 @@ async function handleRegistration(req, res) {
       await pool.query(query, [email, username, hashedPassword]);
 
       res.statusCode = 201; // Setting success status code
-      res.setHeader("Content-Type", "application/json"); 
-      res.end(JSON.stringify({ message: "User registered successfully!" })); 
+      res.setHeader("Content-Type", "application/json");
+      res.end(JSON.stringify({ message: "User registered successfully!" }));
     });
   } catch (error) {
     console.error(error);
-    res.statusCode = 500; 
-    res.setHeader("Content-Type", "application/json"); 
+    res.statusCode = 500;
+    res.setHeader("Content-Type", "application/json");
     res.end(
       JSON.stringify({ error: "An error occurred while registering the user." })
     ); // Sending error response
