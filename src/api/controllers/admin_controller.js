@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const { Pool } = require("pg");
 
 const pool = new Pool({
@@ -8,62 +9,80 @@ const pool = new Pool({
   port: 5432,
 });
 
-token = localStorage.getItem("token");
+async function handleAddUser(req, res) {
+  try {
+    let requestBody = "";
 
-// i want a function that gets all users in the database
+    req.on("data", (chunk) => {
+      requestBody += chunk;
+    });
 
-async function addUser(req, res) {
-    try {
-      let requestBody = "";
-  
-      req.on("data", (chunk) => {
-        requestBody += chunk;
-      });
-      
-      // TODO: add is_admin field
-      req.on("end", async () => {
-        const { email, username, password } = JSON.parse(requestBody);
-  
-        // Validate email format
-        if (!isValidEmail(email)) {
-          console.log("INVALID EMAIL")
-          res.statusCode = 400; // Bad Request status code
-          res.setHeader("Content-Type", "application/json"); // Setting response content type
-          res.end(JSON.stringify({ error: "Invalid email format" })); // Sending error response
-          return;
-        }
-  
-        // Validate password format
-        if (!isValidPassword(password)) {
-          res.statusCode = 400; // Bad Request status code
-          res.setHeader("Content-Type", "application/json"); // Setting response content type
-          res.end(JSON.stringify({ error: "Invalid password format" })); // Sending error response
-          return;
-        }
-  
-        const hashedPassword = await bcrypt.hash(password, 10); // Hashing the password
-  
-        const query =
-          "INSERT INTO users (email, username, password) VALUES ($1, $2, $3)"; // Query to insert user data
-        await pool.query(query, [email, username, hashedPassword]);
-  
-        res.statusCode = 201; // Setting success status code
-        res.setHeader("Content-Type", "application/json"); 
-        res.end(JSON.stringify({ message: "User registered successfully!" })); 
-      });
-    } catch (error) {
-      console.error(error);
-      res.statusCode = 500; 
+    req.on("end", async () => {
+      const { email, username, password, isAdmin} = JSON.parse(requestBody);
+
+      const hashedPassword = await bcrypt.hash(password, 10); // Hashing the password
+
+      const query =
+        "INSERT INTO users (email, username, password, is_admin) VALUES ($1, $2, $3, $4)"; // Query to insert user data
+      await pool.query(query, [email, username, hashedPassword, isAdmin]);
+
+      res.statusCode = 201; // Setting success status code
       res.setHeader("Content-Type", "application/json"); 
-      res.end(
-        JSON.stringify({ error: "An error occurred while registering the user." })
-      ); // Sending error response
-    }
+      res.end(JSON.stringify({ message: "User registered successfully!" })); 
+    });
+  } catch (error) {
+    console.error(error);
+    res.statusCode = 500; 
+    res.setHeader("Content-Type", "application/json"); 
+    res.end(
+      JSON.stringify({ error: "An error occurred while registering the user." })
+    ); // Sending error response
+  }
 }
 
+async function handleGetAllUsers(res) {
+  try {
+    const query = "SELECT * FROM users"; // Query to retrieve all users
+    const result = await pool.query(query); // Execute the query
 
+    const users = result.rows; // Extract the users from the query result
+
+    res.statusCode = 200; // Setting success status code
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify(users)); // Sending the users as a JSON response
+  } catch (error) {
+    console.error(error);
+    res.statusCode = 500;
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify({ error: "An error occurred while fetching users." })); // Sending error response
+  }
+}
+
+async function handleDeleteUser(username, res) {
+  try {
+    const query = "DELETE FROM users WHERE username = $1"; // Query to delete the user by username
+    await pool.query(query, [username]);
+
+    res.statusCode = 200; // Setting success status code
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify({ message: "User deleted successfully!" }));
+  } catch (error) {
+    console.error(error);
+    res.statusCode = 500;
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify({ error: "An error occurred while deleting the user." }));
+  }
+}
+
+async function handleDeleteReview(reviewId, res) {
+  console.log("I'm in handleDeleteReview()");
+  // TODO: Implement this function
+}
 
 module.exports = {
-    addUser,
+    handleAddUser,
+    handleGetAllUsers,
+    handleDeleteUser,
+    handleDeleteReview
   };
   
