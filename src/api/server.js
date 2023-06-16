@@ -37,8 +37,10 @@ const {
   handleAddUser,
   handleGetAllUsers,
   handleDeleteUser,
-  handleDeleteReview } = require("./controllers/admin_controller");
+  handleDeleteReview,
+} = require("./controllers/admin_controller");
 
+const { insertDataFromCSVFiles } = require("./utils/import_data");
 
 const server = http.createServer((req, res) => {
   const headers = {
@@ -50,7 +52,10 @@ const server = http.createServer((req, res) => {
   };
 
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS"
+  );
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
@@ -77,26 +82,50 @@ const server = http.createServer((req, res) => {
     handleResetPassword(req, res);
   } else if (reqPath === "/admin/user/get-all" && reqMethod === "GET") {
     handleGetAllUsers(res);
-  } else if (reqPath.startsWith('/admin/user/delete/') && reqMethod === "DELETE") {
-
-    let username = reqPath.slice('/admin/user/delete/'.length);
+  } else if (
+    reqPath.startsWith("/admin/user/delete/") &&
+    reqMethod === "DELETE"
+  ) {
+    let username = reqPath.slice("/admin/user/delete/".length);
     handleDeleteUser(username, res);
-
   } else if (reqPath === "/admin/user/add" && reqMethod === "POST") {
     handleAddUser(req, res);
-  } else if (reqPath.startsWith('/admin/review/delete/') && reqMethod === "DELETE") {
-
-    let reviewId = reqPath.slice('/admin/review/delete/'.length);
+  } else if (
+    reqPath.startsWith("/admin/review/delete/") &&
+    reqMethod === "DELETE"
+  ) {
+    let reviewId = reqPath.slice("/admin/review/delete/".length);
     handleDeleteReview(reviewId, res); // TODO: implement in admin_controller.js
-
-  }
-  else {
+  } else {
     res.statusCode = 404; // Handling unknown routes
     res.end("Not found");
   }
 });
 
-const port = 3000; // Port for the server to listen on
+const fileNames = [
+  "educatie_1.csv",
+  "educatie_2.csv",
+  "educatie_3.csv",
+  "educatie_4.csv",
+  "educatie_5.csv",
+  "educatie_6.csv",
+  "educatie_7.csv",
+  "educatie_8.csv",
+  "educatie_9.csv",
+  "educatie_10.csv",
+];
+
+insertDataFromCSVFiles(fileNames)
+  .then(() => {
+    console.log("All data inserted successfully.");
+    pool.end();
+  })
+  .catch((error) => {
+    console.error("Error inserting data:", error);
+    pool.end();
+  });
+
+const port = 3000;
 server.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
