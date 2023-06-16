@@ -131,6 +131,18 @@
             return null;
         }
 
+        function getEmailFromToken() {
+            const token = localStorage.getItem('token');
+            if (token) {
+                const [, payload] = token.split('.');
+                const decodedPayload = atob(payload);
+                const { email } = JSON.parse(decodedPayload);
+                return email;
+            }
+            return null;
+        }
+
+
         function updateUI() {
             const accountElement = document.querySelector('.account');
             const accountLinkElement = document.querySelector('.account_link');

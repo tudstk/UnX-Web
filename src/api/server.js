@@ -33,18 +33,24 @@ const {
 const {
   handleGetAccount,
 } = require("./controllers/account_controller/get_account_details");
+const {
+  handleAddUser,
+  handleGetAllUsers,
+  handleDeleteUser,
+  handleDeleteReview } = require("./controllers/admin_controller");
+
 
 const server = http.createServer((req, res) => {
   const headers = {
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
     "Access-Control-Allow-Headers":
       "Origin, X-Requested-With, Content-Type, Accept, Authorization",
     "Access-Control-Max-Age": "86400", // 24h
   };
 
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
@@ -53,6 +59,7 @@ const server = http.createServer((req, res) => {
   const reqUrl = url.parse(req.url); // Parsing the request URL
   const reqPath = reqUrl.pathname;
   const reqMethod = req.method;
+  let username = reqPath.split("/").pop();
 
   // preflight
   if (reqMethod === "OPTIONS") {
@@ -68,7 +75,22 @@ const server = http.createServer((req, res) => {
     handleGetAccount(req, res);
   } else if (reqPath === "/resetPassword" && reqMethod === "PUT") {
     handleResetPassword(req, res);
-  } else {
+  } else if (reqPath === "/admin/user/get-all" && reqMethod === "GET") {
+    handleGetAllUsers(res);
+  } else if (reqPath.startsWith('/admin/user/delete/') && reqMethod === "DELETE") {
+
+    let username = reqPath.slice('/admin/user/delete/'.length);
+    handleDeleteUser(username, res);
+
+  } else if (reqPath === "/admin/user/add" && reqMethod === "POST") {
+    handleAddUser(req, res);
+  } else if (reqPath.startsWith('/admin/review/delete/') && reqMethod === "DELETE") {
+
+    let reviewId = reqPath.slice('/admin/review/delete/'.length);
+    handleDeleteReview(reviewId, res); // TODO: implement in admin_controller.js
+
+  }
+  else {
     res.statusCode = 404; // Handling unknown routes
     res.end("Not found");
   }
