@@ -5,7 +5,7 @@ const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "unx",
-  password: "b4",
+  password: "postgres",
   port: 5432,
 });
 
@@ -18,7 +18,7 @@ async function handleAddUser(req, res) {
     });
 
     req.on("end", async () => {
-      const { email, username, password, isAdmin} = JSON.parse(requestBody);
+      const { email, username, password, isAdmin } = JSON.parse(requestBody);
 
       const hashedPassword = await bcrypt.hash(password, 10); // Hashing the password
 
@@ -27,13 +27,13 @@ async function handleAddUser(req, res) {
       await pool.query(query, [email, username, hashedPassword, isAdmin]);
 
       res.statusCode = 201; // Setting success status code
-      res.setHeader("Content-Type", "application/json"); 
-      res.end(JSON.stringify({ message: "User registered successfully!" })); 
+      res.setHeader("Content-Type", "application/json");
+      res.end(JSON.stringify({ message: "User registered successfully!" }));
     });
   } catch (error) {
     console.error(error);
-    res.statusCode = 500; 
-    res.setHeader("Content-Type", "application/json"); 
+    res.statusCode = 500;
+    res.setHeader("Content-Type", "application/json");
     res.end(
       JSON.stringify({ error: "An error occurred while registering the user." })
     ); // Sending error response
@@ -54,7 +54,9 @@ async function handleGetAllUsers(res) {
     console.error(error);
     res.statusCode = 500;
     res.setHeader("Content-Type", "application/json");
-    res.end(JSON.stringify({ error: "An error occurred while fetching users." })); // Sending error response
+    res.end(
+      JSON.stringify({ error: "An error occurred while fetching users." })
+    ); // Sending error response
   }
 }
 
@@ -70,7 +72,9 @@ async function handleDeleteUser(username, res) {
     console.error(error);
     res.statusCode = 500;
     res.setHeader("Content-Type", "application/json");
-    res.end(JSON.stringify({ error: "An error occurred while deleting the user." }));
+    res.end(
+      JSON.stringify({ error: "An error occurred while deleting the user." })
+    );
   }
 }
 
@@ -80,9 +84,8 @@ async function handleDeleteReview(reviewId, res) {
 }
 
 module.exports = {
-    handleAddUser,
-    handleGetAllUsers,
-    handleDeleteUser,
-    handleDeleteReview
-  };
-  
+  handleAddUser,
+  handleGetAllUsers,
+  handleDeleteUser,
+  handleDeleteReview,
+};
