@@ -1,18 +1,29 @@
-const accountDetailsButton = document.getElementById("accountDetailsButton");
-const resetPasswordButton = document.getElementById("resetPasswordButton");
-accountDetailsButton.addEventListener("click", () => {
+const token = localStorage.getItem("token");
+if (!token) {
+  window.location.href = "/src/views/login.html";
+} else {
+  const accountDetailsButton = document.getElementById("accountDetailsButton");
+  const resetPasswordButton = document.getElementById("resetPasswordButton");
+  accountDetailsButton.addEventListener("click", () => {
+    accountDetailsForm.style.display = "block";
+    resetPasswordForm.style.display = "none";
+    successMessage.style.display = "none";
+  });
+  resetPasswordButton.addEventListener("click", () => {
+    accountDetailsForm.style.display = "none";
+    resetPasswordForm.style.display = "block";
+    successMessage.style.display = "none";
+  });
+
   accountDetailsForm.style.display = "block";
   resetPasswordForm.style.display = "none";
-  successMessage.style.display = "none";
-});
-resetPasswordButton.addEventListener("click", () => {
-  accountDetailsForm.style.display = "none";
-  resetPasswordForm.style.display = "block";
-  successMessage.style.display = "none";
-});
 
-accountDetailsForm.style.display = "block";
-resetPasswordForm.style.display = "none";
+  const logoutButton = document.getElementById("logoutButton");
+  logoutButton.addEventListener("click", logout);
+
+  window.addEventListener("DOMContentLoaded", setEmailValueFromToken);
+  window.addEventListener("DOMContentLoaded", displayUsername);
+}
 
 function getUsernameFromToken() {
   const token = localStorage.getItem("token");
@@ -52,9 +63,3 @@ function logout() {
   localStorage.removeItem("token");
   window.location.href = "/src/views/login.html";
 }
-
-const logoutButton = document.getElementById("logoutButton");
-logoutButton.addEventListener("click", logout);
-
-window.addEventListener("DOMContentLoaded", setEmailValueFromToken);
-window.addEventListener("DOMContentLoaded", displayUsername);
