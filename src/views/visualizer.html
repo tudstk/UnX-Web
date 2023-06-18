@@ -192,21 +192,19 @@
 
         function updateUI() {
             const accountElement = document.querySelector('.account');
-            const visualizerContent = document.querySelector('.visualizer-content');
+            const accountLinkElement = document.querySelector('.account_link');
             const username = getUsernameFromToken();
-            const loginMessage = document.querySelector('.login-message');
-
             if (username) {
                 accountElement.style.display = 'none';
-                visualizerContent.style.display = 'block';
-
+                accountLinkElement.style.display = 'none';
                 const nav = document.querySelector('nav');
+
                 const userContainer = document.createElement('div');
                 userContainer.style.display = 'flex';
                 userContainer.style.alignItems = 'center';
-
-                const usernameElement = document.createElement('span');
                 const logoutElement = document.createElement('span');
+                logoutElement.textContent = 'Logout';
+
                 const usernameLink = document.createElement('a');
                 usernameLink.href = `account.html`;
                 usernameLink.textContent = username;
@@ -214,24 +212,19 @@
                 usernameLink.style.textDecoration = 'underline';
 
                 userContainer.appendChild(usernameLink);
+                // userContainer.appendChild(logoutElement);
+
                 nav.appendChild(userContainer);
             } else {
                 accountElement.style.display = 'block';
-                visualizerContent.style.display = 'none';
-                loginMessage.style.display = 'block';
-                loginMessage.style.marginTop = '10rem';
             }
         }
+        window.addEventListener('DOMContentLoaded', updateUI);
 
         const token = localStorage.getItem("token");
         if (!token) {
             window.location.href = '/src/views/login.html';
         }
-        else {
-            window.addEventListener('DOMContentLoaded', updateUI);
-        }
-
-
 
 
     </script>

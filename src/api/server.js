@@ -1,6 +1,5 @@
 const http = require("http");
 const url = require("url");
-const { Pool } = require("pg");
 const crypto = require("crypto");
 const { parse } = require("querystring");
 const bcrypt = require("bcrypt");
@@ -12,13 +11,7 @@ const generateSecretKey = () => {
 const JWT_SECRET = generateSecretKey(); // Generating a secret key for JWT
 console.log("JWT Secret Key:", JWT_SECRET);
 
-const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "unx",
-  password: "postgres",
-  port: 5432,
-});
+const pool = require("./utils/db_connection").pool;
 
 const { handleLogin } = require("./controllers/auth_controller/login");
 const {
