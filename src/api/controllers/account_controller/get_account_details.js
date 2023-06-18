@@ -1,12 +1,4 @@
-const { Pool } = require("pg");
-
-const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "unx",
-  password: "postgres",
-  port: 5432,
-});
+const pool = require("../../utils/db_connection").pool;
 
 function handleGetAccount(req, res) {
   console.log("GET /getAccountDetails");

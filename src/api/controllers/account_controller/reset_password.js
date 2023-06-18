@@ -1,15 +1,8 @@
-const { Pool } = require("pg");
 const crypto = require("crypto");
 const { parse } = require("querystring");
 const bcrypt = require("bcrypt");
 
-const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "unx",
-  password: "postgres",
-  port: 5432,
-});
+const pool = require("../../utils/db_connection").pool;
 
 async function handleResetPassword(req, res) {
   let body = [];

@@ -1,13 +1,5 @@
 const bcrypt = require("bcrypt");
-const { Pool } = require("pg");
-
-const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "unx",
-  password: "postgres",
-  port: 5432,
-});
+const pool = require("../../utils/db_connection").pool;
 
 // Regular expression pattern for email validation
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

@@ -95,11 +95,6 @@ const server = http.createServer((req, res) => {
   }
 });
 
-const port = 3000;
-server.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
-
 const educatieCSV = [
   "educatie_1.csv",
   "educatie_2.csv",
@@ -152,3 +147,8 @@ const mediiCSV = [
 //     console.error("Error inserting data:", error);
 //     pool.end();
 //   });
+
+const port = 3000;
+server.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
+});
