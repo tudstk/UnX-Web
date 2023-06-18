@@ -21,6 +21,9 @@
             </div>
 
             <form class="my-form" id="register-form">
+                <div class="invalid-input">
+
+                </div>
                 <label for="email"> Email </label>
                 <input type="text" name="email" placeholder="Your email address">
                 <label for="username"> Username </label>
@@ -31,7 +34,7 @@
                     <input type="checkbox">
                     <h6 class="checkbox-text">I have read the terms and conditions.</h6>
                 </div>
-                <button class="register-btn" type="submit" href="login.html">Register</button>
+                <button class="register-btn" type="submit">Register</button>
                 <div class="already">
                     <h6 class="already-text">Already have an account?</h6>
                     <a href="login.html" class="login-link">
@@ -42,38 +45,7 @@
         </div>
     </div>
 
-    <script>
-        document.getElementById('register-form').addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            const form = event.target;
-            const email = form.elements.email.value;
-            const username = form.elements.username.value;
-            const password = form.elements.password.value;
-
-            const userData = {
-                email: email,
-                username: username,
-                password: password
-            };
-
-            fetch('http://localhost:3000/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(userData)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    window.location.href = "/src/views/login.html";
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        });
-    </script>
+    <script src="../static/scripts/auth/register.js"></script>
 </body>
 
 </html>

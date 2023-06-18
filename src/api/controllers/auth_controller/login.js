@@ -1,14 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { Pool } = require("pg");
 
-const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "unx",
-  password: "postgres",
-  port: 5432,
-});
+const pool = require("../../utils/db_connection").pool;
 
 async function handleLogin(req, res, JWT_SECRET) {
   try {
@@ -33,7 +26,6 @@ async function handleLogin(req, res, JWT_SECRET) {
 
       const user = result.rows[0];
       const isPasswordValid = await bcrypt.compare(password, user.password);
-
       if (!isPasswordValid) {
         res.statusCode = 401;
         res.setHeader("Content-Type", "application/json");
@@ -42,7 +34,12 @@ async function handleLogin(req, res, JWT_SECRET) {
       }
 
       const token = jwt.sign(
-        { userId: user.id, email: user.email, username: user.username },
+        {
+          userId: user.id,
+          email: user.email,
+          username: user.username,
+          isAdmin: user.is_admin,
+        },
         JWT_SECRET,
         {
           expiresIn: "1h",
