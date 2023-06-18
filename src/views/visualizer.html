@@ -30,11 +30,15 @@
             <li><a href="about.html">ABOUT</a></li>
             <div class="closeMenu"><i class="fa fa-times"></i></div>
         </ul>
-        <a href="register.html">
-            <img src="../static/img/icons/account_icon.png" class="login-img">
+        <a href="register.html" class="account_link">
+            <div class="account">
+                <img src="../static/img/icons/account_icon.png" class="login-img">
+            </div>
         </a>
     </nav>
-
+    <div class="login-message" style="display: none;">
+        <h2>You are not logged in!</h2>
+    </div>
     <div class="visualizer-content">
         <h3 class="chart-visualizer-text">Chart Visualizer</h3>
         <section class="visualizer-wrapper">
@@ -155,11 +159,81 @@
 
 
     <!-- https://developers.google.com/chart/interactive/docs/quick_start -->
+    <script>
+
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = '/src/views/login.html';
+        }
+
+        function getUsernameFromToken() {
+            const token = localStorage.getItem('token');
+            if (token) {
+                const [, payload] = token.split('.');
+                const decodedPayload = atob(payload);
+                const { username } = JSON.parse(decodedPayload);
+                // return email.split('@')[0];;
+                return username;
+            }
+            return null;
+        }
+
+        function getEmailFromToken() {
+            const token = localStorage.getItem('token');
+            if (token) {
+                const [, payload] = token.split('.');
+                const decodedPayload = atob(payload);
+                const { email } = JSON.parse(decodedPayload);
+                return email;
+            }
+            return null;
+        }
+
+
+        function updateUI() {
+            const accountElement = document.querySelector('.account');
+            const accountLinkElement = document.querySelector('.account_link');
+            const username = getUsernameFromToken();
+            if (username) {
+                accountElement.style.display = 'none';
+                accountLinkElement.style.display = 'none';
+                const nav = document.querySelector('nav');
+
+                const userContainer = document.createElement('div');
+                userContainer.style.display = 'flex';
+                userContainer.style.alignItems = 'center';
+                const logoutElement = document.createElement('span');
+                logoutElement.textContent = 'Logout';
+
+                const usernameLink = document.createElement('a');
+                usernameLink.href = `account.html`;
+                usernameLink.textContent = username;
+                usernameLink.style.fontStyle = 'italic';
+                usernameLink.style.textDecoration = 'underline';
+
+                userContainer.appendChild(usernameLink);
+                // userContainer.appendChild(logoutElement);
+
+                nav.appendChild(userContainer);
+            } else {
+                accountElement.style.display = 'block';
+            }
+        }
+        window.addEventListener('DOMContentLoaded', updateUI);
+
+        const token = localStorage.getItem("token");
+        if (!token) {
+            window.location.href = '/src/views/login.html';
+        }
+
+
+    </script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="../static/scripts/visualizer.js"></script>
     <script src="../static/scripts/hamburger.js"></script>
     <script src="../static/scripts/cartographic.js"></script>
     <script src="../static/scripts/submitFeedback.js"></script>
+
 </body>
 
 </html>

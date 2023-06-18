@@ -1,46 +1,63 @@
 const http = require("http");
 const url = require("url");
-const { Pool } = require("pg");
 const crypto = require("crypto");
 const { parse } = require("querystring");
+const bcrypt = require("bcrypt");
 
 const generateSecretKey = () => {
   return crypto.randomBytes(32).toString("hex");
 };
 
-const JWT_SECRET = generateSecretKey();
+const JWT_SECRET = generateSecretKey(); // Generating a secret key for JWT
 console.log("JWT Secret Key:", JWT_SECRET);
 
-const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "unx",
-  password: "admin",
-  port: 5432,
-});
+const pool = require("./utils/db_connection").pool;
 
-const { handleLogin } = require("./controllers/login_controller");
-const { handleRegistration } = require("./controllers/register_controller");
+const { handleLogin } = require("./controllers/auth_controller/login");
+const {
+  handleRegistration,
+} = require("./controllers/auth_controller/register");
+const {
+  handleResetPassword,
+} = require("./controllers/account_controller/reset_password");
+const {
+  handleUpdateAccount,
+} = require("./controllers/account_controller/update_account");
+const {
+  handleGetAccount,
+} = require("./controllers/account_controller/get_account_details");
+const {
+  handleAddUser,
+  handleGetAllUsers,
+  handleDeleteUser,
+  handleDeleteReview,
+} = require("./controllers/admin_controller");
+
+const { insertDataFromCSVFiles } = require("./utils/import_data");
 
 const server = http.createServer((req, res) => {
   const headers = {
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
     "Access-Control-Allow-Headers":
       "Origin, X-Requested-With, Content-Type, Accept, Authorization",
     "Access-Control-Max-Age": "86400", // 24h
   };
 
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS"
+  );
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
 
-  const reqUrl = url.parse(req.url);
+  const reqUrl = url.parse(req.url); // Parsing the request URL
   const reqPath = reqUrl.pathname;
   const reqMethod = req.method;
+  let username = reqPath.split("/").pop();
 
   // preflight
   if (reqMethod === "OPTIONS") {
@@ -54,76 +71,82 @@ const server = http.createServer((req, res) => {
     handleUpdateAccount(req, res);
   } else if (reqPath === "/getAccountDetails" && reqMethod === "GET") {
     handleGetAccount(req, res);
+  } else if (reqPath === "/resetPassword" && reqMethod === "PUT") {
+    handleResetPassword(req, res);
+  } else if (reqPath === "/admin/user/get-all" && reqMethod === "GET") {
+    handleGetAllUsers(res);
+  } else if (
+    reqPath.startsWith("/admin/user/delete/") &&
+    reqMethod === "DELETE"
+  ) {
+    let username = reqPath.slice("/admin/user/delete/".length);
+    handleDeleteUser(username, res);
+  } else if (reqPath === "/admin/user/add" && reqMethod === "POST") {
+    handleAddUser(req, res);
+  } else if (
+    reqPath.startsWith("/admin/review/delete/") &&
+    reqMethod === "DELETE"
+  ) {
+    let reviewId = reqPath.slice("/admin/review/delete/".length);
+    handleDeleteReview(reviewId, res); // TODO: implement in admin_controller.js
   } else {
-    res.statusCode = 404;
+    res.statusCode = 404; // Handling unknown routes
     res.end("Not found");
   }
 });
 
-function handleGetAccount(req, res) {
-  console.log("GET /getAccountDetails");
-  const token = req.headers.authorization;
-  const [, payload] = token.split(".");
-  const decodedPayload = Buffer.from(payload, "base64").toString();
-  const { username } = JSON.parse(decodedPayload);
+const educatieCSV = [
+  "educatie_1.csv",
+  "educatie_2.csv",
+  "educatie_3.csv",
+  "educatie_4.csv",
+  "educatie_5.csv",
+  "educatie_6.csv",
+  "educatie_7.csv",
+  "educatie_8.csv",
+  "educatie_9.csv",
+  "educatie_10.csv",
+  "educatie_11.csv",
+  "educatie_12.csv",
+];
+const mediiCSV = [
+  "medii_1.csv",
+  "medii_2.csv",
+  "medii_3.csv",
+  "medii_4.csv",
+  "medii_5.csv",
+  "medii_6.csv",
+  "medii_7.csv",
+  "medii_8.csv",
+  "medii_9.csv",
+  "medii_10.csv",
+  "medii_11.csv",
+  "medii_12.csv",
+];
 
-  pool.query(
-    "SELECT first_name, last_name FROM users WHERE username = $1",
-    [username],
-    (error, results) => {
-      if (error) {
-        console.error("Error retrieving account:", error);
-        res.statusCode = 500;
-        res.setHeader("Content-Type", "text/plain");
-        res.setHeader("Access-Control-Allow-Origin", "*");
-        res.end("Internal Server Error");
-      } else {
-        console.log("Account details retrieved:", results.rows[0]);
-        const accountDetails = results.rows[0];
-        res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
-        res.setHeader("Access-Control-Allow-Origin", "*");
-        res.end(JSON.stringify(accountDetails));
-      }
-    }
-  );
-}
+// problema e ca se pot insera doar 10 deodata... nu stiu de ce
 
-function handleUpdateAccount(req, res) {
-  let body = [];
-  req
-    .on("data", (chunk) => {
-      body.push(chunk);
-    })
-    .on("end", () => {
-      body = Buffer.concat(body).toString();
-      const { firstName, lastName } = JSON.parse(body);
+// insertDataFromCSVFiles(educatieCSV, "someri_educatie_judet")
+//   .then(() => {
+//     console.log("All enviroment data inserted successfully.");
+//     pool.end();
+//   })
+//   .catch((error) => {
+//     console.error("Error inserting data:", error);
+//     pool.end();
+//   });
 
-      const token = req.headers.authorization;
-      const [, payload] = token.split(".");
-      const decodedPayload = Buffer.from(payload, "base64").toString();
-      const { username } = JSON.parse(decodedPayload);
+// daca ambele sunt decomentate, tot 10 se vor insera, 5 dintr-o parte si 5 din cealalta
 
-      pool.query(
-        "UPDATE users SET first_name = $1, last_name = $2 WHERE username = $3",
-        [firstName, lastName, username],
-        (error, results) => {
-          if (error) {
-            console.error("Error updating account:", error);
-            res.statusCode = 500;
-            res.setHeader("Content-Type", "text/plain");
-            res.setHeader("Access-Control-Allow-Origin", "*");
-            res.end("Internal Server Error");
-          } else {
-            res.statusCode = 200;
-            res.setHeader("Content-Type", "text/plain");
-            res.setHeader("Access-Control-Allow-Origin", "*");
-            res.end("Account updated successfully");
-          }
-        }
-      );
-    });
-}
+// insertDataFromCSVFiles(mediiCSV, "someri_mediu_judet")
+//   .then(() => {
+//     console.log("All enviroment data inserted successfully.");
+//     pool.end();
+//   })
+//   .catch((error) => {
+//     console.error("Error inserting data:", error);
+//     pool.end();
+//   });
 
 const port = 3000;
 server.listen(port, () => {
