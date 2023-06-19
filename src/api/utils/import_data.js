@@ -21,7 +21,6 @@ async function insertEducationData(filePath, monthIndex) {
     await client.query("COMMIT");
 
     console.log(`Data inserted from ${filePath}`);
-    
   } catch (error) {
     console.error(`Error inserting data from ${filePath}:`, error);
   }
@@ -123,13 +122,13 @@ async function insertDataFromCSVFiles(fileNamesArray, pathArray) {
       const monthIndex = parseInt(fileName.match(/(\d+)\.csv$/)[1]);
 
       if (path === "someri_educatie_judet") {
-        await insertEducationData(filePath, months[monthIndex]);
+        await insertEducationData(filePath, monthIndex);
       } else if (path === "someri_mediu_judet") {
-        await insertMediuData(filePath, months[monthIndex]);
+        await insertMediuData(filePath, monthIndex);
       } else if (path === "someri_tip_judete") {
-        await insertRataData(filePath, months[monthIndex]);
+        await insertRataData(filePath, monthIndex);
       } else if (path === "someri_varsta_judet") {
-        await insertVarstaData(filePath, months[monthIndex]);
+        await insertVarstaData(filePath, monthIndex);
       } else {
         console.log("Path not found");
       }
