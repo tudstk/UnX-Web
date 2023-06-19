@@ -112,37 +112,8 @@
         </div>
         <section class="feedback-section" id="feedback-section">
             <h1>Feedback</h1>
-            <div class="feedback-card">
-                <h4>John Cena</h4>
-                <div class="stars">
-                    <i class="fa-sharp fa-solid fa-star"></i>
-                    <i class="fa-sharp fa-solid fa-star"></i>
-                    <i class="fa-sharp fa-solid fa-star"></i>
-                    <i class="fa-sharp fa-solid fa-star"></i>
-                    <i class="fa-sharp fa-regular fa-star"></i>
-                </div>
-                <p>Very cool app. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis, nesciunt
-                    quisquam.
-                    Nisi ab architecto deserunt repudiandae tempore inventore eos iste incidunt? Libero exercitationem
-                    quis
-                    harum et molestias est reiciendis recusandae?</p>
-            </div>
-            <div class="feedback-card">
-                <h4>Chuck Norris</h4>
-                <div class="stars">
-                    <i class="fa-sharp fa-solid fa-star"></i>
-                    <i class="fa-sharp fa-solid fa-star"></i>
-                    <i class="fa-sharp fa-solid fa-star"></i>
-                    <i class="fa-sharp fa-solid fa-star"></i>
-                    <i class="fa-sharp fa-solid fa-star"></i>
-                </div>
-                <p>SUPER. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis, nesciunt quisquam.
-                    Nisi ab architecto deserunt repudiandae tempore inventore eos iste incidunt? Libero exercitationem
-                    quis
-                    harum et molestias est reiciendis recusandae?</p>
-            </div>
             <div class="submit-feedback">
-                <h4>Your username</h4>
+                <h4 id="username"></h4>
                 <div class="stars" id="submit-stars">
                     <i class="fa-sharp fa-regular fa-star"></i>
                     <i class="fa-sharp fa-regular fa-star"></i>
@@ -160,7 +131,25 @@
 
     <!-- https://developers.google.com/chart/interactive/docs/quick_start -->
     <script>
+        fetch('./controllers/feedback_controller/get_feedbacks')
+  .then(response => response.json())
+  .then(data => {
+    const feedbacks = data.feedbacks; // Assuming the feedbacks are returned as an array
 
+    // Rendering feedbacks using map function
+    const feedbacksList = feedbacks.map(feedback => `<li>${feedback}</li>`).join('');
+
+    // Appending the rendered feedbacks to an HTML element with the id "feedbacksContainer"
+    const feedbacksContainer = document.getElementById('feedbacksContainer');
+    feedbacksContainer.innerHTML = `<ul>${feedbacksList}</ul>`;
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+        //fac un fetch la getFeedbacks
+        //returneaza un array de obiecte(feedbackuri)
+        //parcurg arrayul de obiecte cu functia map
+        //randez feedbackurile pe pagina
         function logout() {
             localStorage.removeItem('token');
             window.location.href = '/src/views/login.html';
@@ -217,6 +206,11 @@
                 nav.appendChild(userContainer);
             } else {
                 accountElement.style.display = 'block';
+            }
+
+            const usernameElement = document.getElementById('username');
+            if (username) {
+                usernameElement.textContent = username;
             }
         }
         window.addEventListener('DOMContentLoaded', updateUI);

@@ -1,8 +1,3 @@
-const crypto = require("crypto");
-const { parse } = require("querystring");
-const bcrypt = require("bcrypt");
-
-const pool = require("../../utils/db_connection").pool;
 const submitStars = document.querySelector("#submit-stars");
 const submitStarList = submitStars.children;
 let selectedRating = 0;
@@ -30,80 +25,49 @@ const submitFeedbackButton = document.getElementById("submit-feedback-button");
 
 submitFeedbackButton.addEventListener("click", () => {
   const username = document.querySelector(".submit-feedback h4").textContent;
-  const starRating = document.querySelectorAll(
-    ".submit-feedback .fa-solid"
-  ).length;
-
+  const starRating = document.querySelectorAll(".submit-feedback .fa-solid").length;
   const feedbackText = feedbackTextarea.value;
-
-  const feedbackCard = document.createElement("div");
-  feedbackCard.classList.add("feedback-card");
-  feedbackCard.innerHTML = `
-              <h4>${username}</h4>
-              <div class="stars">
-                ${`<i class="fa-sharp fa-solid fa-star"></i>`.repeat(
-                  starRating
-                )}
-                ${`<i class="fa-sharp fa-regular fa-star"></i>`.repeat(
-                  5 - starRating
-                )}
-              </div>
-              <p>${feedbackText}</p>
-            `;
-
-  feedbackSection.insertBefore(
-    feedbackCard,
-    document.querySelector(".submit-feedback")
-  );
-
-  feedbackTextarea.value = "";
-  document.querySelector(".submit-feedback .stars").innerHTML = `
-              <i class="fa-sharp fa-solid fa-star"></i>
-              <i class="fa-sharp fa-solid fa-star"></i>
-              <i class="fa-sharp fa-solid fa-star"></i>
-              <i class="fa-sharp fa-solid fa-star"></i>
-              <i class="fa-sharp fa-solid fa-star"></i>
-            `;
-});
-
-async function saveFeedback(req, res) {
-  try {
-    let requestBody = "";
-
-    req.on("data", (chunk) => {
-      requestBody += chunk;
-    });
-
-    req.on("end", async () => {
-      const { username, feedback, stars } = JSON.parse(requestBody);
-
-      // Validate username, content, and stars
-      if (!username || !feedback || !stars) {
-        res.statusCode = 400; // Bad Request status code
-        res.setHeader("Content-Type", "application/json");
-        res.end(JSON.stringify({ error: "Invalid feedback data" }));
-        return;
-      }
-
-      const query =
-        "INSERT INTO feedback (username, feedback, stars) VALUES ($1, $2, $3)";
-      await pool.query(query, [username, feedback, stars]);
-
-      res.statusCode = 201; // Setting success status code
-      res.setHeader("Content-Type", "application/json");
-      res.end(JSON.stringify({ message: "Feedback saved successfully!" }));
-    });
-  } catch (error) {
-    console.error(error);
-    res.statusCode = 500;
-    res.setHeader("Content-Type", "application/json");
-    res.end(
-      JSON.stringify({ error: "An error occurred while saving the feedback." })
-    );
+  function getUsernameFromToken() {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const [, payload] = token.split(".");
+      const decodedPayload = atob(payload);
+      const { username } = JSON.parse(decodedPayload);
+      return username;
+    }
+    return null;
   }
-}
+  const tokenUsername=getUsernameFromToken();
+  const feedbackData = {
+    username: tokenUsername,
+    feedback: feedbackText,
+    stars: starRating
+  };
 
-module.exports = {
-  saveFeedback,
-};
+  fetch("http://localhost:3000/saveFeedback", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(feedbackData)
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Handle the response from the server
+      console.log(data.message);
+      // Clear input fields and star rating
+      feedbackTextarea.value = "";
+      document.querySelector(".submit-feedback .stars").innerHTML = `
+        <i class="fa-sharp fa-solid fa-star"></i>
+        <i class="fa-sharp fa-solid fa-star"></i>
+        <i class="fa-sharp fa-solid fa-star"></i>
+        <i class="fa-sharp fa-solid fa-star"></i>
+        <i class="fa-sharp fa-solid fa-star"></i>
+      `;
+    })
+    .catch(error => {
+      // Handle any errors that occurred during the fetch request
+      console.error(error);
+    });
+});
 
