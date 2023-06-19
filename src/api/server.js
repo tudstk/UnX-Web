@@ -91,12 +91,17 @@ const server = http.createServer((req, res) => {
   ) {
     let reviewId = reqPath.slice("/admin/review/delete/".length);
     handleDeleteReview(reviewId, res); // TODO: implement in admin_controller.js
-  } else if(reqPath === "/visualizer/get-data" && reqMethod === "GET") {
+  } else if (reqPath === "/visualizer/get-data" && reqMethod === "POST") {
     handleGetData(res, req);
   } else {
     res.statusCode = 404; // Handling unknown routes
     res.end("Not found");
   }
+});
+
+const port = 3000;
+server.listen(port, () => {
+  console.log(`Server listening on port ${port} `);
 });
 
 // const csvFiles = [
@@ -174,9 +179,3 @@ const server = http.createServer((req, res) => {
 //     console.error("Error inserting data:", error);
 //     pool.end();
 //   });
-
-
-const port = 3000;
-server.listen(port, () => {
-  console.log(`Server listening on port ${ port } `);
-});
