@@ -19,6 +19,9 @@ async function insertEducationData(filePath, monthIndex) {
 
     await Promise.all(insertPromises);
     await client.query("COMMIT");
+
+    console.log(`Data inserted from ${filePath}`);
+    
   } catch (error) {
     console.error(`Error inserting data from ${filePath}:`, error);
   }
