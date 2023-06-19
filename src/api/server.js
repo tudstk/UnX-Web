@@ -33,6 +33,8 @@ const {
   handleDeleteReview,
 } = require("./controllers/admin_controller");
 
+const { handleGetData } = require("./controllers/data_controller");
+
 const { insertDataFromCSVFiles } = require("./utils/import_data");
 
 const server = http.createServer((req, res) => {
@@ -89,6 +91,8 @@ const server = http.createServer((req, res) => {
   ) {
     let reviewId = reqPath.slice("/admin/review/delete/".length);
     handleDeleteReview(reviewId, res); // TODO: implement in admin_controller.js
+  } else if(reqPath === "/visualizer/get-data" && reqMethod === "GET") {
+    handleGetData(res, req);
   } else {
     res.statusCode = 404; // Handling unknown routes
     res.end("Not found");
@@ -171,7 +175,8 @@ const server = http.createServer((req, res) => {
 //     pool.end();
 //   });
 
+
 const port = 3000;
 server.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+  console.log(`Server listening on port ${ port } `);
 });
