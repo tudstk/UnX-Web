@@ -1,3 +1,8 @@
+const crypto = require("crypto");
+const { parse } = require("querystring");
+const bcrypt = require("bcrypt");
+
+const pool = require("../../utils/db_connection").pool;
 const submitStars = document.querySelector("#submit-stars");
 const submitStarList = submitStars.children;
 let selectedRating = 0;
@@ -60,3 +65,45 @@ submitFeedbackButton.addEventListener("click", () => {
               <i class="fa-sharp fa-solid fa-star"></i>
             `;
 });
+
+async function saveFeedback(req, res) {
+  try {
+    let requestBody = "";
+
+    req.on("data", (chunk) => {
+      requestBody += chunk;
+    });
+
+    req.on("end", async () => {
+      const { username, feedback, stars } = JSON.parse(requestBody);
+
+      // Validate username, content, and stars
+      if (!username || !feedback || !stars) {
+        res.statusCode = 400; // Bad Request status code
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ error: "Invalid feedback data" }));
+        return;
+      }
+
+      const query =
+        "INSERT INTO feedback (username, feedback, stars) VALUES ($1, $2, $3)";
+      await pool.query(query, [username, feedback, stars]);
+
+      res.statusCode = 201; // Setting success status code
+      res.setHeader("Content-Type", "application/json");
+      res.end(JSON.stringify({ message: "Feedback saved successfully!" }));
+    });
+  } catch (error) {
+    console.error(error);
+    res.statusCode = 500;
+    res.setHeader("Content-Type", "application/json");
+    res.end(
+      JSON.stringify({ error: "An error occurred while saving the feedback." })
+    );
+  }
+}
+
+module.exports = {
+  saveFeedback,
+};
+
