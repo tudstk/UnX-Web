@@ -1,4 +1,4 @@
-const listaCategorii = ["Educatie", "Mediu", "Rata", "Varsta"];
+const listaCategorii = ["Educatie", "Mediu", "Rate", "Varste"];
 
 const listaJudete = [
   "Toata tara",
@@ -59,7 +59,7 @@ function createDivs(value, parentId, groupName, type) {
 
   newInput.setAttribute("type", type);
   newInput.setAttribute("id", value);
-  newInput.setAttribute("name", groupName); // Set the same name for all checkboxes in a category
+  newInput.setAttribute("name", groupName);
   newInput.setAttribute("value", value);
   newLabel.setAttribute("for", value);
   newLabel.textContent = value;
@@ -87,19 +87,17 @@ const filterObject = {
   perioada: "",
 };
 document.getElementById("export-button").addEventListener("click", function () {
-  // Reset filterObject fields
   filterObject.categorie = "";
   filterObject.judete = [];
   filterObject.perioada = "";
 
-  // Retrieve selected filters
   const checkboxes = document.querySelectorAll(
     'input[type="checkbox"]:checked'
   );
   checkboxes.forEach(function (checkbox) {
     const value = checkbox.value;
     if (listaJudete.includes(value)) {
-      filterObject.judete.push(value);
+      filterObject.judete.push(value.toUpperCase());
     }
   });
 
@@ -107,12 +105,35 @@ document.getElementById("export-button").addEventListener("click", function () {
   radios.forEach(function (radio) {
     const value = radio.value;
     if (listaCategorii.includes(value)) {
-      filterObject.categorie = value;
+      filterObject.categorie = value.toLowerCase();
     }
     if (listaPerioade.includes(value)) {
-      filterObject.perioada = value;
+      if (value === "Ultima luna") {
+        filterObject.perioada = "ultima_luna";
+      } else if (value === "Ultimele 3 luni") {
+        filterObject.perioada = "ultimele_3_luni";
+      } else if (value === "Ultimele 6 luni") {
+        filterObject.perioada = "ultimele_6_luni";
+      } else if (value === "Ultimul an") {
+        filterObject.perioada = "ultimele_12_luni";
+      }
     }
   });
 
   console.log("Filter Object:", filterObject);
+
+  fetch("http://localhost:3000/visualizer/get-data", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(filterObject),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Received data:", data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 });
