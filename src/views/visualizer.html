@@ -46,28 +46,18 @@
                 <button class="show-filters-btn">Show filters</button>
                 <div class="filters">
                     <div class="scrollable-list">
+                        <h5>Categoria</h5>
+                        <form id="categorii">
+                        </form>
+                    </div>
+                    <div class="scrollable-list">
                         <h5>Judete</h5>
-                        <form id="judete" action="/action_page.php">
+                        <form id="judete">
                         </form>
                     </div>
                     <div class="scrollable-list">
                         <h5>Perioada</h5>
-                        <form id="perioade" action="/action_page.php">
-                        </form>
-                    </div>
-                    <div class="scrollable-list">
-                        <h5>Nivel de educatie</h5>
-                        <form id="nivel-educatie" action="/action_page.php">
-                        </form>
-                    </div>
-                    <div class="scrollable-list">
-                        <h5>Varsta</h5>
-                        <form id="varste" action="/action_page.php">
-                        </form>
-                    </div>
-                    <div class="scrollable-list">
-                        <h5>Mediul de provenienta</h5>
-                        <form id="medii" action="/action_page.php">
+                        <form id="perioade">
                         </form>
                     </div>
                 </div>
@@ -90,7 +80,7 @@
                         <button onclick="showDiv('bar-chart')" class="chart-btn">Bar Chart</button>
                         <button onclick="showDiv('line-chart')" class="chart-btn">Line Chart</button>
                         <div class="export-wrapper" placeholder="Export as...">
-                            <button for="export-format" class="export-btn">Export</button>
+                            <button for="export-format" class="export-btn" id="export-button">Export</button>
                             <select id="export-format">
                                 <option>CSV</option>
                                 <option>SVG</option>
@@ -233,6 +223,8 @@
     <script src="../static/scripts/hamburger.js"></script>
     <script src="../static/scripts/cartographic.js"></script>
     <script src="../static/scripts/submitFeedback.js"></script>
+    <script src="../static/scripts/manage_filters.js"></script>
+
 
 </body>
 
