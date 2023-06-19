@@ -151,8 +151,8 @@ const csvFiles = [
     "varste_10.csv",
     "varste_11.csv",
     "varste_12.csv",
-  ]
-]
+  ],
+];
 
 const folderNames = [
   "someri_educatie_judet",
@@ -161,10 +161,9 @@ const folderNames = [
   "someri_varsta_judet",
 ];
 
-
 insertDataFromCSVFiles(csvFiles, folderNames)
   .then(() => {
-    console.log("All enviroment data inserted successfully.");
+    console.log("CSV data imported successfully!");
     pool.end();
   })
   .catch((error) => {
