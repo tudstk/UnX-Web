@@ -10,19 +10,15 @@ async function insertEducationData(filePath, monthIndex) {
     const client = await pool.connect();
     await client.query("BEGIN");
 
-    const insertQuery =
-      `INSERT INTO educatie (JUDET, total, fara_studii, invatamant_primar, invatamant_gimnazial, invatamant_liceal, invatamant_posticeal, invatamant_profesional, invatamant_universitar, month) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`;
+    const insertQuery = `INSERT INTO educatie (JUDET, total, fara_studii, invatamant_primar, invatamant_gimnazial, invatamant_liceal, invatamant_posticeal, invatamant_profesional, invatamant_universitar, month) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`;
     const insertPromises = rows.map((row) => {
       const values = row.split(",");
       const insertValues = [...values, monthIndex];
       return client.query(insertQuery, insertValues);
     });
 
-
     await Promise.all(insertPromises);
     await client.query("COMMIT");
-
-    console.log(`Data inserted from ${filePath}`);
   } catch (error) {
     console.error(`Error inserting data from ${filePath}:`, error);
   }
@@ -44,11 +40,8 @@ async function insertMediuData(filePath, monthIndex) {
       return client.query(insertQuery, insertValues);
     });
 
-
     await Promise.all(insertPromises);
     await client.query("COMMIT");
-
-    console.log(`Data inserted from ${filePath}`);
   } catch (error) {
     console.error(`Error inserting data from ${filePath}:`, error);
   }
@@ -70,11 +63,8 @@ async function insertRataData(filePath, monthIndex) {
       return client.query(insertQuery, insertValues);
     });
 
-
     await Promise.all(insertPromises);
     await client.query("COMMIT");
-
-    console.log(`Data inserted from ${filePath}`);
   } catch (error) {
     console.error(`Error inserting data from ${filePath}:`, error);
   }
@@ -96,37 +86,52 @@ async function insertVarstaData(filePath, monthIndex) {
       return client.query(insertQuery, insertValues);
     });
 
-
     await Promise.all(insertPromises);
     await client.query("COMMIT");
-
-    console.log(`Data inserted from ${filePath}`);
   } catch (error) {
     console.error(`Error inserting data from ${filePath}:`, error);
   }
 }
 
-
 async function insertDataFromCSVFiles(fileNamesArray, pathArray) {
+  const months = [
+    null, // placeholder pt 0
+    "Ianuarie",
+    "Februarie",
+    "Martie",
+    "Aprilie  ",
+    "Mai",
+    "Iunie",
+    "Iulie",
+    "August",
+    "Septembrie",
+    "Octombrie",
+    "Noiembrie",
+    "Decembrie",
+  ];
+
   for (let i = 0; i < 4; i++) {
     const fileNames = fileNamesArray[i];
     const path = pathArray[i];
-    let monthIndex = 1;
-    for (const fileName of fileNames) {
-      const filePath = `src/api/utils/${path}/${fileName}`;
+    for (let j = 0; j < fileNames.length; j++) {
+      const fileName = fileNames[j];
+      const filePath = `../api/utils/${path}/${fileName}`;
+
+      const monthIndex = parseInt(fileName.match(/(\d+)\.csv$/)[1]);
+
       if (path === "someri_educatie_judet") {
-        await insertEducationData(filePath, monthIndex);
+        await insertEducationData(filePath, months[monthIndex]);
       } else if (path === "someri_mediu_judet") {
-        await insertMediuData(filePath, monthIndex);
+        await insertMediuData(filePath, months[monthIndex]);
       } else if (path === "someri_tip_judete") {
-        await insertRataData(filePath, monthIndex);
+        await insertRataData(filePath, months[monthIndex]);
       } else if (path === "someri_varsta_judet") {
-        await insertVarstaData(filePath, monthIndex);
+        await insertVarstaData(filePath, months[monthIndex]);
       } else {
         console.log("Path not found");
       }
 
-      monthIndex++;
+      console.log(`Data inserted from ${filePath} for ${months[monthIndex]}`);
     }
   }
 }
