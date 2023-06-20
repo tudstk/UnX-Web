@@ -121,7 +121,6 @@ document.getElementById("export-button").addEventListener("click", function () {
   });
 
   console.log("Filter Object:", filterObject);
-
   fetch("http://localhost:3000/visualizer/get-data", {
     method: "POST",
     headers: {
@@ -132,6 +131,25 @@ document.getElementById("export-button").addEventListener("click", function () {
     .then((response) => response.json())
     .then((data) => {
       console.log("Received data:", data);
+      let total = 0;
+      let targetArray = [];
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].includes("total")) {
+          console.log(data[i]);
+          targetArray = data[i];
+          data.splice(i, 1);
+          break;
+        }
+      }
+      console.log(targetArray[1]);
+      const title = "Total:" + targetArray[1];
+      data.unshift(["Judet", "Numar someri"]);
+      pieChart.options.title = title;
+      pieChart.data = data;
+      pieChart.chart.draw(
+        google.visualization.arrayToDataTable(pieChart.data),
+        pieChart.options
+      );
     })
     .catch((error) => {
       console.error("Error:", error);
