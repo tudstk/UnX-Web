@@ -153,8 +153,8 @@ function createRadioButtons(list, parentId, groupName) {
   });
 }
 
-// Rest of the code...
-
+let filteredData = [];
+let selectedOptions = [];
 document
   .getElementById("apply-filters-btn")
   .addEventListener("click", function () {
@@ -174,6 +174,7 @@ document
       const value = checkbox.value;
       if (listaJudete.includes(value)) {
         filterObject.judete.push(value.toUpperCase());
+        selectedOptions.push(value);
       }
     });
 
@@ -196,6 +197,9 @@ document
 
         monthStatement = filterObject.perioada;
       }
+
+      // Add selected options to selectedOptions array
+      selectedOptions.push(value);
     });
 
     console.log("Filter Object:", filterObject);
@@ -253,10 +257,13 @@ document
           }
         }
 
+        total = targetArray[1];
+        let csv = arrayToCsv(filteredData);
+
         console.log("filtered DATA:", filteredData);
         console.log(targetArray[1]);
         const title = "Total: " + targetArray[1];
-        filteredData.unshift(["Judet", "Numar someri"]);
+        filteredData.unshift(["Total", total.toString()]);
         pieChart.options.title = title;
         pieChart.data = filteredData;
         barChart.data = filteredData;
@@ -284,7 +291,6 @@ document
           google.visualization.arrayToDataTable(lineChart.data),
           lineChart.options
         );
-
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -314,3 +320,36 @@ function requestLineChartData(lineChartDataFilters) {
 
   return "Error";
 }
+
+function arrayToCsv(data) {
+  return data
+    .map((row) =>
+      row
+        .map(String)
+        .map((v) => v.replaceAll('"', '""'))
+        .map((v) => `"${v}"`)
+        .join(",")
+    )
+    .join("\r\n");
+}
+
+function downloadBlob(content, filename, contentType) {
+  var blob = new Blob([content], { type: contentType });
+  var url = URL.createObjectURL(blob);
+
+  var pom = document.createElement("a");
+  pom.href = url;
+  pom.setAttribute("download", filename);
+  pom.click();
+}
+
+function exportData() {
+  const csv = arrayToCsv(filteredData);
+
+  // Add selectedOptions as a new row in the CSV
+  const selectedOptionsRow = ["Selected Options"].concat(selectedOptions);
+  const updatedCsv = csv + "\r\n" + selectedOptionsRow.join(",");
+
+  downloadBlob(updatedCsv, "export.csv", "text/csv;charset=utf-8;");
+}
+document.getElementById("export-button").addEventListener("click", exportData);
