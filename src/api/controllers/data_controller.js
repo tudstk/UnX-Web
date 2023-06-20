@@ -13,7 +13,7 @@ async function handleGetData(res, req) {
       const { categorie, judete, perioada } = JSON.parse(requestBody);
 
       let responseArray = await extractDataArray(categorie, judete, perioada);
-      console.log(responseArray);
+      //console.log(responseArray);
       res.statusCode = 200; // Setting success status code
       res.setHeader("Content-Type", "application/json");
       await res.end(JSON.stringify(responseArray));
