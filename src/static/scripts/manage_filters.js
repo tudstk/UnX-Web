@@ -155,108 +155,110 @@ function createRadioButtons(list, parentId, groupName) {
 
 // Rest of the code...
 
-document.getElementById("export-button").addEventListener("click", function () {
-  filterObject.categorie = "";
-  filterObject.judete = [];
-  filterObject.perioada = "";
+document
+  .getElementById("apply-filters-btn")
+  .addEventListener("click", function () {
+    filterObject.categorie = "";
+    filterObject.judete = [];
+    filterObject.perioada = "";
 
-  const checkboxes = document.querySelectorAll(
-    'input[type="checkbox"]:checked'
-  );
-  checkboxes.forEach(function (checkbox) {
-    const value = checkbox.value;
-    if (listaJudete.includes(value)) {
-      filterObject.judete.push(value.toUpperCase());
-    }
-  });
-
-  const radios = document.querySelectorAll('input[type="radio"]:checked');
-  radios.forEach(function (radio) {
-    const value = radio.value;
-    if (listaCategorii.includes(value)) {
-      filterObject.categorie = value.toLowerCase();
-    }
-    if (listaPerioade.includes(value)) {
-      if (value === "Ultima luna") {
-        filterObject.perioada = "ultima_luna";
-      } else if (value === "Ultimele 3 luni") {
-        filterObject.perioada = "ultimele_3_luni";
-      } else if (value === "Ultimele 6 luni") {
-        filterObject.perioada = "ultimele_6_luni";
-      } else if (value === "Ultimul an") {
-        filterObject.perioada = "ultimele_12_luni";
+    const checkboxes = document.querySelectorAll(
+      'input[type="checkbox"]:checked'
+    );
+    checkboxes.forEach(function (checkbox) {
+      const value = checkbox.value;
+      if (listaJudete.includes(value)) {
+        filterObject.judete.push(value.toUpperCase());
       }
-    }
-  });
+    });
 
-  console.log("Filter Object:", filterObject);
-  fetch("http://localhost:3000/visualizer/get-data", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(filterObject),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Received data:", data);
-
-      let selectedFilters = [];
-      const genuriForm = document.getElementById("genuri");
-      const mediiForm = document.getElementById("medii");
-
-      if (genuriForm.style.display !== "none") {
-        console.log("genuri form is not none");
-        const selectedGenuri = Array.from(
-          genuriForm.querySelectorAll('input[type="radio"]:checked')
-        ).map((radio) => radio.value.toLowerCase());
-
-        selectedFilters = selectedFilters.concat(selectedGenuri);
-        console.log("SELECTED filters:" + selectedFilters);
+    const radios = document.querySelectorAll('input[type="radio"]:checked');
+    radios.forEach(function (radio) {
+      const value = radio.value;
+      if (listaCategorii.includes(value)) {
+        filterObject.categorie = value.toLowerCase();
       }
-
-      if (mediiForm.style.display !== "none") {
-        const selectedMedii = Array.from(
-          mediiForm.querySelectorAll('input[type="radio"]:checked')
-        ).map((radio) => radio.value.toLowerCase());
-        selectedFilters = selectedFilters.concat(selectedMedii);
-      }
-
-      const filteredData = data.filter((entry) => {
-        const key = entry[0];
-        return selectedFilters.some((filter) => key.includes(filter));
-      });
-
-      let total = 0;
-      let targetArray = [];
-      for (let i = 0; i < filteredData.length; i++) {
-        if (filteredData[i][0].includes("total")) {
-          console.log(filteredData[i]);
-          targetArray = filteredData[i];
-          filteredData.splice(i, 1);
-          break;
+      if (listaPerioade.includes(value)) {
+        if (value === "Ultima luna") {
+          filterObject.perioada = "ultima_luna";
+        } else if (value === "Ultimele 3 luni") {
+          filterObject.perioada = "ultimele_3_luni";
+        } else if (value === "Ultimele 6 luni") {
+          filterObject.perioada = "ultimele_6_luni";
+        } else if (value === "Ultimul an") {
+          filterObject.perioada = "ultimele_12_luni";
         }
       }
-
-      console.log("filtered DATA:", filteredData);
-      console.log(targetArray[1]);
-      const title = "Total: " + targetArray[1];
-      filteredData.unshift(["Judet", "Numar someri"]);
-      pieChart.options.title = title;
-      pieChart.data = filteredData;
-      barChart.data = filteredData;
-
-      pieChart.chart.draw(
-        google.visualization.arrayToDataTable(pieChart.data),
-        pieChart.options
-      );
-
-      barChart.chart.draw(
-        google.visualization.arrayToDataTable(barChart.data),
-        pieChart.options
-      );
-    })
-    .catch((error) => {
-      console.error("Error:", error);
     });
-});
+
+    console.log("Filter Object:", filterObject);
+    fetch("http://localhost:3000/visualizer/get-data", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(filterObject),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Received data:", data);
+
+        let selectedFilters = [];
+        const genuriForm = document.getElementById("genuri");
+        const mediiForm = document.getElementById("medii");
+
+        if (genuriForm.style.display !== "none") {
+          console.log("genuri form is not none");
+          const selectedGenuri = Array.from(
+            genuriForm.querySelectorAll('input[type="radio"]:checked')
+          ).map((radio) => radio.value.toLowerCase());
+
+          selectedFilters = selectedFilters.concat(selectedGenuri);
+          console.log("SELECTED filters:" + selectedFilters);
+        }
+
+        if (mediiForm.style.display !== "none") {
+          const selectedMedii = Array.from(
+            mediiForm.querySelectorAll('input[type="radio"]:checked')
+          ).map((radio) => radio.value.toLowerCase());
+          selectedFilters = selectedFilters.concat(selectedMedii);
+        }
+
+        const filteredData = data.filter((entry) => {
+          const key = entry[0];
+          return selectedFilters.some((filter) => key.includes(filter));
+        });
+
+        let total = 0;
+        let targetArray = [];
+        for (let i = 0; i < filteredData.length; i++) {
+          if (filteredData[i][0].includes("total")) {
+            console.log(filteredData[i]);
+            targetArray = filteredData[i];
+            filteredData.splice(i, 1);
+            break;
+          }
+        }
+
+        console.log("filtered DATA:", filteredData);
+        console.log(targetArray[1]);
+        const title = "Total: " + targetArray[1];
+        filteredData.unshift(["Judet", "Numar someri"]);
+        pieChart.options.title = title;
+        pieChart.data = filteredData;
+        barChart.data = filteredData;
+
+        pieChart.chart.draw(
+          google.visualization.arrayToDataTable(pieChart.data),
+          pieChart.options
+        );
+
+        barChart.chart.draw(
+          google.visualization.arrayToDataTable(barChart.data),
+          pieChart.options
+        );
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  });
