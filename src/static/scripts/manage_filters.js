@@ -158,6 +158,11 @@ function createRadioButtons(list, parentId, groupName) {
 document
   .getElementById("apply-filters-btn")
   .addEventListener("click", function () {
+    //-- initializing variables -- //
+    let hasSelectedGender = false;
+    let monthStatement = "";
+
+    // -------------------------- //
     filterObject.categorie = "";
     filterObject.judete = [];
     filterObject.perioada = "";
@@ -188,6 +193,8 @@ document
         } else if (value === "Ultimul an") {
           filterObject.perioada = "ultimele_12_luni";
         }
+
+        monthStatement = filterObject.perioada;
       }
     });
 
@@ -210,6 +217,7 @@ document
         filteredData = data;
 
         if (genuriForm.parentElement.style.display !== "none") {
+          hasSelectedGender = true;
           console.log("genuri form is not none");
           const selectedGenuri = Array.from(
             genuriForm.querySelectorAll('input[type="radio"]:checked')
@@ -263,8 +271,46 @@ document
           google.visualization.arrayToDataTable(barChart.data),
           pieChart.options
         );
+
+        // ------ cod leustean ----- //
+        // generating line chart data -> check bottom of file
+
+        let lineChartDataFilters = filterObject;
+        lineChartDataFilters["columns"] = ["total"]; // can be changed to add any columns
+
+        //lineChart.data = requestLineChartData(lineChartDataFilters); // uncomment once the backend in ready
+
+        lineChart.chart.draw(
+          google.visualization.arrayToDataTable(lineChart.data),
+          lineChart.options
+        );
+
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   });
+
+// ------ cod leustean ----- //
+// la line chart avem nevoie de date pentru fiecare luna in parte, nu o suma pentru toate lunile
+// de aceea trebuie sa mai facem un request pentru fiecare luna in parte
+function requestLineChartData(lineChartDataFilters) {
+  console.log("Filter Object:", lineChartDataFilters);
+  fetch("http://localhost:3000/visualizer/linechart-data", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(filterObject),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Received linechart data:", data);
+      return data;
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+
+  return "Error";
+}
