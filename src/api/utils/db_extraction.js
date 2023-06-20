@@ -14,19 +14,14 @@ function getNumberOfMonths(monthStatement) {
   switch (monthStatement) {
     case "ultima_luna":
       return 1;
-      break;
     case "ultimele_3_luni":
       return 3;
-      break;
     case "ultimele_6_luni":
       return 6;
-      break;
     case "ultimele_12_luni":
       return 12;
-      break;
     default:
       return -1;
-      break;
   }
 }
 
@@ -92,7 +87,6 @@ async function extractDataArray(table, judete, monthStatement) {
         if (typeof currentElement === 'string' || currentElement instanceof String) {// percentages are extracted as strings from the database
           
           currentElement = parseFloat(currentElement);
-          console.log(typeof currentElement);
         }
 
         // Check if the transformedArray already contains an entry for the current element
@@ -119,8 +113,6 @@ async function extractDataArray(table, judete, monthStatement) {
 
       transformedArray = medianPercentageArray(transformedArray, numberOfCounties, getNumberOfMonths(monthStatement));
     }
-
-    console.log(transformedArray);
     responseArray = transformedArray;
   } catch (error) {
     console.error("Error extracting age groups data:", error);
