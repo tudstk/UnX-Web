@@ -207,7 +207,9 @@ document
         const genuriForm = document.getElementById("genuri");
         const mediiForm = document.getElementById("medii");
 
-        if (genuriForm.style.display !== "none") {
+        filteredData = data;
+
+        if (genuriForm.parentElement.style.display !== "none") {
           console.log("genuri form is not none");
           const selectedGenuri = Array.from(
             genuriForm.querySelectorAll('input[type="radio"]:checked')
@@ -215,19 +217,22 @@ document
 
           selectedFilters = selectedFilters.concat(selectedGenuri);
           console.log("SELECTED filters:" + selectedFilters);
+          filteredData = data.filter((entry) => {
+            const key = entry[0];
+            return selectedFilters.some((filter) => key.includes(filter));
+          });
         }
 
-        if (mediiForm.style.display !== "none") {
+        if (mediiForm.parentElement.style.display !== "none") {
           const selectedMedii = Array.from(
             mediiForm.querySelectorAll('input[type="radio"]:checked')
           ).map((radio) => radio.value.toLowerCase());
           selectedFilters = selectedFilters.concat(selectedMedii);
+          filteredData = data.filter((entry) => {
+            const key = entry[0];
+            return selectedFilters.some((filter) => key.includes(filter));
+          });
         }
-
-        const filteredData = data.filter((entry) => {
-          const key = entry[0];
-          return selectedFilters.some((filter) => key.includes(filter));
-        });
 
         let total = 0;
         let targetArray = [];
@@ -248,6 +253,7 @@ document
         pieChart.data = filteredData;
         barChart.data = filteredData;
 
+        console.log("PIECHART DATA:", pieChart.data);
         pieChart.chart.draw(
           google.visualization.arrayToDataTable(pieChart.data),
           pieChart.options
