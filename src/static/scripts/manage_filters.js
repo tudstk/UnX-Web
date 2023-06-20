@@ -45,6 +45,9 @@ const listaJudete = [
   "Vrancea",
 ];
 
+const listaGenuri = ["Femei", "Barbati"];
+const listaMedii = ["Rural", "Urban"];
+
 const listaPerioade = [
   "Ultima luna",
   "Ultimele 3 luni",
@@ -86,6 +89,70 @@ const filterObject = {
   judete: [],
   perioada: "",
 };
+
+document.getElementById("categorii").addEventListener("change", function () {
+  const selectedCategory = this.querySelector(
+    'input[name="categorie"]:checked'
+  ).value;
+  if (selectedCategory === "Mediu") {
+    createRadioButtons(listaGenuri, "genuri", "gen");
+    createRadioButtons(listaMedii, "medii", "mediu");
+  } else {
+    clearForm("genuri");
+    clearForm("medii");
+  }
+});
+function clearForm(formId) {
+  const formElement = document.getElementById(formId);
+  // formElement.innerHTML = "";
+  formElement.parentElement.style.display = "none";
+}
+
+document.getElementById("genuri").addEventListener("change", function () {
+  const selectedGen = this.querySelector('input[name="gen"]:checked').value;
+
+  const mediiForm = document.getElementById("medii");
+  if (selectedGen !== "") {
+    mediiForm.parentElement.style.display = "none";
+  } else {
+    mediiForm.parentElement.style.display = "block";
+  }
+});
+
+document.getElementById("medii").addEventListener("change", function () {
+  const selectedMediu = this.querySelector('input[name="mediu"]:checked').value;
+
+  const genuriForm = document.getElementById("genuri");
+  if (selectedMediu !== "") {
+    genuriForm.parentElement.style.display = "none";
+  } else {
+    genuriForm.parentElement.style.display = "block";
+  }
+});
+
+function createRadioButtons(list, parentId, groupName) {
+  const parentElement = document.getElementById(parentId);
+  parentElement.innerHTML = ""; // Clear previous radio buttons
+  parentElement.parentElement.style.display = "block";
+
+  list.forEach((item) => {
+    const newInput = document.createElement("input");
+    const newLabel = document.createElement("label");
+    const lineBreak = document.createElement("br");
+
+    newInput.setAttribute("type", "radio");
+    newInput.setAttribute("id", item);
+    newInput.setAttribute("name", groupName);
+    newInput.setAttribute("value", item);
+    newLabel.setAttribute("for", item);
+    newLabel.textContent = item;
+
+    parentElement.appendChild(newInput);
+    parentElement.appendChild(newLabel);
+    parentElement.appendChild(lineBreak);
+  });
+}
+
 document.getElementById("export-button").addEventListener("click", function () {
   filterObject.categorie = "";
   filterObject.judete = [];
@@ -146,8 +213,15 @@ document.getElementById("export-button").addEventListener("click", function () {
       data.unshift(["Judet", "Numar someri"]);
       pieChart.options.title = title;
       pieChart.data = data;
+      barChart.data = data;
+
       pieChart.chart.draw(
         google.visualization.arrayToDataTable(pieChart.data),
+        pieChart.options
+      );
+
+      barChart.chart.draw(
+        google.visualization.arrayToDataTable(barChart.data),
         pieChart.options
       );
     })
