@@ -1,5 +1,35 @@
 const pool = require("./db_connection").pool;
 
+function medianPercentageArray(transformedArray, numberOfCounties, numberOfMonths) { // in case of rate
+  medianArray = transformedArray;
+
+  for (let i = 5; i < medianArray.length; i++) { // floating fields in array
+    medianArray[i][1] = medianArray[i][1] / (numberOfMonths * numberOfCounties);
+    medianArray[i][1] = parseFloat(medianArray[i][1].toFixed(2)); // rounding to 2 decimals
+  }
+
+  return medianArray;
+}
+function getNumberOfMonths(monthStatement) {
+  switch (monthStatement) {
+    case "ultima_luna":
+      return 1;
+      break;
+    case "ultimele_3_luni":
+      return 3;
+      break;
+    case "ultimele_6_luni":
+      return 6;
+      break;
+    case "ultimele_12_luni":
+      return 12;
+      break;
+    default:
+      return -1;
+      break;
+  }
+}
+
 /**
  * @param {string} table: numele tabelului din care se extrage data
  * @param {array} judete: array cu judetele selectate
@@ -39,7 +69,6 @@ async function extractDataArray(table, judete, monthStatement) {
   try {
     const client = await pool.connect();
 
-    //const query = `SELECT * FROM educatie WHERE judet = 'TOTAL' AND month = '1'`;
     const query = generateQuery(table, judete, monthStatement);
 
     const result = await client.query(query);
@@ -50,7 +79,7 @@ async function extractDataArray(table, judete, monthStatement) {
       return [attributes, values];
     });
 
-    const transformedArray = [];
+    let transformedArray = [];
 
     for (let i = 0; i < data.length; i++) {
       const subArray = data[i][1]; // Access the nested array
@@ -58,7 +87,13 @@ async function extractDataArray(table, judete, monthStatement) {
       // Iterate over the elements in the sub-array
       for (let j = 0; j < subArray.length - 1; j++) {
         // -1 because we don't want to include the month
-        const currentElement = subArray[j];
+        let currentElement = subArray[j];
+
+        if (typeof currentElement === 'string' || currentElement instanceof String) {// percentages are extracted as strings from the database
+          
+          currentElement = parseFloat(currentElement);
+          console.log(typeof currentElement);
+        }
 
         // Check if the transformedArray already contains an entry for the current element
         const index = transformedArray.findIndex(
@@ -75,7 +110,17 @@ async function extractDataArray(table, judete, monthStatement) {
       }
     }
 
-    //console.log(transformedArray);
+    if (table === 'rate') {
+      let numberOfCounties = judete.length;
+
+      if (judete[0] === 'TOTAL') {
+        numberOfCounties = 42;
+      }
+
+      transformedArray = medianPercentageArray(transformedArray, numberOfCounties, getNumberOfMonths(monthStatement));
+    }
+
+    console.log(transformedArray);
     responseArray = transformedArray;
   } catch (error) {
     console.error("Error extracting age groups data:", error);
