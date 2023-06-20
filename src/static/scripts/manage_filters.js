@@ -153,6 +153,8 @@ function createRadioButtons(list, parentId, groupName) {
   });
 }
 
+// Rest of the code...
+
 document.getElementById("export-button").addEventListener("click", function () {
   filterObject.categorie = "";
   filterObject.judete = [];
@@ -198,22 +200,51 @@ document.getElementById("export-button").addEventListener("click", function () {
     .then((response) => response.json())
     .then((data) => {
       console.log("Received data:", data);
+
+      let selectedFilters = [];
+      const genuriForm = document.getElementById("genuri");
+      const mediiForm = document.getElementById("medii");
+
+      if (genuriForm.style.display !== "none") {
+        console.log("genuri form is not none");
+        const selectedGenuri = Array.from(
+          genuriForm.querySelectorAll('input[type="radio"]:checked')
+        ).map((radio) => radio.value.toLowerCase());
+
+        selectedFilters = selectedFilters.concat(selectedGenuri);
+        console.log("SELECTED filters:" + selectedFilters);
+      }
+
+      if (mediiForm.style.display !== "none") {
+        const selectedMedii = Array.from(
+          mediiForm.querySelectorAll('input[type="radio"]:checked')
+        ).map((radio) => radio.value.toLowerCase());
+        selectedFilters = selectedFilters.concat(selectedMedii);
+      }
+
+      const filteredData = data.filter((entry) => {
+        const key = entry[0];
+        return selectedFilters.some((filter) => key.includes(filter));
+      });
+
       let total = 0;
       let targetArray = [];
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].includes("total")) {
-          console.log(data[i]);
-          targetArray = data[i];
-          data.splice(i, 1);
+      for (let i = 0; i < filteredData.length; i++) {
+        if (filteredData[i][0].includes("total")) {
+          console.log(filteredData[i]);
+          targetArray = filteredData[i];
+          filteredData.splice(i, 1);
           break;
         }
       }
+
+      console.log("filtered DATA:", filteredData);
       console.log(targetArray[1]);
-      const title = "Total:" + targetArray[1];
-      data.unshift(["Judet", "Numar someri"]);
+      const title = "Total: " + targetArray[1];
+      filteredData.unshift(["Judet", "Numar someri"]);
       pieChart.options.title = title;
-      pieChart.data = data;
-      barChart.data = data;
+      pieChart.data = filteredData;
+      barChart.data = filteredData;
 
       pieChart.chart.draw(
         google.visualization.arrayToDataTable(pieChart.data),
