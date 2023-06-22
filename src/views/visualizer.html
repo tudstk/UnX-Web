@@ -113,20 +113,50 @@
         </div>
         <section class="feedback-section" id="feedback-section">
             <h1>Feedback</h1>
-            <div class="submit-feedback">
-                <h4 id="username"></h4>
-                <div class="stars" id="submit-stars">
-                    <i class="fa-sharp fa-regular fa-star"></i>
-                    <i class="fa-sharp fa-regular fa-star"></i>
-                    <i class="fa-sharp fa-regular fa-star"></i>
-                    <i class="fa-sharp fa-regular fa-star"></i>
+            <div class="feedback-card">
+                <h4>John Cena</h4>
+                <div class="stars">
+                    <i class="fa-sharp fa-solid fa-star"></i>
+                    <i class="fa-sharp fa-solid fa-star"></i>
+                    <i class="fa-sharp fa-solid fa-star"></i>
+                    <i class="fa-sharp fa-solid fa-star"></i>
                     <i class="fa-sharp fa-regular fa-star"></i>
                 </div>
-                <textarea placeholder="Write your feedback..." id="feedback-textarea"></textarea>
-                <button id="submit-feedback-button">Submit Feedback</button>
+                <p>Very cool app. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis, nesciunt
+                    quisquam.
+                    Nisi ab architecto deserunt repudiandae tempore inventore eos iste incidunt? Libero exercitationem
+                    quis
+                    harum et molestias est reiciendis recusandae?</p>
+            </div>
+            <div class="feedback-card">
+                <h4>Chuck Norris</h4>
+                <div class="stars">
+                    <i class="fa-sharp fa-solid fa-star"></i>
+                    <i class="fa-sharp fa-solid fa-star"></i>
+                    <i class="fa-sharp fa-solid fa-star"></i>
+                    <i class="fa-sharp fa-solid fa-star"></i>
+                    <i class="fa-sharp fa-solid fa-star"></i>
+                </div>
+                <p>SUPER. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis, nesciunt quisquam.
+                    Nisi ab architecto deserunt repudiandae tempore inventore eos iste incidunt? Libero exercitationem
+                    quis
+                    harum et molestias est reiciendis recusandae?</p>
             </div>
 
+
         </section>
+        <div class="submit-feedback">
+            <h4>Your username</h4>
+            <div class="stars" id="submit-stars">
+                <i class="fa-sharp fa-regular fa-star"></i>
+                <i class="fa-sharp fa-regular fa-star"></i>
+                <i class="fa-sharp fa-regular fa-star"></i>
+                <i class="fa-sharp fa-regular fa-star"></i>
+                <i class="fa-sharp fa-regular fa-star"></i>
+            </div>
+            <textarea placeholder="Write your feedback..." id="feedback-textarea"></textarea>
+            <button id="submit-feedback-button">Submit Feedback</button>
+        </div>
     </div>
 
 
@@ -134,26 +164,56 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
 
     <script>
-        fetch('http://localhost:3000/getFeedback')
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-    const feedbacks = data; // Assuming the feedbacks are returned as an array
 
-    // Rendering feedbacks using map function
-    const feedbacksList = feedbacks.map(feedback => `<li>${feedback.feedback}</li>`).join('');
+        // Make a GET request to the "/getFeedback" endpoint
+        function getAllFeedbacks() {
+            fetch("http://localhost:3000/getFeedback")
+                .then(response => response.json())
+                .then(feedbacks => {
+                    // Render the feedbacks on the screen
+                    const feedbackSection = document.getElementById("feedback-section");
 
-    // Appending the rendered feedbacks to an HTML element with the id "feedbacksContainer"
-    const feedbacksContainer = document.getElementById('feedback-section');
-    feedbacksContainer.innerHTML = `<ul>${feedbacksList}</ul>`;
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
-        //fac un fetch la getFeedbacks
-        //returneaza un array de obiecte(feedbackuri)
-        //parcurg arrayul de obiecte cu functia map
-        //randez feedbackurile pe pagina
+                    // // Clear the existing feedbacks
+                    feedbackSection.innerHTML = "";
+
+                    // Iterate over the feedbacks and create HTML elements to display them
+                    feedbacks.forEach(feedback => {
+                        const feedbackCard = document.createElement("div");
+                        feedbackCard.style.marginTop = "1rem";
+                        feedbackCard.classList.add("feedback-card");
+                        feedbackSection.appendChild(feedbackCard);
+
+                        const feedbackAuthor = document.createElement("h4");
+                        feedbackAuthor.textContent = feedback.username;
+
+                        const stars = document.createElement("div");
+                        stars.classList.add("stars");
+
+                        for (let i = 0; i < feedback.stars; i++) {
+                            const starIcon = document.createElement("i");
+                            starIcon.classList.add("fa-sharp", "fa-solid", "fa-star");
+                            stars.appendChild(starIcon);
+                        }
+
+                        const feedbackContent = document.createElement("p");
+                        feedbackContent.textContent = feedback.feedback;
+
+                        // Append the elements to the feedback card
+                        feedbackCard.appendChild(feedbackAuthor);
+                        feedbackCard.appendChild(stars);
+                        feedbackCard.appendChild(feedbackContent);
+
+                        // Append the feedback card to the feedback section
+                        feedbackSection.appendChild(feedbackCard);
+                    });
+                })
+                .catch(error => {
+                    // Handle any errors that occurred during the request
+                    console.error("An error occurred while fetching the feedbacks:", error);
+                });
+        }
+
+
         function logout() {
             localStorage.removeItem('token');
             window.location.href = '/src/views/login.html';
@@ -211,13 +271,8 @@
             } else {
                 accountElement.style.display = 'block';
             }
-
-            const usernameElement = document.getElementById('username');
-            if (username) {
-                usernameElement.textContent = username;
-            }
         }
-        window.addEventListener('DOMContentLoaded', updateUI);
+        window.addEventListener('DOMContentLoaded', function () { getAllFeedbacks(); updateUI(); });
 
         const token = localStorage.getItem("token");
         if (!token) {
@@ -227,7 +282,9 @@
 
     </script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"
+        integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/"
+        crossorigin="anonymous"></script>
 
     <script src="../static/scripts/visualizer.js"></script>
     <script src="../static/scripts/hamburger.js"></script>
