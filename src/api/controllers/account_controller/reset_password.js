@@ -26,14 +26,14 @@ async function handleResetPassword(req, res) {
         async (error, results) => {
           // Convert the callback to an async function
           if (error) {
-            // ...
+            console.error("Error getting user:", error);
           } else {
             const user = results.rows[0];
             console.log(user);
             if (!verifyPassword(currentPassword, user.password)) {
-              // ...
+              res.end("Current password is incorrect");
             } else if (newPassword !== confirmPassword) {
-              // ...
+              res.end("New password and confirm password do not match");
             } else {
               try {
                 const newPasswordHash = await bcrypt.hash(newPassword, 10);

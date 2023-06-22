@@ -3,7 +3,6 @@ const url = require("url");
 const crypto = require("crypto");
 const { parse } = require("querystring");
 const bcrypt = require("bcrypt");
-
 const generateSecretKey = () => {
   return crypto.randomBytes(32).toString("hex");
 };
@@ -37,9 +36,7 @@ const {
   handleDeleteUser,
   handleDeleteReview,
 } = require("./controllers/admin_controller");
-const {
-  saveFeedback
-}=require ("./controllers/feedback_controller/save_feedback");
+
 const { insertDataFromCSVFiles } = require("./utils/import_data");
 
 const server = http.createServer((req, res) => {
@@ -102,66 +99,91 @@ const server = http.createServer((req, res) => {
   ) {
     let reviewId = reqPath.slice("/admin/review/delete/".length);
     handleDeleteReview(reviewId, res); // TODO: implement in admin_controller.js
+  } else if (reqPath === "/visualizer/get-data" && reqMethod === "POST") {
+    handleGetData(res, req);
   } else {
     res.statusCode = 404; // Handling unknown routes
     res.end("Not found");
   }
 });
 
-const educatieCSV = [
-  "educatie_1.csv",
-  "educatie_2.csv",
-  "educatie_3.csv",
-  "educatie_4.csv",
-  "educatie_5.csv",
-  "educatie_6.csv",
-  "educatie_7.csv",
-  "educatie_8.csv",
-  "educatie_9.csv",
-  "educatie_10.csv",
-  "educatie_11.csv",
-  "educatie_12.csv",
-];
-const mediiCSV = [
-  "medii_1.csv",
-  "medii_2.csv",
-  "medii_3.csv",
-  "medii_4.csv",
-  "medii_5.csv",
-  "medii_6.csv",
-  "medii_7.csv",
-  "medii_8.csv",
-  "medii_9.csv",
-  "medii_10.csv",
-  "medii_11.csv",
-  "medii_12.csv",
-];
-
-// problema e ca se pot insera doar 10 deodata... nu stiu de ce
-
-// insertDataFromCSVFiles(educatieCSV, "someri_educatie_judet")
-//   .then(() => {
-//     console.log("All enviroment data inserted successfully.");
-//     pool.end();
-//   })
-//   .catch((error) => {
-//     console.error("Error inserting data:", error);
-//     pool.end();
-//   });
-
-// daca ambele sunt decomentate, tot 10 se vor insera, 5 dintr-o parte si 5 din cealalta
-
-// insertDataFromCSVFiles(mediiCSV, "someri_mediu_judet")
-//   .then(() => {
-//     console.log("All enviroment data inserted successfully.");
-//     pool.end();
-//   })
-//   .catch((error) => {
-//     console.error("Error inserting data:", error);
-//     pool.end();
-//   });
-
 const port = 3000;
 server.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+  console.log(`Server listening on port ${port} `);
 });
+
+// const csvFiles = [
+//   [
+//     "educatie_1.csv",
+//     "educatie_2.csv",
+//     "educatie_3.csv",
+//     "educatie_4.csv",
+//     "educatie_5.csv",
+//     "educatie_6.csv",
+//     "educatie_7.csv",
+//     "educatie_8.csv",
+//     "educatie_9.csv",
+//     "educatie_10.csv",
+//     "educatie_11.csv",
+//     "educatie_12.csv",
+//   ],
+//   [
+//     "medii_1.csv",
+//     "medii_2.csv",
+//     "medii_3.csv",
+//     "medii_4.csv",
+//     "medii_5.csv",
+//     "medii_6.csv",
+//     "medii_7.csv",
+//     "medii_8.csv",
+//     "medii_9.csv",
+//     "medii_10.csv",
+//     "medii_11.csv",
+//     "medii_12.csv",
+//   ],
+//   [
+//     "rata_1.csv",
+//     "rata_2.csv",
+//     "rata_3.csv",
+//     "rata_4.csv",
+//     "rata_5.csv",
+//     "rata_6.csv",
+//     "rata_7.csv",
+//     "rata_8.csv",
+//     "rata_9.csv",
+//     "rata_10.csv",
+//     "rata_11.csv",
+//     "rata_12.csv",
+//   ],
+//   [
+//     "varste_1.csv",
+//     "varste_2.csv",
+//     "varste_3.csv",
+//     "varste_4.csv",
+//     "varste_5.csv",
+//     "varste_6.csv",
+//     "varste_7.csv",
+//     "varste_8.csv",
+//     "varste_9.csv",
+//     "varste_10.csv",
+//     "varste_11.csv",
+//     "varste_12.csv",
+//   ],
+// ];
+
+// const folderNames = [
+//   "someri_educatie_judet",
+//   "someri_mediu_judet",
+//   "someri_tip_judete",
+//   "someri_varsta_judet",
+// ];
+
+// insertDataFromCSVFiles(csvFiles, folderNames)
+//   .then(() => {
+//     console.log("CSV data imported successfully!");
+//     pool.end();
+//   })
+//   .catch((error) => {
+//     console.error("Error inserting data:", error);
+//     pool.end();
+//   });
