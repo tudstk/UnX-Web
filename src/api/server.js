@@ -30,7 +30,7 @@ const {
   handleGetAllUsers,
   handleDeleteUser,
   handleDeleteReview,
-} = require("./controllers/admin_controller");
+} = require("./controllers/admin_controller/admin_controller");
 
 const { handleGetData } = require("./controllers/data_controller");
 
