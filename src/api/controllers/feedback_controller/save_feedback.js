@@ -1,6 +1,6 @@
 const pool = require("../../utils/db_connection").pool;
 
-async function saveFeedback(req, res) {
+async function handleSaveFeedback(req, res) {
   try {
     let requestBody = "";
 
@@ -30,5 +30,5 @@ async function saveFeedback(req, res) {
 }
 
 module.exports = {
-  saveFeedback,
+  handleSaveFeedback,
 };

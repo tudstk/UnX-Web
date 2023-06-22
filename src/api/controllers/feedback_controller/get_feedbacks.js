@@ -1,6 +1,6 @@
 const pool = require("../../utils/db_connection").pool;
 
-async function getFeedbacks(req, res) {
+async function handleGetFeedbacks(res) {
   try {
     const query = "SELECT * FROM feedback";
     const result = await pool.query(query);
@@ -18,5 +18,5 @@ async function getFeedbacks(req, res) {
 }
 
 module.exports = {
-  getFeedbacks,
+  handleGetFeedbacks,
 };
