@@ -9,11 +9,18 @@ async function handleSaveFeedback(req, res) {
     });
 
     req.on("end", async () => {
-      const { username, feedback, stars } = JSON.parse(requestBody);
+      const { username, first_name, last_name, feedback, stars } =
+        JSON.parse(requestBody);
 
       const query =
-        "INSERT INTO feedback (username, feedback, stars) VALUES ($1, $2, $3)";
-      await pool.query(query, [username, feedback, stars]);
+        "INSERT INTO feedback (username, first_name, last_name, feedback, stars) VALUES ($1, $2, $3, $4, $5)";
+      await pool.query(query, [
+        username,
+        first_name,
+        last_name,
+        feedback,
+        stars,
+      ]);
 
       res.statusCode = 201;
       res.setHeader("Content-Type", "application/json");
