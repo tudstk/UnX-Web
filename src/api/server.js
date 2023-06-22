@@ -26,8 +26,11 @@ const {
   handleGetAccount,
 } = require("./controllers/account_controller/get_account_details");
 const {
-  handleGetFeedback,
+  handleGetFeedbacks,
 } = require("./controllers/feedback_controller/get_feedbacks");
+const {
+  handleSaveFeedback,
+} = require("./controllers/feedback_controller/save_feedback");
 
 //require la get cu functia din controller
 const {
@@ -75,7 +78,7 @@ const server = http.createServer((req, res) => {
   } else if (reqPath === "/updateAccount" && reqMethod === "POST") {
     handleUpdateAccount(req, res);
   } else if (reqPath === "/saveFeedback" && reqMethod === "POST") {
-    saveFeedback(req, res);
+    handleSaveFeedback(req, res);
   } else if (reqPath === "/getAccountDetails" && reqMethod === "GET") {
     handleGetAccount(req, res);
   } else if (reqPath === "/resetPassword" && reqMethod === "PUT") {
@@ -84,7 +87,7 @@ const server = http.createServer((req, res) => {
     handleGetAllUsers(res);
   } 
   else if (reqPath === "/getFeedback" && reqMethod === "GET") {
-    handleGetFeedback(res);
+    handleGetFeedbacks(res);
   } else if (
     reqPath.startsWith("/admin/user/delete/") &&
     reqMethod === "DELETE"

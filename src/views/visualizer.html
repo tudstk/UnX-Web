@@ -134,16 +134,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
 
     <script>
-        fetch('./controllers/feedback_controller/get_feedbacks')
+        fetch('http://localhost:3000/getFeedback')
   .then(response => response.json())
   .then(data => {
-    const feedbacks = data.feedbacks; // Assuming the feedbacks are returned as an array
+    console.log(data);
+    const feedbacks = data; // Assuming the feedbacks are returned as an array
 
     // Rendering feedbacks using map function
-    const feedbacksList = feedbacks.map(feedback => `<li>${feedback}</li>`).join('');
+    const feedbacksList = feedbacks.map(feedback => `<li>${feedback.feedback}</li>`).join('');
 
     // Appending the rendered feedbacks to an HTML element with the id "feedbacksContainer"
-    const feedbacksContainer = document.getElementById('feedbacksContainer');
+    const feedbacksContainer = document.getElementById('feedback-section');
     feedbacksContainer.innerHTML = `<ul>${feedbacksList}</ul>`;
   })
   .catch(error => {
