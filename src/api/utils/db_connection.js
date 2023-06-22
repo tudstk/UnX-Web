@@ -6,6 +6,7 @@ const pool = new Pool({
   database: "unx",
   password: "admin",
   port: 5432,
+  max: 50,
 });
 
 exports.pool = pool;

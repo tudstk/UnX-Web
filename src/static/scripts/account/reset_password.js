@@ -33,8 +33,11 @@ function handlePasswordSubmit(event) {
       if (response.ok) {
         console.log("Password updated successfully");
         successMessageResetPassword.style.display = "block";
+        failMessage.style.display = "none"; // Hide the failure message
       } else {
-        console.error("Error updating password");
+        console.log("Failed to update password");
+        successMessageResetPassword.style.display = "none";
+        failMessage.style.display = "block"; // Display the failure message
       }
     })
     .catch((error) => {

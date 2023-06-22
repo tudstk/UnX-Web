@@ -1,95 +1,3 @@
-const listaJudete = [
-  "Alba",
-  "Arad",
-  "Arges",
-  "Bacau",
-  "Bistrita-Nasaud",
-  "Botosani",
-  "Braila",
-  "Brasov",
-  "Bucuresti",
-  "Buzau",
-  "Calarasi",
-  "Caras-Severin",
-  "Cluj",
-  "Constanta",
-  "Covasna",
-  "Dambovita",
-  "Dolj",
-  "Galati",
-  "Giurgiu",
-  "Gorj",
-  "Harghita",
-  "Hunedoara",
-  "Ialomita",
-  "Iasi",
-  "Ilfov",
-  "Maramures",
-  "Mehedinti",
-  "Mures",
-  "Neamt",
-  "Olt",
-  "Prahova",
-  "Salaj",
-  "Satu Mare",
-  "Sibiu",
-  "Suceava",
-  "Teleorman",
-  "Timis",
-  "Tulcea",
-  "Vaslui",
-  "Valcea",
-  "Vrancea",
-];
-
-const listaPerioade = [
-  "Ultima luna",
-  "Ultimele 3 luni",
-  "Ultimele 6 luni",
-  "Ultimul an",
-  "Ultimii 2 ani",
-  "Ultimii 3 ani",
-];
-
-const listaVarste = [
-  "16-18 ani",
-  "18-23 ani",
-  "23-30 ani",
-  "30-40 ani",
-  "40-50 ani",
-  "50-60 ani",
-];
-
-const listaNiveleEducatie = ["Liceu", "Postliceal", "Facultate", "Master"];
-const listaMedii = ["Rural", "Urban", "Diaspora"];
-
-function createDivs(value, parentId) {
-  const newInput = document.createElement("input");
-  const newLabel = document.createElement("label");
-  const lineBreak = document.createElement("br");
-
-  newInput.setAttribute("type", "checkbox");
-  newInput.setAttribute("id", value);
-  newInput.setAttribute("name", value);
-  newInput.setAttribute("value", value);
-  newLabel.setAttribute("for", value);
-  newLabel.textContent = value;
-
-  const parentElement = document.getElementById(parentId);
-
-  parentElement.appendChild(newInput);
-  parentElement.appendChild(newLabel);
-  parentElement.appendChild(lineBreak);
-}
-
-listaJudete.forEach((judet) => createDivs(judet, "judete"));
-listaPerioade.forEach((perioada) => createDivs(perioada, "perioade"));
-listaNiveleEducatie.forEach((nivelEducatie) =>
-  createDivs(nivelEducatie, "nivel-educatie")
-);
-listaVarste.forEach((varsta) => createDivs(varsta, "varste"));
-listaMedii.forEach((mediu) => createDivs(mediu, "medii"));
-
 const pieChart = {
   chart: null,
   data: [
@@ -103,6 +11,7 @@ const pieChart = {
   element: "#pie-chart",
   options: {
     title: "Someri pe judete",
+    is3D: true,
     width: 500,
     height: 300,
   },
@@ -138,7 +47,7 @@ const lineChart = {
   ],
   element: "#line-chart",
   options: {
-    title: "Procentul somerilor raportat la totalul populatiei pe ani",
+    title: "Numarul total de someri din judetele selectate in lunile selectate",
     width: 500,
     height: 300,
   },
@@ -224,3 +133,4 @@ function showFilters() {
     showFiltersBtn.textContent = "Hide filters";
   }
 }
+

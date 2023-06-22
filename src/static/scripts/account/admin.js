@@ -1,131 +1,141 @@
-
+function getIsAdminFromToken() {
+  const token = localStorage.getItem("token");
+  if (token) {
+    const [, payload] = token.split(".");
+    const decodedPayload = atob(payload);
+    const { isAdmin } = JSON.parse(decodedPayload);
+    return isAdmin;
+  }
+  return null;
+}
 // get all users button
-document.getElementById('get-users-btn').addEventListener('click', function () {
-    fetch('http://localhost:3000/admin/user/get-all', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
+document.getElementById("get-users-btn").addEventListener("click", function () {
+  fetch("http://localhost:3000/admin/user/get-all", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // Handle the response data
+      console.log(data); // You can perform further processing here
     })
-        .then(response => response.json())
-        .then(data => {
-            // Handle the response data
-            console.log(data); // You can perform further processing here
-        })
-        .catch(error => {
-            console.error(error);
-        });
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 // delete user button
-document.getElementById('delete-user-button').addEventListener('click', function () {
-    const username = document.getElementById('username-input').value.trim();
-    if (username === '') {
-        alert('Please enter a username');
-        return;
+document
+  .getElementById("delete-user-button")
+  .addEventListener("click", function () {
+    const username = document.getElementById("username-input").value.trim();
+    if (username === "") {
+      alert("Please enter a username");
+      return;
     }
 
     fetch(`http://localhost:3000/admin/user/delete/${username}`, {
-        method: 'DELETE',
+      method: "DELETE",
     })
-        .then(response => response.json())
-        .then(data => {
-            // Handle the response data
-            console.log(data);
-        })
-        .catch(error => {
-            // Handle any errors
-            console.error(error);
-        });
-});
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response data
+        console.log(data);
+      })
+      .catch((error) => {
+        // Handle any errors
+        console.error(error);
+      });
+  });
 
 // add user form
-document.getElementById('register-form').addEventListener('submit', function (event) {
+document
+  .getElementById("register-form")
+  .addEventListener("submit", function (event) {
     event.preventDefault();
 
     const form = event.target;
     const email = form.elements.email.value;
     const username = form.elements.username.value;
     const password = form.elements.password.value;
-    const isAdmin = document.getElementById('is-admin-checkbox').checked;
+    const isAdmin = document.getElementById("is-admin-checkbox").checked;
 
     const userData = {
-        email: email,
-        username: username,
-        password: password,
-        isAdmin: isAdmin
+      email: email,
+      username: username,
+      password: password,
+      isAdmin: isAdmin,
     };
 
-    fetch('http://localhost:3000/admin/user/add', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData)
+    fetch("http://localhost:3000/admin/user/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
     })
-        .then(response => response.json())
-        .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
+        if (typeof data.error === "undefined") {
+          // registration succeded
+          console.log("User added successfully");
+        } else {
+          // there is an input error
 
-            if (typeof data.error === 'undefined') { // registration succeded
-                console.log("User added successfully");
-            }
+          // Find the div element with the class "invalid-input"
+          const invalidDiv = document.querySelector(".invalid-input");
+          invalidDiv.innerHTML = "";
 
-            else { // there is an input error
+          if (data.error == "Invalid password format") {
+            const texts = [
+              "The password must:",
+              "• contain at least one letter",
+              "• contain at least one digit",
+              "• be at least 6 characters long",
+            ];
 
-                // Find the div element with the class "invalid-input"
-                const invalidDiv = document.querySelector('.invalid-input');
-                invalidDiv.innerHTML = '';
+            texts.forEach((text) => {
+              const h5 = document.createElement("h5");
+              h5.textContent = text;
+              invalidDiv.appendChild(h5);
+            });
+          } else if (data.error == "Invalid email format") {
+            const h5 = document.createElement("h5");
+            h5.textContent = data.error;
 
-                if (data.error == "Invalid password format") {
-                    const texts = [
-                        "The password must:",
-                        "• contain at least one letter",
-                        "• contain at least one digit",
-                        "• be at least 6 characters long"
-                    ];
+            // Append the h5 element to the div
+            invalidDiv.appendChild(h5);
+          }
+        }
 
-                    texts.forEach(text => {
-                        const h5 = document.createElement("h5");
-                        h5.textContent = text;
-                        invalidDiv.appendChild(h5);
-                    });
-                }
-
-                else if (data.error == "Invalid email format") {
-
-                    const h5 = document.createElement('h5');
-                    h5.textContent = data.error;
-
-                    // Append the h5 element to the div
-                    invalidDiv.appendChild(h5);
-                }
-            }
-
-            console.log(data.error);
-
-        })
-        .catch(error => {
-            console.error(error);
-        });
-});
+        console.log(data.error);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  });
 
 // delete review button
-document.getElementById('delete-review-button').addEventListener('click', function () {
-    const reviewId = document.getElementById('review-id-input').value.trim();
-    if (reviewId === '') {
-        alert('Please enter a review id');
-        return;
+document
+  .getElementById("delete-review-button")
+  .addEventListener("click", function () {
+    const reviewId = document.getElementById("review-id-input").value.trim();
+    if (reviewId === "") {
+      alert("Please enter a review id");
+      return;
     }
     fetch(`http://localhost:3000/admin/review/delete/${reviewId}`, {
-        method: 'DELETE',
+      method: "DELETE",
     })
-        .then(response => response.json())
-        .then(data => {
-            // Handle the response data
-            console.log(data);
-        })
-        .catch(error => {
-            // Handle any errors
-            console.error(error);
-        });
-});
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response data
+        console.log(data);
+      })
+      .catch((error) => {
+        // Handle any errors
+        console.error(error);
+      });
+  });

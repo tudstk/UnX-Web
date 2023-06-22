@@ -198,7 +198,7 @@ body {
 }
 
 @media only screen and (max-width: 768px) {
-  .my-form > input {
+  input {
     font-family: "Sora", sans-serif;
     width: 14rem;
     height: 2rem;
@@ -207,26 +207,30 @@ body {
     opacity: 0.85;
   }
 
-  .my-form > input:focus {
+  input:focus {
     opacity: 1;
   }
 
-  .my-form > label {
+  label {
     font-size: 0.9rem;
     margin-bottom: 0.2rem;
+  }
+  .option-wrapper {
+    width: 20rem;
   }
 
   .form-wrapper {
     width: 100vw;
     height: 100vh;
+    flex-direction: column-reverse;
   }
 
   .form-box {
     margin: 0rem 2rem;
-    width: 26rem;
+    width: 20rem;
     height: 32rem;
     background: #081b38;
-    border-radius: 1rem;
+    border-radius: 1rem 1rem 0 0;
     opacity: 0.9;
     flex-direction: column;
     color: white;
@@ -235,22 +239,35 @@ body {
   .my-form {
     opacity: 1;
     flex-direction: column;
+    border
   }
 
-  .register-btn {
-    height: 2.75rem;
-    width: 15.2rem;
-    margin-top: 0.75rem;
+  .form-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1.5rem;
     border-radius: 0;
     border: none;
     color: #1a1a1a;
     font-family: "Sora", sans-serif;
-    font-size: 1rem;
+    font-size: 0.75rem;
+    padding: 1rem;
   }
 
-  .register-btn:hover {
-    background: #fabc5f;
-    cursor: pointer;
+  .option-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2rem;
+    width: 100%;
+    border-radius: 0;
+    border-bottom: 1px solid #c9c9c9;
+    color: #1a1a1a;
+    font-family: "Sora", sans-serif;
+    font-size: 0.75rem;
+    padding: 1rem;
+    background: #f5f5f5;
   }
 
   .top-text-register {
@@ -263,6 +280,21 @@ body {
   .description-text {
     opacity: 0.8;
     font-weight: 200;
+  }
+
+  .logout-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 4.5rem;
+    border-radius: 0;
+    border-bottom: 1px solid #c9c9c9;
+    color: #ed5151;
+    font-family: "Sora", sans-serif;
+    font-size: 0.75rem;
+    padding: 1rem;
+    background: #f5f5f5;
   }
 
   .terms-checkbox {
@@ -295,5 +327,10 @@ body {
 
   .login-link:hover {
     opacity: 1;
+  }
+  .top-buttons {
+    width: 20rem;
+    display: flex;
+    flex-direction: row;
   }
 }
