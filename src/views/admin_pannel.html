@@ -3,33 +3,56 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/styles/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
 
 <body>
-    <button id="get-users-btn">Get Users</button> <br> <br>
 
-    <input type="text" id="username-input" placeholder="Enter username">
-    <button id="delete-user-button">Delete User</button> <br> <br>
+    <div class="form-wrapper">
 
-    <form class="my-form" id="register-form">
-        <div class="invalid-input">
-
+        <div class="form-box">
+            <form class="my-form">
+                <button class="form-btn" id="get-users-btn" style="margin-bottom: 0.3rem;">Get Users (console)</button>
+                <label for="delete-user"
+                    style="display: flex; justify-content: center; align-items: center; font-style: italic;">Delete
+                    User:</label>
+                <input type="text" id="username-input" placeholder="Enter username" name="add-user">
+                <button class="form-btn" id="delete-user-button">Delete User</button> <br> <br>
+            </form>
+            <form class="my-form" id="register-form">
+                <div class="invalid-input">
+                </div>
+                <label
+                    style="margin-top: 0.3rem; display: flex; justify-content: center; align-items: center; font-style: italic;">Add
+                    User: </label>
+                <label for="email"> Email </label>
+                <input type="text" name="email" placeholder="Email address">
+                <label for="username"> Username </label>
+                <input type="text" name="username" placeholder="Username">
+                <label for="email"> Password </label>
+                <input type="password" name="password" placeholder="Password">
+                <div style="display: flex; flex-direction: row; justify-content: center;">
+                    <label for="is-admin"
+                        style="display: flex; justify-content: center; align-items: center; margin-right: 0.3rem;"> Is
+                        Admin
+                    </label>
+                    <input type="checkbox" name="is-admin" id="is-admin-checkbox">
+                </div>
+                <button class="form-btn" type="submit">Add User</button>
+                <label for="delete-feedback"
+                    style="margin-top:0.3rem; display: flex; justify-content: center; align-items: center; font-style: italic;">
+                    Delete Feedback:</label>
+                <input type="text" id="review-id-input" name="delete-feedback" placeholder="Enter review id">
+                <button class="form-btn" id="delete-review-button">Delete Feedback</button> <br> <br>
+            </form> <br>
         </div>
-        <label for="email"> Email </label>
-        <input type="text" name="email" placeholder="Email address">
-        <label for="username"> Username </label>
-        <input type="text" name="username" placeholder="Username">
-        <label for="email"> Password </label>
-        <input type="password" name="password" placeholder="Password">
-        <input type="checkbox" id="is-admin-checkbox"> Is Admin
-        <button class="register-btn" type="submit">Add User</button>
-    </form> <br>
-
-    <input type="text" id="review-id-input" placeholder="Enter review id">
-    <button id="delete-review-button">Delete Review</button> <br> <br>
-
+    </div>
     <script src="../static/scripts/account/admin.js"></script>
     <script>
         function getIsAdminFromToken() {

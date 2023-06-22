@@ -8,7 +8,6 @@ function getIsAdminFromToken() {
   }
   return null;
 }
-// get all users button
 document.getElementById("get-users-btn").addEventListener("click", function () {
   fetch("http://localhost:3000/admin/user/get-all", {
     method: "GET",
@@ -26,7 +25,6 @@ document.getElementById("get-users-btn").addEventListener("click", function () {
     });
 });
 
-// delete user button
 document
   .getElementById("delete-user-button")
   .addEventListener("click", function () {
@@ -50,7 +48,6 @@ document
       });
   });
 
-// add user form
 document
   .getElementById("register-form")
   .addEventListener("submit", function (event) {
