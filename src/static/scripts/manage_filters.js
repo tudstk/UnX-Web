@@ -320,36 +320,3 @@ function requestLineChartData(lineChartDataFilters) {
 
   return "Error";
 }
-
-function arrayToCsv(data) {
-  return data
-    .map((row) =>
-      row
-        .map(String)
-        .map((v) => v.replaceAll('"', '""'))
-        .map((v) => `"${v}"`)
-        .join(",")
-    )
-    .join("\r\n");
-}
-
-function downloadBlob(content, filename, contentType) {
-  var blob = new Blob([content], { type: contentType });
-  var url = URL.createObjectURL(blob);
-
-  var pom = document.createElement("a");
-  pom.href = url;
-  pom.setAttribute("download", filename);
-  pom.click();
-}
-
-function exportData() {
-  const csv = arrayToCsv(filteredData);
-
-  // Add selectedOptions as a new row in the CSV
-  const selectedOptionsRow = ["Selected Options"].concat(selectedOptions);
-  const updatedCsv = csv + "\r\n" + selectedOptionsRow.join(",");
-
-  downloadBlob(updatedCsv, "export.csv", "text/csv;charset=utf-8;");
-}
-document.getElementById("export-button").addEventListener("click", exportData);
