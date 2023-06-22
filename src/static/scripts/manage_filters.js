@@ -168,11 +168,23 @@ document
     const checkboxes = document.querySelectorAll(
       'input[type="checkbox"]:checked'
     );
+
+    let toataTara = false;
+
     checkboxes.forEach(function (checkbox) {
-      const value = checkbox.value;
+      let value = checkbox.value;
       if (listaJudete.includes(value)) {
-        filterObject.judete.push(value.toUpperCase());
-        selectedOptions.push(value);
+
+        if (value === "Toata tara") {
+          filterObject.judete.push('TOTAL');
+          selectedOptions.push('TOTAL');
+          toataTara = true;
+        }
+
+        else if (toataTara === false) {
+          filterObject.judete.push(value.toUpperCase());
+          selectedOptions.push(value);
+        }
       }
     });
 
