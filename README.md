@@ -6,7 +6,7 @@
 - Leuștean Ștefan
 - Bejan Dragoș
   
-## Link documentatie: https://docs.google.com/document/d/1yVfsVqmhpsUE8JxRrjS3ODMC-ihom5F0ZMwh5--W5nA/edit?usp=sharing
+## Link documentatie: https://drive.google.com/drive/folders/1GaekKkP3lfFu21oakAqjLyY2oQj_3rwH?usp=sharing
 ## Link prezentare video: https://drive.google.com/file/d/14ioRGFxeue_KGV9vrEtSNT_8OP1fytYD/view?usp=sharing
 ## Instalare
 
