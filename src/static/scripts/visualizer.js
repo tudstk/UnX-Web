@@ -90,24 +90,6 @@ google.charts.load("current", {
   callback: init,
 });
 
-/*
-// https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector
-// https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
-document.querySelector('#update-pie-chart').addEventListener('click', () => {
-  pieChart.data = [
-    ['Product', 'Sales'],
-    ['Laptops', 1508],
-    ['Desktops', 1497],
-    ['Cameras', 360],
-    ['Phones', 1790],
-    ['Accessories', 518]
-  ];
-  pieChart.chart.draw(
-    google.visualization.arrayToDataTable(pieChart.data),
-    pieChart.options
-  );
-});
-*/
 
 function showDiv(id) {
   var charts = document.getElementsByClassName("chart");
