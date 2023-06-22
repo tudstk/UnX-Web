@@ -284,7 +284,7 @@ document
         let monthIndex = lineChartData[0][1].length - 1;
         // --- momentan afisam doar numarul total de someri --- //
         for(let i = 0; i < lineChartData.length; i++) {
-          totalSomeriData[i + 1] = [lineChartData[i][1][8], lineChartData[i][1][0]];
+          totalSomeriData[i + 1] = [lineChartData[i][1][monthIndex], lineChartData[i][1][0]];
         }
 
         lineChart.data = totalSomeriData;
