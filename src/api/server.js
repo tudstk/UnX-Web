@@ -31,6 +31,7 @@ const {
 const {
   handleSaveFeedback,
 } = require("./controllers/feedback_controller/save_feedback");
+const { handleGetData } = require("./controllers/data_controller");
 
 //require la get cu functia din controller
 const {
