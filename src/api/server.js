@@ -3,7 +3,6 @@ const url = require("url");
 const crypto = require("crypto");
 const { parse } = require("querystring");
 const bcrypt = require("bcrypt");
-
 const generateSecretKey = () => {
   return crypto.randomBytes(32).toString("hex");
 };
