@@ -7,7 +7,7 @@
 - Bejan Dragoș
   
 ## Link documentatie: https://docs.google.com/document/d/1yVfsVqmhpsUE8JxRrjS3ODMC-ihom5F0ZMwh5--W5nA/edit?usp=sharing
-
+## Link prezentare video: https://drive.google.com/file/d/14ioRGFxeue_KGV9vrEtSNT_8OP1fytYD/view?usp=sharing
 ## Instalare
 
 - Aplicația este hostată pe Vercel și poate fi accesată din link-ul din descrierea repo-ului, sau poate fi vizualizată cu ajutorul extensiei "Live Server" din VS Code, din sursa "src/views/index.html".
