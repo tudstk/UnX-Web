@@ -25,38 +25,49 @@ const submitFeedbackButton = document.getElementById("submit-feedback-button");
 
 submitFeedbackButton.addEventListener("click", () => {
   const username = document.querySelector(".submit-feedback h4").textContent;
-  const starRating = document.querySelectorAll(
-    ".submit-feedback .fa-solid"
-  ).length;
-
+  const starRating = document.querySelectorAll(".submit-feedback .fa-solid").length;
   const feedbackText = feedbackTextarea.value;
+  function getUsernameFromToken() {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const [, payload] = token.split(".");
+      const decodedPayload = atob(payload);
+      const { username } = JSON.parse(decodedPayload);
+      return username;
+    }
+    return null;
+  }
+  const tokenUsername=getUsernameFromToken();
+  const feedbackData = {
+    username: tokenUsername,
+    feedback: feedbackText,
+    stars: starRating
+  };
 
-  const feedbackCard = document.createElement("div");
-  feedbackCard.classList.add("feedback-card");
-  feedbackCard.innerHTML = `
-              <h4>${username}</h4>
-              <div class="stars">
-                ${`<i class="fa-sharp fa-solid fa-star"></i>`.repeat(
-                  starRating
-                )}
-                ${`<i class="fa-sharp fa-regular fa-star"></i>`.repeat(
-                  5 - starRating
-                )}
-              </div>
-              <p>${feedbackText}</p>
-            `;
-
-  feedbackSection.insertBefore(
-    feedbackCard,
-    document.querySelector(".submit-feedback")
-  );
-
-  feedbackTextarea.value = "";
-  document.querySelector(".submit-feedback .stars").innerHTML = `
-              <i class="fa-sharp fa-solid fa-star"></i>
-              <i class="fa-sharp fa-solid fa-star"></i>
-              <i class="fa-sharp fa-solid fa-star"></i>
-              <i class="fa-sharp fa-solid fa-star"></i>
-              <i class="fa-sharp fa-solid fa-star"></i>
-            `;
+  fetch("http://localhost:3000/saveFeedback", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(feedbackData)
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Handle the response from the server
+      console.log(data.message);
+      // Clear input fields and star rating
+      feedbackTextarea.value = "";
+      document.querySelector(".submit-feedback .stars").innerHTML = `
+        <i class="fa-sharp fa-solid fa-star"></i>
+        <i class="fa-sharp fa-solid fa-star"></i>
+        <i class="fa-sharp fa-solid fa-star"></i>
+        <i class="fa-sharp fa-solid fa-star"></i>
+        <i class="fa-sharp fa-solid fa-star"></i>
+      `;
+    })
+    .catch(error => {
+      // Handle any errors that occurred during the fetch request
+      console.error(error);
+    });
 });
+
