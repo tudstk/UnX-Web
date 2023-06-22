@@ -359,6 +359,15 @@ function exportChartsAsPDF() {
   doc.save('chart.pdf');
 }
 
+function exportChartsAsSVG() {
+  let pieChartSvg = document.getElementById('pie-chart').getElementsByTagName('svg')[0].outerHTML;
+  let barChartSvg = document.getElementById('bar-chart').getElementsByTagName('svg')[0].outerHTML;
+  let lineChartSvg = document.getElementById('line-chart').getElementsByTagName('svg')[0].outerHTML;
+
+  downloadBlob(pieChartSvg, "pie-chart.svg", "text/csv;charset=utf-8;");
+  downloadBlob(barChartSvg, "bar-chart.svg", "text/csv;charset=utf-8;");
+  downloadBlob(lineChartSvg, "line-chart.svg", "text/csv;charset=utf-8;");
+}
 
 function exportData() {
 
@@ -381,6 +390,7 @@ function exportData() {
       break;
 
     case "SVG":
+      exportChartsAsSVG();
       break;
 
     default:
