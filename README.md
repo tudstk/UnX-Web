@@ -5,6 +5,8 @@
 - Stroescu Tudor-Paul
 - Leuștean Ștefan
 - Bejan Dragoș
+  
+##Link documentatie: https://docs.google.com/document/d/1yVfsVqmhpsUE8JxRrjS3ODMC-ihom5F0ZMwh5--W5nA/edit?usp=sharing
 
 ## Instalare
 
