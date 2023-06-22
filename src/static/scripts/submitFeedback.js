@@ -40,32 +40,51 @@ submitFeedbackButton.addEventListener("click", () => {
     return null;
   }
   const tokenUsername = getUsernameFromToken();
-  const feedbackData = {
-    username: tokenUsername,
-    feedback: feedbackText,
-    stars: starRating,
-  };
-
-  fetch("http://localhost:3000/saveFeedback", {
-    method: "POST",
+  fetch("http://localhost:3000/getAccountDetails", {
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `${localStorage.getItem("token")}`,
     },
-    body: JSON.stringify(feedbackData),
   })
     .then((response) => response.json())
-    .then((data) => {
-      getAllFeedbacks();
-      console.log(data.message);
-      // Clear input fields and star rating
-      feedbackTextarea.value = "";
-      document.querySelector(".submit-feedback .stars").innerHTML = `
-        <i class="fa-sharp fa-solid fa-star"></i>
-        <i class="fa-sharp fa-solid fa-star"></i>
-        <i class="fa-sharp fa-solid fa-star"></i>
-        <i class="fa-sharp fa-solid fa-star"></i>
-        <i class="fa-sharp fa-solid fa-star"></i>
-      `;
+    .then((accountDetails) => {
+      console.log("ACCCCCC DETAILSS", accountDetails);
+      const firstName = accountDetails.first_name; // Extract the first name from account details
+      const lastName = accountDetails.last_name; // Extract the last name from account details
+      const feedbackData = {
+        username: tokenUsername,
+        first_name: firstName,
+        last_name: lastName,
+        feedback: feedbackText,
+        stars: starRating,
+      };
+      console.log("FEEEDBAACK DATAAA", feedbackData);
+      fetch("http://localhost:3000/saveFeedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(feedbackData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          getAllFeedbacks();
+          console.log(data.message);
+          // Clear input fields and star rating
+          feedbackTextarea.value = "";
+          document.querySelector(".submit-feedback .stars").innerHTML = `
+            <i class="fa-sharp fa-solid fa-star"></i>
+            <i class="fa-sharp fa-solid fa-star"></i>
+            <i class="fa-sharp fa-solid fa-star"></i>
+            <i class="fa-sharp fa-solid fa-star"></i>
+            <i class="fa-sharp fa-solid fa-star"></i>
+          `;
+        })
+        .catch((error) => {
+          // Handle any errors that occurred during the fetch request
+          console.error(error);
+        });
     })
     .catch((error) => {
       // Handle any errors that occurred during the fetch request
