@@ -8,22 +8,22 @@ function getIsAdminFromToken() {
   }
   return null;
 }
-document.getElementById("get-users-btn").addEventListener("click", function () {
-  fetch("http://localhost:3000/admin/user/get-all", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      // Handle the response data
-      console.log(data); // You can perform further processing here
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-});
+// document.getElementById("get-users-btn").addEventListener("click", function () {
+//   fetch("http://localhost:3000/admin/user/get-all", {
+//     method: "GET",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       // Handle the response data
+//       console.log(data); // You can perform further processing here
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//     });
+// });
 
 document
   .getElementById("delete-user-button")
@@ -106,8 +106,6 @@ document
             invalidDiv.appendChild(h5);
           }
         }
-
-        console.log(data.error);
       })
       .catch((error) => {
         console.error(error);
@@ -115,24 +113,24 @@ document
   });
 
 // delete review button
-document
-  .getElementById("delete-review-button")
-  .addEventListener("click", function () {
-    const reviewId = document.getElementById("review-id-input").value.trim();
-    if (reviewId === "") {
-      alert("Please enter a review id");
-      return;
-    }
-    fetch(`http://localhost:3000/admin/review/delete/${reviewId}`, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response data
-        console.log(data);
-      })
-      .catch((error) => {
-        // Handle any errors
-        console.error(error);
-      });
-  });
+// document
+//   .getElementById("delete-review-button")
+//   .addEventListener("click", function () {
+//     const reviewId = document.getElementById("review-id-input").value.trim();
+//     if (reviewId === "") {
+//       alert("Please enter a review id");
+//       return;
+//     }
+//     fetch(`http://localhost:3000/admin/review/delete/${reviewId}`, {
+//       method: "DELETE",
+//     })
+//       .then((response) => response.json())
+//       .then((data) => {
+//         // Handle the response data
+//         console.log(data);
+//       })
+//       .catch((error) => {
+//         // Handle any errors
+//         console.error(error);
+//       });
+//   });

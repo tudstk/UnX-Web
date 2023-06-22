@@ -146,7 +146,7 @@
 
         </section>
         <div class="submit-feedback">
-            <h4>Your username</h4>
+            <h4 class="username-text"></h4>
             <div class="stars" id="submit-stars">
                 <i class="fa-sharp fa-regular fa-star"></i>
                 <i class="fa-sharp fa-regular fa-star"></i>
@@ -164,8 +164,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
 
     <script>
-
-        // Make a GET request to the "/getFeedback" endpoint
+        const username = getUsernameFromToken();
+        const htmlUsername = document.querySelector(".username-text");
+        htmlUsername.textContent = "@" + username;
+        // make text italic
+        htmlUsername.style.fontStyle = "italic";
         function getAllFeedbacks() {
             fetch("http://localhost:3000/getFeedback")
                 .then(response => response.json())

@@ -41,6 +41,9 @@ body {
     margin:0;
 }
 
+#delete-user-button{
+  margin-bottom:2rem;
+}
 @media only screen and (min-width: 768px) {
   input {
     font-family: "Sora", sans-serif;
