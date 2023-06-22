@@ -280,11 +280,21 @@ document
         // ------ cod leustean ----- //
         // generating line chart data -> check bottom of file
         let lineChartData = data[1];
-        let totalSomeriData = [["Luna", "Total Someri"]];
+        let totalSomeriData = [["Luna"]];
         let monthIndex = lineChartData[0][1].length - 1;
+
+        for (let attributeIndex = 0; attributeIndex < monthIndex; attributeIndex++) {
+          totalSomeriData[0].push(lineChartData[0][0][attributeIndex]); // pushing attributes name in chart data
+        }
+
         // --- momentan afisam doar numarul total de someri --- //
-        for(let i = 0; i < lineChartData.length; i++) {
-          totalSomeriData[i + 1] = [lineChartData[i][1][monthIndex], lineChartData[i][1][0]];
+        for (let i = 0; i < lineChartData.length; i++) {
+          totalSomeriData[i + 1] = [lineChartData[i][1][monthIndex]];
+
+          for (let j = 0; j < monthIndex; j++) {
+            totalSomeriData[i + 1].push(lineChartData[i][1][j]);
+          }
+
         }
 
         lineChart.data = totalSomeriData;
@@ -321,13 +331,62 @@ function downloadBlob(content, filename, contentType) {
   pom.click();
 }
 
+function exportChartsAsPDF() {
+  var doc = new jsPDF();
+  var chartWidth = 120; // Adjust the width of the charts
+  var chartHeight = 75; // Adjust the height of the charts
+  var spaceBetweenCharts = 10; // Adjust the space between charts
+
+  // Calculate the center position of the page
+  var pageCenterX = doc.internal.pageSize.getWidth() / 2;
+  var marginTop = 20; // Adjust the top margin
+
+  // Add the first chart centered on the page horizontally
+  var chart1X = pageCenterX - chartWidth / 2;
+  var chart1Y = marginTop;
+  doc.addImage(pieChart.chart.getImageURI(), chart1X, chart1Y, chartWidth, chartHeight);
+
+  // Add the second chart below the first chart
+  var chart2X = pageCenterX - chartWidth / 2;
+  var chart2Y = chart1Y + chartHeight + spaceBetweenCharts;
+  doc.addImage(barChart.chart.getImageURI(), chart2X, chart2Y, chartWidth, chartHeight);
+
+  // Add the third chart below the second chart
+  var chart3X = pageCenterX - chartWidth / 2;
+  var chart3Y = chart2Y + chartHeight + spaceBetweenCharts;
+  doc.addImage(lineChart.chart.getImageURI(), chart3X, chart3Y, chartWidth, chartHeight);
+
+  doc.save('chart.pdf');
+}
+
+
 function exportData() {
-  const csv = arrayToCsv(filteredData);
 
-  // Add selectedOptions as a new row in the CSV
-  const selectedOptionsRow = ["Selected Options"].concat(selectedOptions);
-  const updatedCsv = csv + "\r\n" + selectedOptionsRow.join(",");
+  let dropdown = document.getElementById("export-format");
+  let selectedFormat = dropdown.options[dropdown.selectedIndex].value;
 
-  downloadBlob(updatedCsv, "export.csv", "text/csv;charset=utf-8;");
+
+  switch (selectedFormat) {
+    case "CSV":
+      const csv = arrayToCsv(filteredData);
+
+      // Add selectedOptions as a new row in the CSV
+      const selectedOptionsRow = ["Selected Options"].concat(selectedOptions);
+      const updatedCsv = csv + "\r\n" + selectedOptionsRow.join(",");
+      downloadBlob(updatedCsv, "export.csv", "text/csv;charset=utf-8;");
+      break;
+
+    case "PDF":
+      exportChartsAsPDF();
+      break;
+
+    case "SVG":
+      break;
+
+    default:
+      break;
+
+  }
+
 }
 document.getElementById("export-button").addEventListener("click", exportData);
