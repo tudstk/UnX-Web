@@ -1,55 +1,56 @@
-const data = [
-    ["Alba", 20000],
-    ["Arad", 21000],
-    ["Arges", 22000],
-    ["Bacau", 23000],
-    ["Bistrita-Nasaud", 24000],
-    ["Botosani", 25000],
-    ["Braila", 26000],
-    ["Brasov", 27000],
-    ["Bucuresti", 27500],
-    ["Buzau", 28000],
-    ["Calarasi", 29000],
-    ["Caras-Severin", 30000],
-    ["Cluj", 31000],
-    ["Constanta", 32000],
-    ["Covasna", 33000],
-    ["Dambovita", 34000],
-    ["Dolj", 35000],
-    ["Galati", 36000],
-    ["Giurgiu", 37000],
-    ["Gorj", 38000],
-    ["Harghita", 39000],
-    ["Hunedoara", 40000],
-    ["Ialomita", 41000],
-    ["Iasi", 42000],
-    ["Ilfov", 43000],
-    ["Maramures", 44000],
-    ["Mehedinti", 45000],
-    ["Mures", 46000],
-    ["Neamt", 47000],
-    ["Olt", 48000],
-    ["Prahova", 49000],
-    ["Salaj", 50000],
-    ["Satu Mare", 51000],
-    ["Sibiu", 52000],
-    ["Suceava", 53000],
-    ["Teleorman", 54000],
-    ["Timis", 55000],
-    ["Tulcea", 56000],
-    ["Vaslui", 57000],
-    ["Valcea", 57500],
-    ["Vrancea", 58000]
+const judete = [
+    "ALBA",
+    "ARAD",
+    "ARGES",
+    "BACAU",
+    "BIHOR",
+    "BISTRITA NASAUD",
+    "BOTOSANI",
+    "BRAILA",
+    "BRASOV",
+    "BUZAU",
+    "CALARASI",
+    "CARAS-SEVERIN",
+    "CLUJ",
+    "CONSTANTA",
+    "COVASNA",
+    "DAMBOVITA",
+    "DOLJ",
+    "GALATI",
+    "GIURGIU",
+    "GORJ",
+    "HARGHITA",
+    "HUNEDOARA",
+    "IALOMITA",
+    "IASI",
+    "ILFOV",
+    "MARAMURES",
+    "MEHEDINTI",
+    "BUCURESTI",
+    "MURES",
+    "NEAMT",
+    "OLT",
+    "PRAHOVA",
+    "SALAJ",
+    "SATU MARE",
+    "SIBIU",
+    "SUCEAVA",
+    "TELEORMAN",
+    "TIMIS",
+    "TULCEA",
+    "VALCEA",
+    "VASLUI",
+    "VRANCEA",
 ];
 
 var width = 900,
     height = 450;
 
 var svg = d3
-  .select("#map_container")
-  .append("svg")
-  .attr("width", width)
-  .attr("height", height);
+    .select("#map_container")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
 
 var projection = d3.geo.albers()
     .center([0, 0])
@@ -62,17 +63,17 @@ var geoPath = d3.geo.path().projection(projection);
 queue().defer(d3.json, "../static/topojson/romania-counties.json").await(ready);
 
 function ready(error, counties) {
-  var romania = topojson.feature(counties, counties.objects.ROU_adm1).features;
-  console.log(romania);
+    var romania = topojson.feature(counties, counties.objects.ROU_adm1).features;
+    console.log(romania);
 
-  svg
-    .append("g")
-    .selectAll("path")
-    .data(romania)
-    .enter()
-    .append("path")
-    .attr("d", geoPath)
-    .attr("class", "county");
+    svg
+        .append("g")
+        .selectAll("path")
+        .data(romania)
+        .enter()
+        .append("path")
+        .attr("d", geoPath)
+        .attr("class", "county");
 
     var id = 0;
     d3.selectAll("path")
@@ -81,13 +82,45 @@ function ready(error, counties) {
         })
         .on("click", function (obj) {
 
-            console.log(obj.properties.ID_1);
-            console.log(obj.properties.NAME_1);
+            let filterObject = {
+                categorie: "rate",
+                judete: [judete[obj.properties.ID_1 - 1]],
+                perioada: "ultimele_12_luni",
+            };
+            fetch("http://localhost:3000/visualizer/get-data", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(filterObject),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data[0]);
+                    data = data[0];
+                    var divParagraph = document.getElementById("county_info");
+                    divParagraph.innerHTML = "";
 
-            var paragraph = d3.select("#county_info");
-            paragraph.text("Judetul " + obj.properties.NAME_1 + ": " +
-             data[obj.properties.ID_1-1][1] + " someri");
+                    var countyName = document.createElement("h3");
+                    let nameString = obj.properties.NAME_1;
+                    nameString = "Judetul " + nameString.charAt(0).toUpperCase() + nameString.slice(1);
+                    countyName.textContent = nameString;
+
+                    var totalSomeri = document.createElement("h4");
+                    totalSomeri.textContent = "Totalul somerilor din ultimul an " + data[0][1];
+
+                    var rataSomeri = document.createElement("h4");
+                    rataSomeri.textContent = "Rata somajului din ultimul an " + data[5][1] + "%";
+
+                    divParagraph.appendChild(countyName);
+                    divParagraph.appendChild(totalSomeri);
+                    divParagraph.appendChild(rataSomeri);
+
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+
+
         });
-
-    //console.log(romania[8].properties.NAME_1);
 }
