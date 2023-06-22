@@ -11,6 +11,7 @@ const pieChart = {
   element: "#pie-chart",
   options: {
     title: "Someri pe judete",
+    is3D: true,
     width: 500,
     height: 300,
   },
