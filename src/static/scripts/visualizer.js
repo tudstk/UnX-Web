@@ -46,7 +46,7 @@ const lineChart = {
   ],
   element: "#line-chart",
   options: {
-    title: "Procentul somerilor raportat la totalul populatiei pe ani",
+    title: "Numarul total de someri din judetele selectate in lunile selectate",
     width: 500,
     height: 300,
   },
@@ -132,3 +132,4 @@ function showFilters() {
     showFiltersBtn.textContent = "Hide filters";
   }
 }
+
