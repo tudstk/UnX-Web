@@ -26,13 +26,19 @@ const {
   handleGetAccount,
 } = require("./controllers/account_controller/get_account_details");
 const {
+  handleGetFeedbacks,
+} = require("./controllers/feedback_controller/get_feedbacks");
+const {
+  handleSaveFeedback,
+} = require("./controllers/feedback_controller/save_feedback");
+
+//require la get cu functia din controller
+const {
   handleAddUser,
   handleGetAllUsers,
   handleDeleteUser,
   handleDeleteReview,
 } = require("./controllers/admin_controller/admin_controller");
-
-const { handleGetData } = require("./controllers/data_controller");
 
 const { insertDataFromCSVFiles } = require("./utils/import_data");
 
@@ -64,18 +70,24 @@ const server = http.createServer((req, res) => {
   if (reqMethod === "OPTIONS") {
     res.writeHead(200, headers);
     res.end();
+    //adaugat inca un else if, gen getFeedback, metoda e get
   } else if (reqPath === "/register" && reqMethod === "POST") {
     handleRegistration(req, res);
   } else if (reqPath === "/login" && reqMethod === "POST") {
     handleLogin(req, res, JWT_SECRET);
   } else if (reqPath === "/updateAccount" && reqMethod === "POST") {
     handleUpdateAccount(req, res);
+  } else if (reqPath === "/saveFeedback" && reqMethod === "POST") {
+    handleSaveFeedback(req, res);
   } else if (reqPath === "/getAccountDetails" && reqMethod === "GET") {
     handleGetAccount(req, res);
   } else if (reqPath === "/resetPassword" && reqMethod === "PUT") {
     handleResetPassword(req, res);
   } else if (reqPath === "/admin/user/get-all" && reqMethod === "GET") {
     handleGetAllUsers(res);
+  } 
+  else if (reqPath === "/getFeedback" && reqMethod === "GET") {
+    handleGetFeedbacks(res);
   } else if (
     reqPath.startsWith("/admin/user/delete/") &&
     reqMethod === "DELETE"
