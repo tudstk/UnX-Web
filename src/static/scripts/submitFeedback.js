@@ -25,7 +25,9 @@ const submitFeedbackButton = document.getElementById("submit-feedback-button");
 
 submitFeedbackButton.addEventListener("click", () => {
   const username = document.querySelector(".submit-feedback h4").textContent;
-  const starRating = document.querySelectorAll(".submit-feedback .fa-solid").length;
+  const starRating = document.querySelectorAll(
+    ".submit-feedback .fa-solid"
+  ).length;
   const feedbackText = feedbackTextarea.value;
   function getUsernameFromToken() {
     const token = localStorage.getItem("token");
@@ -37,23 +39,23 @@ submitFeedbackButton.addEventListener("click", () => {
     }
     return null;
   }
-  const tokenUsername=getUsernameFromToken();
+  const tokenUsername = getUsernameFromToken();
   const feedbackData = {
     username: tokenUsername,
     feedback: feedbackText,
-    stars: starRating
+    stars: starRating,
   };
 
   fetch("http://localhost:3000/saveFeedback", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(feedbackData)
+    body: JSON.stringify(feedbackData),
   })
-    .then(response => response.json())
-    .then(data => {
-      // Handle the response from the server
+    .then((response) => response.json())
+    .then((data) => {
+      getAllFeedbacks();
       console.log(data.message);
       // Clear input fields and star rating
       feedbackTextarea.value = "";
@@ -65,9 +67,8 @@ submitFeedbackButton.addEventListener("click", () => {
         <i class="fa-sharp fa-solid fa-star"></i>
       `;
     })
-    .catch(error => {
+    .catch((error) => {
       // Handle any errors that occurred during the fetch request
       console.error(error);
     });
 });
-
