@@ -170,21 +170,24 @@
             fetch("http://localhost:3000/getFeedback")
                 .then(response => response.json())
                 .then(feedbacks => {
-                    // Render the feedbacks on the screen
                     const feedbackSection = document.getElementById("feedback-section");
-
-                    // // Clear the existing feedbacks
                     feedbackSection.innerHTML = "";
 
-                    // Iterate over the feedbacks and create HTML elements to display them
                     feedbacks.forEach(feedback => {
                         const feedbackCard = document.createElement("div");
                         feedbackCard.style.marginTop = "1rem";
                         feedbackCard.classList.add("feedback-card");
                         feedbackSection.appendChild(feedbackCard);
 
-                        const feedbackAuthor = document.createElement("h4");
-                        feedbackAuthor.textContent = feedback.username;
+                        const authorSection = document.createElement("div");
+                        const feedbackUsername = document.createElement("h4");
+                        const feedbackName = document.createElement("h4");
+                        feedbackUsername.textContent = "@" + feedback.username;
+                        feedbackUsername.style.fontStyle = "italic";
+                        feedbackUsername.style.marginBottom = "0.5rem";
+                        feedbackName.textContent = feedback.first_name + " " + feedback.last_name;
+                        authorSection.appendChild(feedbackUsername);
+                        authorSection.appendChild(feedbackName);
 
                         const stars = document.createElement("div");
                         stars.classList.add("stars");
@@ -199,7 +202,7 @@
                         feedbackContent.textContent = feedback.feedback;
 
                         // Append the elements to the feedback card
-                        feedbackCard.appendChild(feedbackAuthor);
+                        feedbackCard.appendChild(authorSection);
                         feedbackCard.appendChild(stars);
                         feedbackCard.appendChild(feedbackContent);
 
@@ -212,7 +215,7 @@
                     console.error("An error occurred while fetching the feedbacks:", error);
                 });
         }
-
+        getAllFeedbacks();
 
         function logout() {
             localStorage.removeItem('token');
@@ -272,7 +275,10 @@
                 accountElement.style.display = 'block';
             }
         }
-        window.addEventListener('DOMContentLoaded', function () { getAllFeedbacks(); updateUI(); });
+        window.addEventListener('DOMContentLoaded', function () {
+            // getAllFeedbacks();
+            updateUI();
+        });
 
         const token = localStorage.getItem("token");
         if (!token) {
