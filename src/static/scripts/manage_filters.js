@@ -159,8 +159,6 @@ document
   .getElementById("apply-filters-btn")
   .addEventListener("click", function () {
     //-- initializing variables -- //
-    let hasSelectedGender = false;
-    let monthStatement = "";
 
     // -------------------------- //
     filterObject.categorie = "";
@@ -218,7 +216,7 @@ document
         const genuriForm = document.getElementById("genuri");
         const mediiForm = document.getElementById("medii");
 
-        filteredData = data;
+        filteredData = data[0];
 
         if (genuriForm.parentElement.style.display !== "none") {
           hasSelectedGender = true;
@@ -229,7 +227,7 @@ document
 
           selectedFilters = selectedFilters.concat(selectedGenuri);
           console.log("SELECTED filters:" + selectedFilters);
-          filteredData = data.filter((entry) => {
+          filteredData = data[0].filter((entry) => {
             const key = entry[0];
             return selectedFilters.some((filter) => key.includes(filter));
           });
@@ -240,7 +238,7 @@ document
             mediiForm.querySelectorAll('input[type="radio"]:checked')
           ).map((radio) => radio.value.toLowerCase());
           selectedFilters = selectedFilters.concat(selectedMedii);
-          filteredData = data.filter((entry) => {
+          filteredData = data[0].filter((entry) => {
             const key = entry[0];
             return selectedFilters.some((filter) => key.includes(filter));
           });
@@ -281,11 +279,15 @@ document
 
         // ------ cod leustean ----- //
         // generating line chart data -> check bottom of file
+        let lineChartData = data[1];
+        let totalSomeriData = [["Luna", "Total Someri"]];
+        let monthIndex = lineChartData[0][1].length - 1;
+        // --- momentan afisam doar numarul total de someri --- //
+        for(let i = 0; i < lineChartData.length; i++) {
+          totalSomeriData[i + 1] = [lineChartData[i][1][8], lineChartData[i][1][0]];
+        }
 
-        let lineChartDataFilters = filterObject;
-        lineChartDataFilters["columns"] = ["total"]; // can be changed to add any columns
-
-        //lineChart.data = requestLineChartData(lineChartDataFilters); // uncomment once the backend in ready
+        lineChart.data = totalSomeriData;
 
         lineChart.chart.draw(
           google.visualization.arrayToDataTable(lineChart.data),
@@ -296,30 +298,6 @@ document
         console.error("Error:", error);
       });
   });
-
-// ------ cod leustean ----- //
-// la line chart avem nevoie de date pentru fiecare luna in parte, nu o suma pentru toate lunile
-// de aceea trebuie sa mai facem un request pentru fiecare luna in parte
-function requestLineChartData(lineChartDataFilters) {
-  console.log("Filter Object:", lineChartDataFilters);
-  fetch("http://localhost:3000/visualizer/linechart-data", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(filterObject),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Received linechart data:", data);
-      return data;
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-
-  return "Error";
-}
 
 function arrayToCsv(data) {
   return data

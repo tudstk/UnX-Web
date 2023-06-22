@@ -59,8 +59,91 @@ function generateQuery(table, judete, monthStatement) {
   return query;
 }
 
+function extractPieChartDataArray(data, table, judete, monthStatement) {
+  let transformedArray = [];
+
+  for (let i = 0; i < data.length; i++) {
+    const subArray = data[i][1]; // Access the nested array
+
+    // Iterate over the elements in the sub-array
+    for (let j = 0; j < subArray.length - 1; j++) {
+      // -1 because we don't want to include the month
+      let currentElement = subArray[j];
+
+      if (typeof currentElement === 'string' || currentElement instanceof String) {// percentages are extracted as strings from the database
+
+        currentElement = parseFloat(currentElement);
+      }
+
+      // Check if the transformedArray already contains an entry for the current element
+      const index = transformedArray.findIndex(
+        (entry) => entry[0] === data[i][0][j]
+      );
+
+      if (index !== -1) {
+        // If the entry exists, add the current element's value to the existing entry
+        transformedArray[index][1] += currentElement;
+      } else {
+        // If the entry doesn't exist, create a new entry in the transformedArray
+        transformedArray.push([data[i][0][j], currentElement]);
+      }
+    }
+  }
+
+  if (table === 'rate') {
+    let numberOfCounties = judete.length;
+
+    if (judete[0] === 'TOTAL') {
+      numberOfCounties = 42;
+    }
+
+    transformedArray = medianPercentageArray(transformedArray, numberOfCounties, getNumberOfMonths(monthStatement));
+  }
+  return transformedArray;
+}
+
+function extractLineChartDataArray(data, monthStatement) { // for this we need the data for every month
+  let transformedArray = [];
+  let nrOfMonths = getNumberOfMonths(monthStatement);
+
+  let monthIndex = data[0][0].length - 1;
+
+  for (let month = 13 - nrOfMonths; month <= 12; month++) {
+    let monthArray = [data[0][0], []];
+
+    for(let i = 0; i < monthIndex; i++) {
+      monthArray[1][i] = 0;
+    }
+
+    monthArray[1][monthIndex] = month;
+
+    for (let i = 0; i < data.length; i++) {
+      const subArray = data[i]; // Access the nested array
+
+      if (subArray[1][monthIndex] == month) {// month number
+
+        for (let j = 0; j < monthIndex; j++) {
+
+          let currentElement = subArray[1][j];
+
+          if (typeof currentElement === 'string' || currentElement instanceof String) {// percentages are extracted as strings from the database
+
+            currentElement = parseFloat(currentElement);
+          }
+
+          monthArray[1][j] += currentElement;
+        }
+
+      }
+    }
+    
+    transformedArray.push(monthArray);
+  }
+  return transformedArray;
+}
+
 async function extractDataArray(table, judete, monthStatement) {
-  let responseArray;
+  let responseArray = [];
   try {
     const client = await pool.connect();
 
@@ -74,48 +157,13 @@ async function extractDataArray(table, judete, monthStatement) {
       return [attributes, values];
     });
 
-    let transformedArray = [];
+    const pieChartDataArray = extractPieChartDataArray(data, table, judete, monthStatement);
+    const lineChartDataArray = extractLineChartDataArray(data, monthStatement);
+    
+    responseArray = [pieChartDataArray, lineChartDataArray];
 
-    for (let i = 0; i < data.length; i++) {
-      const subArray = data[i][1]; // Access the nested array
-
-      // Iterate over the elements in the sub-array
-      for (let j = 0; j < subArray.length - 1; j++) {
-        // -1 because we don't want to include the month
-        let currentElement = subArray[j];
-
-        if (typeof currentElement === 'string' || currentElement instanceof String) {// percentages are extracted as strings from the database
-          
-          currentElement = parseFloat(currentElement);
-        }
-
-        // Check if the transformedArray already contains an entry for the current element
-        const index = transformedArray.findIndex(
-          (entry) => entry[0] === data[i][0][j]
-        );
-
-        if (index !== -1) {
-          // If the entry exists, add the current element's value to the existing entry
-          transformedArray[index][1] += currentElement;
-        } else {
-          // If the entry doesn't exist, create a new entry in the transformedArray
-          transformedArray.push([data[i][0][j], currentElement]);
-        }
-      }
-    }
-
-    if (table === 'rate') {
-      let numberOfCounties = judete.length;
-
-      if (judete[0] === 'TOTAL') {
-        numberOfCounties = 42;
-      }
-
-      transformedArray = medianPercentageArray(transformedArray, numberOfCounties, getNumberOfMonths(monthStatement));
-    }
-    responseArray = transformedArray;
   } catch (error) {
-    console.error("Error extracting age groups data:", error);
+    console.error("Error extracting data:", error);
   }
 
   return responseArray;
