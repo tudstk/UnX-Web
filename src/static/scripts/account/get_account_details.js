@@ -1,7 +1,7 @@
 function handleGetAccount() {
   const token = localStorage.getItem("token");
 
-  fetch("http://localhost:3000/getAccountDetails", {
+  fetch("http://localhost:3000/user/account/details", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

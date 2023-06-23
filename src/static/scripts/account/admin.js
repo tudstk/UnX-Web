@@ -9,7 +9,7 @@ function getIsAdminFromToken() {
   return null;
 }
 // document.getElementById("get-users-btn").addEventListener("click", function () {
-//   fetch("http://localhost:3000/admin/user/get-all", {
+//   fetch("http://localhost:3000/admin/users", {
 //     method: "GET",
 //     headers: {
 //       "Content-Type": "application/json",
@@ -34,7 +34,7 @@ document
       return;
     }
 
-    fetch(`http://localhost:3000/admin/user/delete/${username}`, {
+    fetch(`http://localhost:3000/admin/users/${username}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
@@ -66,7 +66,7 @@ document
       isAdmin: isAdmin,
     };
 
-    fetch("http://localhost:3000/admin/user/add", {
+    fetch("http://localhost:3000/admin/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

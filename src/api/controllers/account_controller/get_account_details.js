@@ -1,7 +1,6 @@
 const pool = require("../../utils/db/db_connection").pool;
 
 function handleGetAccount(req, res) {
-  console.log("GET /getAccountDetails");
   const token = req.headers.authorization;
   const [, payload] = token.split(".");
   const decodedPayload = Buffer.from(payload, "base64").toString();

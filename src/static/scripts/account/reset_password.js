@@ -20,7 +20,7 @@ function handlePasswordSubmit(event) {
     confirmPassword,
   };
 
-  fetch("http://localhost:3000/resetPassword", {
+  fetch("http://localhost:3000/user/account/password", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

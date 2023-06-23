@@ -174,14 +174,11 @@ document
     checkboxes.forEach(function (checkbox) {
       let value = checkbox.value;
       if (listaJudete.includes(value)) {
-
         if (value === "Toata tara") {
-          filterObject.judete.push('TOTAL');
-          selectedOptions.push('TOTAL');
+          filterObject.judete.push("TOTAL");
+          selectedOptions.push("TOTAL");
           toataTara = true;
-        }
-
-        else if (toataTara === false) {
+        } else if (toataTara === false) {
           filterObject.judete.push(value.toUpperCase());
           selectedOptions.push(value);
         }
@@ -213,7 +210,7 @@ document
     });
 
     console.log("Filter Object:", filterObject);
-    fetch("http://localhost:3000/visualizer/get-data", {
+    fetch("http://localhost:3000/visualizer/charts/data", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -281,8 +278,6 @@ document
         filteredData.unshift(["Total", total.toString()]);
         pieChart.options.title = title;
 
-
-
         pieChart.data = filteredData;
         barChart.data = filteredData;
 
@@ -303,7 +298,11 @@ document
         let totalSomeriData = [["Luna"]];
         let monthIndex = lineChartData[0][1].length - 1;
 
-        for (let attributeIndex = 0; attributeIndex < monthIndex; attributeIndex++) {
+        for (
+          let attributeIndex = 0;
+          attributeIndex < monthIndex;
+          attributeIndex++
+        ) {
           totalSomeriData[0].push(lineChartData[0][0][attributeIndex]); // pushing attributes name in chart data
         }
 
@@ -313,7 +312,6 @@ document
           for (let j = 0; j < monthIndex; j++) {
             totalSomeriData[i + 1].push(lineChartData[i][1][j]);
           }
-
         }
 
         lineChart.data = totalSomeriData;
@@ -342,7 +340,7 @@ async function beautifyData(filteredData, filterObject) {
         "Postliceale",
         "Profesionale",
         "Universitare",
-        "Month"
+        "Month",
       ];
       break;
     case "mediu":
@@ -356,7 +354,7 @@ async function beautifyData(filteredData, filterObject) {
         "Rural",
         "Rural Femei",
         "Rural Barbati",
-        "Month"
+        "Month",
       ];
       break;
     case "rate":
@@ -369,7 +367,7 @@ async function beautifyData(filteredData, filterObject) {
         "Rata Somaj",
         "Rata Somaj Femei",
         "Rata Somaj Barbati",
-        "Month"
+        "Month",
       ];
       break;
     case "varste":
@@ -381,7 +379,7 @@ async function beautifyData(filteredData, filterObject) {
         "40-49 ani",
         "50-55 ani",
         " > 55 ani",
-        "Month"
+        "Month",
       ];
       break;
     default:

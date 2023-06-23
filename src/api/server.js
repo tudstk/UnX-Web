@@ -64,7 +64,7 @@ const server = http.createServer((req, res) => {
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
 
-  const reqUrl = url.parse(req.url); // Parsing the request URL
+  const reqUrl = url.parse(req.url);
   const reqPath = reqUrl.pathname;
   const reqMethod = req.method;
   let username = reqPath.split("/").pop();
@@ -78,36 +78,33 @@ const server = http.createServer((req, res) => {
     handleRegistration(req, res);
   } else if (reqPath === "/login" && reqMethod === "POST") {
     handleLogin(req, res, JWT_SECRET);
-  } else if (reqPath === "/updateAccount" && reqMethod === "POST") {
+  } else if (reqPath === "/user/account/details" && reqMethod === "PUT") {
     handleUpdateAccount(req, res);
-  } else if (reqPath === "/saveFeedback" && reqMethod === "POST") {
+  } else if (reqPath === "/visualizer/feedbacks" && reqMethod === "POST") {
     handleSaveFeedback(req, res);
-  } else if (reqPath === "/getAccountDetails" && reqMethod === "GET") {
+  } else if (reqPath === "/user/account/details" && reqMethod === "GET") {
     handleGetAccount(req, res);
-  } else if (reqPath === "/resetPassword" && reqMethod === "PUT") {
+  } else if (reqPath === "/user/account/password" && reqMethod === "PUT") {
     handleResetPassword(req, res);
-  } else if (reqPath === "/admin/user/get-all" && reqMethod === "GET") {
+  } else if (reqPath === "/admin/users" && reqMethod === "GET") {
     handleGetAllUsers(res);
-  } else if (reqPath === "/getFeedback" && reqMethod === "GET") {
+  } else if (reqPath === "/visualizer/feedbacks" && reqMethod === "GET") {
     handleGetFeedbacks(res);
-  } else if (
-    reqPath.startsWith("/admin/user/delete/") &&
-    reqMethod === "DELETE"
-  ) {
-    let username = reqPath.slice("/admin/user/delete/".length);
+  } else if (reqPath.startsWith("/admin/users/") && reqMethod === "DELETE") {
+    let username = reqPath.slice("/admin/users/".length);
     handleDeleteUser(username, res);
-  } else if (reqPath === "/admin/user/add" && reqMethod === "POST") {
+  } else if (reqPath === "/admin/users" && reqMethod === "POST") {
     handleAddUser(req, res);
   } else if (
-    reqPath.startsWith("/admin/review/delete/") &&
+    reqPath.startsWith("/admin/feedbacks/") &&
     reqMethod === "DELETE"
   ) {
-    let reviewId = reqPath.slice("/admin/review/delete/".length);
-    handleDeleteReview(reviewId, res); // TODO: implement in admin_controller.js
-  } else if (reqPath === "/visualizer/get-data" && reqMethod === "POST") {
+    let reviewId = reqPath.slice("/admin/feedbacks/".length);
+    handleDeleteReview(reviewId, res);
+  } else if (reqPath === "/visualizer/charts/data" && reqMethod === "POST") {
     handleGetData(res, req);
   } else {
-    res.statusCode = 404; // Handling unknown routes
+    res.statusCode = 404;
     res.end("Not found");
   }
 });

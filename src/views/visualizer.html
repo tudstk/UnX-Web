@@ -170,7 +170,7 @@
         // make text italic
         htmlUsername.style.fontStyle = "italic";
         function getAllFeedbacks() {
-            fetch("http://localhost:3000/getFeedback")
+            fetch("http://localhost:3000/visualizer/feedbacks")
                 .then(response => response.json())
                 .then(feedbacks => {
                     const feedbackSection = document.getElementById("feedback-section");

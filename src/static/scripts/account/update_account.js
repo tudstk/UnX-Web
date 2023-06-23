@@ -13,8 +13,8 @@ function handleFormSubmit(event) {
     lastName,
   };
 
-  fetch("http://localhost:3000/updateAccount", {
-    method: "POST",
+  fetch("http://localhost:3000/user/account/details", {
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
       Authorization: token,

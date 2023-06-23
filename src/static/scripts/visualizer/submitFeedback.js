@@ -40,7 +40,7 @@ submitFeedbackButton.addEventListener("click", () => {
     return null;
   }
   const tokenUsername = getUsernameFromToken();
-  fetch("http://localhost:3000/getAccountDetails", {
+  fetch("http://localhost:3000/user/account/details", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -49,7 +49,6 @@ submitFeedbackButton.addEventListener("click", () => {
   })
     .then((response) => response.json())
     .then((accountDetails) => {
-      console.log("ACCCCCC DETAILSS", accountDetails);
       const firstName = accountDetails.first_name; // Extract the first name from account details
       const lastName = accountDetails.last_name; // Extract the last name from account details
       const feedbackData = {
@@ -60,7 +59,7 @@ submitFeedbackButton.addEventListener("click", () => {
         stars: starRating,
       };
       console.log("FEEEDBAACK DATAAA", feedbackData);
-      fetch("http://localhost:3000/saveFeedback", {
+      fetch("http://localhost:3000/visualizer/feedbacks", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -71,7 +70,6 @@ submitFeedbackButton.addEventListener("click", () => {
         .then((data) => {
           getAllFeedbacks();
           console.log(data.message);
-          // Clear input fields and star rating
           feedbackTextarea.value = "";
           document.querySelector(".submit-feedback .stars").innerHTML = `
             <i class="fa-sharp fa-solid fa-star"></i>
@@ -82,12 +80,10 @@ submitFeedbackButton.addEventListener("click", () => {
           `;
         })
         .catch((error) => {
-          // Handle any errors that occurred during the fetch request
           console.error(error);
         });
     })
     .catch((error) => {
-      // Handle any errors that occurred during the fetch request
       console.error(error);
     });
 });
