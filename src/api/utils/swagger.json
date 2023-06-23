@@ -1,0 +1,43 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "UnX API Documentation",
+    "version": "1.0.0",
+    "description": "Description of the UnX API:"
+  },
+  "paths": {
+    "/register": {
+      "post": {
+        "summary": "Register a new user",
+        "tags": ["Authentication"],
+        "requestBody": {
+          "description": "User registration data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User registration successful"
+          },
+          "400": {
+            "description": "Invalid request body"
+          }
+        }
+      }
+    }
+  }
+}
