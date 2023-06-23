@@ -87,12 +87,16 @@ function ready(error, counties) {
         judete: [judete[obj.properties.ID_1 - 1]],
         perioada: "ultimele_12_luni",
       };
-      fetch("http://localhost:3000/visualizer/charts/data", {
-        method: "POST",
+
+      let filterString = filterObjectToString(filterObject);
+      console.log("Filter string:", filterString);
+      let url = `http://localhost:3000/visualizer/charts/data/${filterString}`;
+  
+      fetch(url, {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(filterObject),
       })
         .then((response) => response.json())
         .then((data) => {

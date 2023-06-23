@@ -101,8 +101,10 @@ const server = http.createServer((req, res) => {
   ) {
     let reviewId = reqPath.slice("/admin/feedbacks/".length);
     handleDeleteReview(reviewId, res);
-  } else if (reqPath === "/visualizer/charts/data" && reqMethod === "POST") {
-    handleGetData(res, req);
+  } else if (reqPath.startsWith("/visualizer/charts/data/") && reqMethod === "GET") {
+    let filterString = reqPath.slice("/visualizer/charts/data/".length); // extracting filterString from url
+    //console.log("Filter string:", filterString);
+    handleGetData(res, filterString);
   } else {
     res.statusCode = 404;
     res.end("Not found");
