@@ -145,7 +145,11 @@
                     "type": "string"
                   }
                 },
-                "required": ["currentPassword", "newPassword", "confirmPassword"]
+                "required": [
+                  "currentPassword",
+                  "newPassword",
+                  "confirmPassword"
+                ]
               }
             }
           }
@@ -194,7 +198,7 @@
         }
       }
     },
-    "/visualiser/feedback": {
+    "/visualizer/feedback": {
       "get": {
         "summary": "Get feedbacks",
         "tags": ["Visualizer"],
