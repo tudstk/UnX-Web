@@ -5,6 +5,30 @@ const filterObject = {
 };
 let filteredData = [];
 let selectedOptions = [];
+
+function filterObjectToString(filterObject) {
+  // Create a new instance of URLSearchParams
+  const params = new URLSearchParams();
+
+  // Iterate over the filterObject properties and add them to the URLSearchParams
+  for (const [key, value] of Object.entries(filterObject)) {
+    // If the value is an array, iterate over its elements and add them as repeated parameters
+    if (Array.isArray(value)) {
+      for (const item of value) {
+        params.append(key, item);
+      }
+    } else {
+      // Otherwise, add the parameter as a single key-value pair
+      params.set(key, value);
+    }
+  }
+
+  // Convert the URLSearchParams to a string
+  const queryString = params.toString();
+  console.log("Query string:", queryString);
+  return queryString;
+}
+
 document
   .getElementById("apply-filters-btn")
   .addEventListener("click", function () {
@@ -56,13 +80,15 @@ document
       selectedOptions.push(value);
     });
 
-    console.log("Filter Object:", filterObject);
-    fetch("http://localhost:3000/visualizer/charts/data", {
-      method: "POST",
+    let filterString = filterObjectToString(filterObject);
+    console.log("Filter string:", filterString);
+    let url = `http://localhost:3000/visualizer/charts/data/${filterString}`;
+
+    fetch(url, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(filterObject),
     })
       .then((response) => response.json())
       .then((data) => {
