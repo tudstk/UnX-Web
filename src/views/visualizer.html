@@ -162,143 +162,17 @@
 
     <!-- https://developers.google.com/chart/interactive/docs/quick_start -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
-
-    <script>
-        const username = getUsernameFromToken();
-        const htmlUsername = document.querySelector(".username-text");
-        htmlUsername.textContent = "@" + username;
-        // make text italic
-        htmlUsername.style.fontStyle = "italic";
-        function getAllFeedbacks() {
-            fetch("http://localhost:3000/visualizer/feedbacks")
-                .then(response => response.json())
-                .then(feedbacks => {
-                    const feedbackSection = document.getElementById("feedback-section");
-                    feedbackSection.innerHTML = "";
-
-                    feedbacks.forEach(feedback => {
-                        const feedbackCard = document.createElement("div");
-                        feedbackCard.style.marginTop = "1rem";
-                        feedbackCard.classList.add("feedback-card");
-                        feedbackSection.appendChild(feedbackCard);
-
-                        const authorSection = document.createElement("div");
-                        const feedbackUsername = document.createElement("h4");
-                        const feedbackName = document.createElement("h4");
-                        feedbackUsername.textContent = "@" + feedback.username;
-                        feedbackUsername.style.fontStyle = "italic";
-                        feedbackUsername.style.marginBottom = "0.5rem";
-                        feedbackName.textContent = feedback.first_name + " " + feedback.last_name;
-                        authorSection.appendChild(feedbackUsername);
-                        authorSection.appendChild(feedbackName);
-
-                        const stars = document.createElement("div");
-                        stars.classList.add("stars");
-
-                        for (let i = 0; i < feedback.stars; i++) {
-                            const starIcon = document.createElement("i");
-                            starIcon.classList.add("fa-sharp", "fa-solid", "fa-star");
-                            stars.appendChild(starIcon);
-                        }
-
-                        const feedbackContent = document.createElement("p");
-                        feedbackContent.textContent = feedback.feedback;
-
-                        // Append the elements to the feedback card
-                        feedbackCard.appendChild(authorSection);
-                        feedbackCard.appendChild(stars);
-                        feedbackCard.appendChild(feedbackContent);
-
-                        // Append the feedback card to the feedback section
-                        feedbackSection.appendChild(feedbackCard);
-                    });
-                })
-                .catch(error => {
-                    // Handle any errors that occurred during the request
-                    console.error("An error occurred while fetching the feedbacks:", error);
-                });
-        }
-        getAllFeedbacks();
-
-        function logout() {
-            localStorage.removeItem('token');
-            window.location.href = '/src/views/login.html';
-        }
-
-        function getUsernameFromToken() {
-            const token = localStorage.getItem('token');
-            if (token) {
-                const [, payload] = token.split('.');
-                const decodedPayload = atob(payload);
-                const { username } = JSON.parse(decodedPayload);
-                // return email.split('@')[0];;
-                return username;
-            }
-            return null;
-        }
-
-        function getEmailFromToken() {
-            const token = localStorage.getItem('token');
-            if (token) {
-                const [, payload] = token.split('.');
-                const decodedPayload = atob(payload);
-                const { email } = JSON.parse(decodedPayload);
-                return email;
-            }
-            return null;
-        }
-
-
-        function updateUI() {
-            const accountElement = document.querySelector('.account');
-            const accountLinkElement = document.querySelector('.account_link');
-            const username = getUsernameFromToken();
-            if (username) {
-                accountElement.style.display = 'none';
-                accountLinkElement.style.display = 'none';
-                const nav = document.querySelector('nav');
-
-                const userContainer = document.createElement('div');
-                userContainer.style.display = 'flex';
-                userContainer.style.alignItems = 'center';
-                const logoutElement = document.createElement('span');
-                logoutElement.textContent = 'Logout';
-
-                const usernameLink = document.createElement('a');
-                usernameLink.href = `account.html`;
-                usernameLink.textContent = username;
-                usernameLink.style.fontStyle = 'italic';
-                usernameLink.style.textDecoration = 'underline';
-
-                userContainer.appendChild(usernameLink);
-                // userContainer.appendChild(logoutElement);
-
-                nav.appendChild(userContainer);
-            } else {
-                accountElement.style.display = 'block';
-            }
-        }
-        window.addEventListener('DOMContentLoaded', function () {
-            // getAllFeedbacks();
-            updateUI();
-        });
-
-        const token = localStorage.getItem("token");
-        if (!token) {
-            window.location.href = '/src/views/login.html';
-        }
-
-
+    <script src="../static/scripts/visualizer/render_feedbacks.js"></script>
+    <script src="../static/scripts/ui/load_ui.js">
     </script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"
         integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/"
         crossorigin="anonymous"></script>
-
     <script src="../static/scripts/visualizer/visualizer.js"></script>
     <script src="../static/scripts/hamburger.js"></script>
     <script src="../static/scripts/visualizer/cartographic.js"></script>
-    <script src="../static/scripts/visualizer/submitFeedback.js"></script>
+    <script src="../static/scripts/visualizer/submit_feedback.js"></script>
     <script src="../static/scripts/visualizer/manage_filters.js"></script>
     <script src="../static/scripts/export/export_data.js"></script>
 
