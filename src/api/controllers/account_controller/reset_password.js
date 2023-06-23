@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const pool = require("../../utils/db/db_connection").pool;
 
 async function handleResetPassword(req, res) {
+
   let body = [];
   req
     .on("data", (chunk) => {
@@ -29,10 +30,19 @@ async function handleResetPassword(req, res) {
             console.error("Error getting user:", error);
           } else {
             const user = results.rows[0];
-            console.log(user);
-            if (!verifyPassword(currentPassword, user.password)) {
+
+
+            let isPasswordCorrect = bcrypt.compareSync(currentPassword, user.password);
+
+            if (!isPasswordCorrect) {
+              res.statusCode = 401;
+              res.setHeader("Content-Type", "text/plain");
+              res.setHeader("Access-Control-Allow-Origin", "*");
               res.end("Current password is incorrect");
             } else if (newPassword !== confirmPassword) {
+              res.statusCode = 401;
+              res.setHeader("Content-Type", "text/plain");
+              res.setHeader("Access-Control-Allow-Origin", "*");
               res.end("New password and confirm password do not match");
             } else {
               try {

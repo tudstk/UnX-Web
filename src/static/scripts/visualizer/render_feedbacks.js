@@ -60,6 +60,7 @@ function getAllFeedbacks() {
     })
     .catch((error) => {
       // Handle any errors that occurred during the request
+      alert("An error occurred while fetching the feedbacks.");
       console.error("An error occurred while fetching the feedbacks:", error);
     });
 }

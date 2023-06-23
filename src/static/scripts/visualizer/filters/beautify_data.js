@@ -1,4 +1,4 @@
-async function beautifyData(filteredData, filterObject) {
+function beautifyData(filteredData, filterObject) {
   let beautifulData = filteredData;
 
   switch (filterObject.categorie) {
@@ -36,9 +36,9 @@ async function beautifyData(filteredData, filterObject) {
         "Barbati",
         "Indemnizati",
         "Neindemnizati",
-        "Rata Somaj",
-        "Rata Somaj Femei",
-        "Rata Somaj Barbati",
+        "Total someri",
+        "Femei",
+        "Barbati",
         "Month",
       ];
       break;
@@ -59,7 +59,7 @@ async function beautifyData(filteredData, filterObject) {
   }
 
   for (let i = 0; i < filteredData[0].length; i++) {
-    beautifulData[0][i] = attributeList[i];
+    beautifulData[0][i][0] = attributeList[i];
   }
 
   for (let i = 0; i < filteredData[1].length; i++) {

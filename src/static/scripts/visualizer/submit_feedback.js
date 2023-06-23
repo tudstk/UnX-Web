@@ -68,6 +68,7 @@ submitFeedbackButton.addEventListener("click", () => {
       })
         .then((response) => response.json())
         .then((data) => {
+          alert("Feedback submitted successfully!");
           getAllFeedbacks();
           console.log(data.message);
           feedbackTextarea.value = "";
@@ -81,6 +82,7 @@ submitFeedbackButton.addEventListener("click", () => {
         })
         .catch((error) => {
           console.error(error);
+          alert("An error occurred while submitting the feedback.");
         });
     })
     .catch((error) => {

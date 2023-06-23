@@ -17,6 +17,7 @@ function getIsAdminFromToken() {
 //   })
 //     .then((response) => response.json())
 //     .then((data) => {
+//       alert("Users fetched successfully!");
 //       // Handle the response data
 //       console.log(data); // You can perform further processing here
 //     })
@@ -40,6 +41,7 @@ document
       .then((response) => response.json())
       .then((data) => {
         // Handle the response data
+        alert("User deleted successfully!");
         console.log(data);
       })
       .catch((error) => {
@@ -76,6 +78,7 @@ document
       .then((response) => response.json())
       .then((data) => {
         if (typeof data.error === "undefined") {
+          alert("User added successfully!");
           // registration succeded
           console.log("User added successfully");
         } else {
@@ -112,25 +115,27 @@ document
       });
   });
 
-// delete review button
-// document
-//   .getElementById("delete-review-button")
-//   .addEventListener("click", function () {
-//     const reviewId = document.getElementById("review-id-input").value.trim();
-//     if (reviewId === "") {
-//       alert("Please enter a review id");
-//       return;
-//     }
-//     fetch(`http://localhost:3000/admin/review/delete/${reviewId}`, {
-//       method: "DELETE",
-//     })
-//       .then((response) => response.json())
-//       .then((data) => {
-//         // Handle the response data
-//         console.log(data);
-//       })
-//       .catch((error) => {
-//         // Handle any errors
-//         console.error(error);
-//       });
-//   });
+//delete review button
+document
+  .getElementById("delete-review-button")
+  .addEventListener("click", function () {
+    console.log("delete review button clicked");
+    const reviewId = document.getElementById("review-id-input").value.trim();
+    if (reviewId === "") {
+      alert("Please enter a review id");
+      return;
+    }
+    fetch(`http://localhost:3000/admin/feedbacks/${reviewId}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response data
+        console.log(data);
+        alert("Feedback deleted successfully!");
+      })
+      .catch((error) => {
+        // Handle any errors
+        console.error(error);
+      });
+  });
