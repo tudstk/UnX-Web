@@ -72,8 +72,21 @@ async function handleDeleteUser(username, res) {
 }
 
 async function handleDeleteReview(reviewId, res) {
-  console.log("I'm in handleDeleteReview()");
-  // TODO: Implement this function
+  try {
+    const query = "DELETE FROM feedback WHERE id = $1"; // Query to delete the feedback by id
+    await pool.query(query, [reviewId]);
+
+    res.statusCode = 200; // Setting success status code
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify({ message: "Feedback deleted successfully!" }));
+  } catch (error) {
+    console.error(error);
+    res.statusCode = 500;
+    res.setHeader("Content-Type", "application/json");
+    res.end(
+      JSON.stringify({ error: "An error occurred while deleting the feedback." })
+    );
+  }
 }
 
 module.exports = {

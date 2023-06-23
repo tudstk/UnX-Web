@@ -95,10 +95,7 @@ const server = http.createServer((req, res) => {
     handleDeleteUser(username, res);
   } else if (reqPath === "/admin/users" && reqMethod === "POST") {
     handleAddUser(req, res);
-  } else if (
-    reqPath.startsWith("/admin/feedbacks/") &&
-    reqMethod === "DELETE"
-  ) {
+  } else if ( reqPath.startsWith("/admin/feedbacks/") && reqMethod === "DELETE") {
     let reviewId = reqPath.slice("/admin/feedbacks/".length);
     handleDeleteReview(reviewId, res);
   } else if (reqPath.startsWith("/visualizer/charts/data/") && reqMethod === "GET") {

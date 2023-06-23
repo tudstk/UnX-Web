@@ -73,7 +73,7 @@ body {
 
   .form-box {
     width: 26rem;
-    height: 37.5rem;
+    height: 44rem;
     background: #081b38;
     border-radius: 1rem;
     opacity: 0.9;
@@ -254,7 +254,6 @@ body {
   .my-form {
     opacity: 1;
     flex-direction: column;
-    border
   }
 
   .form-btn {

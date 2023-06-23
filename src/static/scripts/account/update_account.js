@@ -26,10 +26,12 @@ function handleFormSubmit(event) {
         console.log("Account updated successfully");
         successMessage.style.display = "block";
       } else {
+        alert("An error occurred while updating the account.");
         console.error("Error updating account");
       }
     })
     .catch((error) => {
+      alert("An error occurred while updating the account.");
       console.error("Error updating account:", error);
     });
 }

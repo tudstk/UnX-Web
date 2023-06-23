@@ -35,14 +35,15 @@ function handlePasswordSubmit(event) {
         successMessageResetPassword.style.display = "block";
         failMessage.style.display = "none"; // Hide the failure message
       } else {
+        alert("An error occurred while updating the password: current password is incorrect or new password and confirm password do not match.");
         console.log("Failed to update password");
         successMessageResetPassword.style.display = "none";
         failMessage.style.display = "block"; // Display the failure message
       }
     })
     .catch((error) => {
+      alert("An error occurred while updating the password: current password is incorrect or new password and confirm password do not match.");
       console.error("Error updating password:", error);
     });
 }
-
 resetPasswordForm.addEventListener("submit", handlePasswordSubmit);
