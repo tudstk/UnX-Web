@@ -6,6 +6,39 @@
     "description": "Description of the UnX API:"
   },
   "paths": {
+    "/login": {
+      "post": {
+        "summary": "Login to UnX",
+        "tags": ["Authentication"],
+        "requestBody": {
+          "description": "User login credentials",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful"
+          },
+          "400": {
+            "description": "Invalid request body"
+          }
+        }
+      }
+    },
     "/register": {
       "post": {
         "summary": "Register a new user",
@@ -18,6 +51,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "email": {
+                    "type": "string"
+                  },
                   "username": {
                     "type": "string"
                   },
@@ -35,6 +71,272 @@
           },
           "400": {
             "description": "Invalid request body"
+          }
+        }
+      }
+    },
+    "/user/account/details": {
+      "get": {
+        "summary": "Get account details",
+        "tags": ["User"],
+        "responses": {
+          "200": {
+            "description": "Account details retrieved successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update account details",
+        "tags": ["User"],
+        "requestBody": {
+          "description": "User account details to be updated",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fName": {
+                    "type": "string"
+                  },
+                  "lName": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Account details updated successfully"
+          },
+          "400": {
+            "description": "Invalid request body"
+          }
+        }
+      }
+    },
+    "/user/account/password": {
+      "put": {
+        "summary": "Reset password",
+        "tags": ["User"],
+        "requestBody": {
+          "description": "Password reset data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "currentPassword": {
+                    "type": "string"
+                  },
+                  "newPassword": {
+                    "type": "string"
+                  },
+                  "confirmPassword": {
+                    "type": "string"
+                  }
+                },
+                "required": ["currentPassword", "newPassword", "confirmPassword"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset successful",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request body",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/visualiser/feedback": {
+      "get": {
+        "summary": "Get feedbacks",
+        "tags": ["Visualizer"],
+        "responses": {
+          "200": {
+            "description": "Successful response with feedbacks",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "username": {
+                        "type": "string"
+                      },
+                      "first_name": {
+                        "type": "string"
+                      },
+                      "last_name": {
+                        "type": "string"
+                      },
+                      "feedback": {
+                        "type": "string"
+                      },
+                      "stars": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occurred while fetching the feedbacks",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "An error occurred while fetching the feedbacks."
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Save feedback",
+        "tags": ["Visualizer"],
+        "requestBody": {
+          "description": "Feedback data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "feedback": {
+                    "type": "string"
+                  },
+                  "stars": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Feedback saved successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Feedback saved successfully!"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occurred while saving the feedback",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "An error occurred while saving the feedback."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/users": {
+      "get": {
+        "summary": "Get all users",
+        "tags": ["Admin"],
+        "responses": {
+          "200": {
+            "description": "Successful response with all users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "username": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "first_name": {
+                        "type": "string"
+                      },
+                      "last_name": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occurred while fetching users",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "An error occurred while fetching users."
+                }
+              }
+            }
           }
         }
       }
