@@ -232,30 +232,33 @@ document
 
         filteredData = data[0];
 
-        if (genuriForm.parentElement.style.display !== "none") {
-          hasSelectedGender = true;
-          console.log("genuri form is not none");
-          const selectedGenuri = Array.from(
-            genuriForm.querySelectorAll('input[type="radio"]:checked')
-          ).map((radio) => radio.value.toLowerCase());
+        if (filterObject.categorie === "mediu") {
+          // prelucrarea filtrelor pentru mediu
+          if (genuriForm.parentElement.style.display !== "none") {
+            hasSelectedGender = true;
+            console.log("genuri form is not none");
+            const selectedGenuri = Array.from(
+              genuriForm.querySelectorAll('input[type="radio"]:checked')
+            ).map((radio) => radio.value.toLowerCase());
 
-          selectedFilters = selectedFilters.concat(selectedGenuri);
-          console.log("SELECTED filters:" + selectedFilters);
-          filteredData = data[0].filter((entry) => {
-            const key = entry[0];
-            return selectedFilters.some((filter) => key.includes(filter));
-          });
-        }
+            selectedFilters = selectedFilters.concat(selectedGenuri);
+            console.log("SELECTED filters:" + selectedFilters);
+            filteredData = data[0].filter((entry) => {
+              const key = entry[0];
+              return selectedFilters.some((filter) => key.includes(filter));
+            });
+          }
 
-        if (mediiForm.parentElement.style.display !== "none") {
-          const selectedMedii = Array.from(
-            mediiForm.querySelectorAll('input[type="radio"]:checked')
-          ).map((radio) => radio.value.toLowerCase());
-          selectedFilters = selectedFilters.concat(selectedMedii);
-          filteredData = data[0].filter((entry) => {
-            const key = entry[0];
-            return selectedFilters.some((filter) => key.includes(filter));
-          });
+          if (mediiForm.parentElement.style.display !== "none") {
+            const selectedMedii = Array.from(
+              mediiForm.querySelectorAll('input[type="radio"]:checked')
+            ).map((radio) => radio.value.toLowerCase());
+            selectedFilters = selectedFilters.concat(selectedMedii);
+            filteredData = data[0].filter((entry) => {
+              const key = entry[0];
+              return selectedFilters.some((filter) => key.includes(filter));
+            });
+          }
         }
 
         let total = 0;
@@ -270,16 +273,20 @@ document
         }
 
         total = targetArray[1];
-        let csv = arrayToCsv(filteredData);
-
         console.log("filtered DATA:", filteredData);
         console.log(targetArray[1]);
         const title = "Total: " + targetArray[1];
         filteredData.unshift(["Total", total.toString()]);
         pieChart.options.title = title;
 
-        pieChart.data = filteredData;
-        barChart.data = filteredData;
+        let pieChartData = filteredData;
+
+        if (filterObject.categorie === "rate") {
+          pieChartData = [filteredData[0], filteredData[1], filteredData[2]];
+        }
+
+        pieChart.data = pieChartData;
+        barChart.data = pieChartData;
 
         console.log("PIECHART DATA:", pieChart.data);
         pieChart.chart.draw(
@@ -295,11 +302,17 @@ document
         // ------ cod leustean ----- //
         // generating line chart data -> check bottom of file
         let lineChartData = data[1];
+
         let totalSomeriData = [["Luna"]];
+
         let monthIndex = lineChartData[0][1].length - 1;
+        let startIndex = 0;
+        if (filterObject.categorie === "rate") {
+          startIndex = 5;
+        }
 
         for (
-          let attributeIndex = 0;
+          let attributeIndex = startIndex;
           attributeIndex < monthIndex;
           attributeIndex++
         ) {
@@ -309,7 +322,7 @@ document
         for (let i = 0; i < lineChartData.length; i++) {
           totalSomeriData[i + 1] = [lineChartData[i][1][monthIndex]];
 
-          for (let j = 0; j < monthIndex; j++) {
+          for (let j = startIndex; j < monthIndex; j++) {
             totalSomeriData[i + 1].push(lineChartData[i][1][j]);
           }
         }
