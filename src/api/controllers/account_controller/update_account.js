@@ -1,4 +1,4 @@
-const pool = require("../../utils/db_connection").pool;
+const pool = require("../../utils/db/db_connection").pool;
 
 function handleUpdateAccount(req, res) {
   let body = [];

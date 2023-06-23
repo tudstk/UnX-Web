@@ -1,4 +1,4 @@
-const pool = require("../../utils/db_connection").pool;
+const pool = require("../../utils/db/db_connection").pool;
 
 function handleGetAccount(req, res) {
   console.log("GET /getAccountDetails");

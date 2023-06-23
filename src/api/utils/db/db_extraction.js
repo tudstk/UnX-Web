@@ -1,9 +1,15 @@
 const pool = require("./db_connection").pool;
 
-function medianPercentageArray(transformedArray, numberOfCounties, numberOfMonths) { // in case of rate
+function medianPercentageArray(
+  transformedArray,
+  numberOfCounties,
+  numberOfMonths
+) {
+  // in case of rate
   medianArray = transformedArray;
 
-  for (let i = 5; i < medianArray.length; i++) { // floating fields in array
+  for (let i = 5; i < medianArray.length; i++) {
+    // floating fields in array
     medianArray[i][1] = medianArray[i][1] / (numberOfMonths * numberOfCounties);
     medianArray[i][1] = parseFloat(medianArray[i][1].toFixed(2)); // rounding to 2 decimals
   }
@@ -70,7 +76,11 @@ function extractPieChartDataArray(data, table, judete, monthStatement) {
       // -1 because we don't want to include the month
       let currentElement = subArray[j];
 
-      if (typeof currentElement === 'string' || currentElement instanceof String) {// percentages are extracted as strings from the database
+      if (
+        typeof currentElement === "string" ||
+        currentElement instanceof String
+      ) {
+        // percentages are extracted as strings from the database
 
         currentElement = parseFloat(currentElement);
       }
@@ -90,19 +100,24 @@ function extractPieChartDataArray(data, table, judete, monthStatement) {
     }
   }
 
-  if (table === 'rate') {
+  if (table === "rate") {
     let numberOfCounties = judete.length;
 
-    if (judete[0] === 'TOTAL') {
+    if (judete[0] === "TOTAL") {
       numberOfCounties = 42;
     }
 
-    transformedArray = medianPercentageArray(transformedArray, numberOfCounties, getNumberOfMonths(monthStatement));
+    transformedArray = medianPercentageArray(
+      transformedArray,
+      numberOfCounties,
+      getNumberOfMonths(monthStatement)
+    );
   }
   return transformedArray;
 }
 
-function extractLineChartDataArray(data, monthStatement) { // for this we need the data for every month
+function extractLineChartDataArray(data, monthStatement) {
+  // for this we need the data for every month
   let transformedArray = [];
   let nrOfMonths = getNumberOfMonths(monthStatement);
 
@@ -111,7 +126,7 @@ function extractLineChartDataArray(data, monthStatement) { // for this we need t
   for (let month = 13 - nrOfMonths; month <= 12; month++) {
     let monthArray = [data[0][0], []];
 
-    for(let i = 0; i < monthIndex; i++) {
+    for (let i = 0; i < monthIndex; i++) {
       monthArray[1][i] = 0;
     }
 
@@ -120,23 +135,26 @@ function extractLineChartDataArray(data, monthStatement) { // for this we need t
     for (let i = 0; i < data.length; i++) {
       const subArray = data[i]; // Access the nested array
 
-      if (subArray[1][monthIndex] == month) {// month number
+      if (subArray[1][monthIndex] == month) {
+        // month number
 
         for (let j = 0; j < monthIndex; j++) {
-
           let currentElement = subArray[1][j];
 
-          if (typeof currentElement === 'string' || currentElement instanceof String) {// percentages are extracted as strings from the database
+          if (
+            typeof currentElement === "string" ||
+            currentElement instanceof String
+          ) {
+            // percentages are extracted as strings from the database
 
             currentElement = parseFloat(currentElement);
           }
 
           monthArray[1][j] += currentElement;
         }
-
       }
     }
-    
+
     transformedArray.push(monthArray);
   }
   return transformedArray;
@@ -157,11 +175,15 @@ async function extractDataArray(table, judete, monthStatement) {
       return [attributes, values];
     });
 
-    const pieChartDataArray = extractPieChartDataArray(data, table, judete, monthStatement);
+    const pieChartDataArray = extractPieChartDataArray(
+      data,
+      table,
+      judete,
+      monthStatement
+    );
     const lineChartDataArray = extractLineChartDataArray(data, monthStatement);
-    
-    responseArray = [pieChartDataArray, lineChartDataArray];
 
+    responseArray = [pieChartDataArray, lineChartDataArray];
   } catch (error) {
     console.error("Error extracting data:", error);
   }

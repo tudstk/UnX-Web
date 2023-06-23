@@ -10,7 +10,7 @@ const generateSecretKey = () => {
 const JWT_SECRET = generateSecretKey(); // Generating a secret key for JWT
 console.log("JWT Secret Key:", JWT_SECRET);
 
-const pool = require("./utils/db_connection").pool;
+const pool = require("./utils/db/db_connection").pool;
 
 const { handleLogin } = require("./controllers/auth_controller/login");
 const {
@@ -31,7 +31,9 @@ const {
 const {
   handleSaveFeedback,
 } = require("./controllers/feedback_controller/save_feedback");
-const { handleGetData } = require("./controllers/data_controller");
+const {
+  handleGetData,
+} = require("./controllers/filter_controller/data_controller");
 
 //require la get cu functia din controller
 const {
@@ -41,7 +43,7 @@ const {
   handleDeleteReview,
 } = require("./controllers/admin_controller/admin_controller");
 
-const { insertDataFromCSVFiles } = require("./utils/import_data");
+const { importAllData } = require("./utils/csv_data/import_data");
 
 const server = http.createServer((req, res) => {
   const headers = {
@@ -86,8 +88,7 @@ const server = http.createServer((req, res) => {
     handleResetPassword(req, res);
   } else if (reqPath === "/admin/user/get-all" && reqMethod === "GET") {
     handleGetAllUsers(res);
-  } 
-  else if (reqPath === "/getFeedback" && reqMethod === "GET") {
+  } else if (reqPath === "/getFeedback" && reqMethod === "GET") {
     handleGetFeedbacks(res);
   } else if (
     reqPath.startsWith("/admin/user/delete/") &&
@@ -111,83 +112,10 @@ const server = http.createServer((req, res) => {
   }
 });
 
+// dupa ce serverul este pornit o data, trebuie decomentata functiia si dat restart la server
+// importAllData();
+
 const port = 3000;
 server.listen(port, () => {
   console.log(`Server listening on port ${port} `);
 });
-
-// const csvFiles = [
-//   [
-//     "educatie_1.csv",
-//     "educatie_2.csv",
-//     "educatie_3.csv",
-//     "educatie_4.csv",
-//     "educatie_5.csv",
-//     "educatie_6.csv",
-//     "educatie_7.csv",
-//     "educatie_8.csv",
-//     "educatie_9.csv",
-//     "educatie_10.csv",
-//     "educatie_11.csv",
-//     "educatie_12.csv",
-//   ],
-//   [
-//     "medii_1.csv",
-//     "medii_2.csv",
-//     "medii_3.csv",
-//     "medii_4.csv",
-//     "medii_5.csv",
-//     "medii_6.csv",
-//     "medii_7.csv",
-//     "medii_8.csv",
-//     "medii_9.csv",
-//     "medii_10.csv",
-//     "medii_11.csv",
-//     "medii_12.csv",
-//   ],
-//   [
-//     "rata_1.csv",
-//     "rata_2.csv",
-//     "rata_3.csv",
-//     "rata_4.csv",
-//     "rata_5.csv",
-//     "rata_6.csv",
-//     "rata_7.csv",
-//     "rata_8.csv",
-//     "rata_9.csv",
-//     "rata_10.csv",
-//     "rata_11.csv",
-//     "rata_12.csv",
-//   ],
-//   [
-//     "varste_1.csv",
-//     "varste_2.csv",
-//     "varste_3.csv",
-//     "varste_4.csv",
-//     "varste_5.csv",
-//     "varste_6.csv",
-//     "varste_7.csv",
-//     "varste_8.csv",
-//     "varste_9.csv",
-//     "varste_10.csv",
-//     "varste_11.csv",
-//     "varste_12.csv",
-//   ],
-// ];
-
-// const folderNames = [
-//   "someri_educatie_judet",
-//   "someri_mediu_judet",
-//   "someri_tip_judete",
-//   "someri_varsta_judet",
-// ];
-
-// insertDataFromCSVFiles(csvFiles, folderNames)
-//   .then(() => {
-//     console.log("CSV data imported successfully!");
-//     pool.end();
-//   })
-//   .catch((error) => {
-//     console.error("Error inserting data:", error);
-//     pool.end();
-//   });

@@ -2,7 +2,7 @@ const crypto = require("crypto");
 const { parse } = require("querystring");
 const bcrypt = require("bcrypt");
 
-const pool = require("../../utils/db_connection").pool;
+const pool = require("../../utils/db/db_connection").pool;
 
 async function handleResetPassword(req, res) {
   let body = [];

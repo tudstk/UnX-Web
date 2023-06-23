@@ -1,6 +1,6 @@
 const fs = require("fs");
 const { Pool } = require("pg");
-const pool = require("./db_connection").pool;
+const pool = require("../db/db_connection").pool;
 
 async function insertEducationData(filePath, monthIndex) {
   try {
@@ -117,7 +117,7 @@ async function insertDataFromCSVFiles(fileNamesArray, pathArray) {
     const path = pathArray[i];
     for (let j = 0; j < fileNames.length; j++) {
       const fileName = fileNames[j];
-      const filePath = `../api/utils/${path}/${fileName}`;
+      const filePath = `../api/utils/csv_data/${path}/${fileName}`;
 
       const monthIndex = parseInt(fileName.match(/(\d+)\.csv$/)[1]);
 
@@ -138,6 +138,84 @@ async function insertDataFromCSVFiles(fileNamesArray, pathArray) {
   }
 }
 
+function importAllData() {
+  const csvFiles = [
+    [
+      "educatie_1.csv",
+      "educatie_2.csv",
+      "educatie_3.csv",
+      "educatie_4.csv",
+      "educatie_5.csv",
+      "educatie_6.csv",
+      "educatie_7.csv",
+      "educatie_8.csv",
+      "educatie_9.csv",
+      "educatie_10.csv",
+      "educatie_11.csv",
+      "educatie_12.csv",
+    ],
+    [
+      "medii_1.csv",
+      "medii_2.csv",
+      "medii_3.csv",
+      "medii_4.csv",
+      "medii_5.csv",
+      "medii_6.csv",
+      "medii_7.csv",
+      "medii_8.csv",
+      "medii_9.csv",
+      "medii_10.csv",
+      "medii_11.csv",
+      "medii_12.csv",
+    ],
+    [
+      "rata_1.csv",
+      "rata_2.csv",
+      "rata_3.csv",
+      "rata_4.csv",
+      "rata_5.csv",
+      "rata_6.csv",
+      "rata_7.csv",
+      "rata_8.csv",
+      "rata_9.csv",
+      "rata_10.csv",
+      "rata_11.csv",
+      "rata_12.csv",
+    ],
+    [
+      "varste_1.csv",
+      "varste_2.csv",
+      "varste_3.csv",
+      "varste_4.csv",
+      "varste_5.csv",
+      "varste_6.csv",
+      "varste_7.csv",
+      "varste_8.csv",
+      "varste_9.csv",
+      "varste_10.csv",
+      "varste_11.csv",
+      "varste_12.csv",
+    ],
+  ];
+
+  const folderNames = [
+    "someri_educatie_judet",
+    "someri_mediu_judet",
+    "someri_tip_judete",
+    "someri_varsta_judet",
+  ];
+
+  insertDataFromCSVFiles(csvFiles, folderNames)
+    .then(() => {
+      console.log("CSV data imported successfully!");
+      pool.end();
+    })
+    .catch((error) => {
+      console.error("Error inserting data:", error);
+      pool.end();
+    });
+}
+
 module.exports = {
-  insertDataFromCSVFiles,
+  importAllData,
 };

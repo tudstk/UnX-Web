@@ -1,5 +1,5 @@
-const pool = require("../utils/db_connection").pool;
-const { extractDataArray } = require("../utils/db_extraction");
+const pool = require("../../utils/db/db_connection").pool;
+const { extractDataArray } = require("../../utils/db/db_extraction");
 
 async function handleGetData(res, req) {
   try {

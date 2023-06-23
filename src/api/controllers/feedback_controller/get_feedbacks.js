@@ -1,4 +1,4 @@
-const pool = require("../../utils/db_connection").pool;
+const pool = require("../../utils/db/db_connection").pool;
 
 async function handleGetFeedbacks(res) {
   try {
@@ -13,7 +13,11 @@ async function handleGetFeedbacks(res) {
     console.error(error);
     res.statusCode = 500;
     res.setHeader("Content-Type", "application/json");
-    res.end(JSON.stringify({ error: "An error occurred while fetching the feedbacks." }));
+    res.end(
+      JSON.stringify({
+        error: "An error occurred while fetching the feedbacks.",
+      })
+    );
   }
 }
 

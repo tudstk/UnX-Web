@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const pool = require("../../utils/db_connection").pool;
+const pool = require("../../utils/db/db_connection").pool;
 
 // Regular expression pattern for email validation
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
