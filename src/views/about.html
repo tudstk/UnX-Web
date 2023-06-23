@@ -143,95 +143,10 @@
             <p>© 2023 Team Pixels
         </footer>
     </div>
-    <script src="../static/scripts/hamburger.js"></script>
-    <script>const links = document.querySelectorAll('.summary a');
-
-        links.forEach(link => {
-            link.addEventListener('click', (event) => {
-                event.preventDefault(); // prevent the default link behavior
-
-                const href = link.getAttribute('href'); // get the href attribute
-                const targetElement = document.querySelector(href); // get the target element
-                const targetPosition = targetElement.offsetTop; // get the position of the target element
-
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth' // smooth scrolling transition
-                });
-            });
-        });
-    </script>
-    <script>
-
-        function logout() {
-            localStorage.removeItem('token');
-            window.location.href = '/src/views/login.html';
-        }
-
-        function getUsernameFromToken() {
-            const token = localStorage.getItem('token');
-            if (token) {
-                const [, payload] = token.split('.');
-                const decodedPayload = atob(payload);
-                const { username } = JSON.parse(decodedPayload);
-                // return email.split('@')[0];;
-                return username;
-            }
-            return null;
-        }
-
-        function getEmailFromToken() {
-            const token = localStorage.getItem('token');
-            if (token) {
-                const [, payload] = token.split('.');
-                const decodedPayload = atob(payload);
-                const { email } = JSON.parse(decodedPayload);
-                return email;
-            }
-            return null;
-        }
-
-
-        function updateUI() {
-            const accountElement = document.querySelector('.account');
-            const accountLinkElement = document.querySelector('.account_link');
-            const username = getUsernameFromToken();
-            if (username) {
-                accountElement.style.display = 'none';
-                accountLinkElement.style.display = 'none';
-                const nav = document.querySelector('nav');
-
-                const userContainer = document.createElement('div');
-                userContainer.style.display = 'flex';
-                userContainer.style.alignItems = 'center';
-
-                const usernameElement = document.createElement('span');
-                const logoutElement = document.createElement('span');
-
-                const usernameLink = document.createElement('a');
-                usernameLink.href = `account.html`;
-                usernameLink.textContent = username;
-                usernameLink.style.fontStyle = 'italic';
-                usernameLink.style.textDecoration = 'underline';
-
-                // usernameElement.textContent = 'Hello, ';
-                // usernameElement.style.color = 'white';
-                // usernameElement.style.fontSize = '0.9rem';
-
-                // usernameElement.appendChild(usernameLink);
-
-                userContainer.appendChild(usernameLink);
-
-                nav.appendChild(userContainer);
-            } else {
-                accountElement.style.display = 'block';
-            }
-        }
-
-
-        window.addEventListener('DOMContentLoaded', updateUI);
-
-    </script>
+    <script src="../static/scripts/ui/hamburger.js"></script>
+    <script src="../static/scripts/visualizer/load_ui.js"></script>
+    <script src="../static/scripts/about/about.js"></script>
+    <script src="../static/scripts/ui/load_ui.js"> </script>
 </body>
 
 </html>
