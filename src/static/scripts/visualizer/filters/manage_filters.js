@@ -7,7 +7,7 @@ let filteredData = [];
 let selectedOptions = [];
 
 function filterObjectToString(filterObject) {
-  // Create a new instance of URLSearchParams
+
   const params = new URLSearchParams();
 
   // Iterate over the filterObject properties and add them to the URLSearchParams
@@ -32,10 +32,6 @@ function filterObjectToString(filterObject) {
 document
   .getElementById("apply-filters-btn")
   .addEventListener("click", function () {
-    filterObject.categorie = "";
-    filterObject.judete = [];
-    filterObject.perioada = "";
-
     const checkboxes = document.querySelectorAll(
       'input[type="checkbox"]:checked'
     );
@@ -72,7 +68,6 @@ document
         } else if (value === "Ultimul an") {
           filterObject.perioada = "ultimele_12_luni";
         }
-
         monthStatement = filterObject.perioada;
       }
 
@@ -183,7 +178,6 @@ document
           pieChart.options
         );
 
-        // ------ cod leustean ----- //
         // generating line chart data -> check bottom of file
         let lineChartData = data[1];
 

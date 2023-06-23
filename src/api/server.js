@@ -35,7 +35,6 @@ const {
   handleGetData,
 } = require("./controllers/filter_controller/data_controller");
 
-//require la get cu functia din controller
 const {
   handleAddUser,
   handleGetAllUsers,
@@ -73,7 +72,6 @@ const server = http.createServer((req, res) => {
   if (reqMethod === "OPTIONS") {
     res.writeHead(200, headers);
     res.end();
-    //adaugat inca un else if, gen getFeedback, metoda e get
   } else if (reqPath === "/register" && reqMethod === "POST") {
     handleRegistration(req, res);
   } else if (reqPath === "/login" && reqMethod === "POST") {
@@ -100,7 +98,6 @@ const server = http.createServer((req, res) => {
     handleDeleteReview(reviewId, res);
   } else if (reqPath.startsWith("/visualizer/charts/data/") && reqMethod === "GET") {
     let filterString = reqPath.slice("/visualizer/charts/data/".length); // extracting filterString from url
-    //console.log("Filter string:", filterString);
     handleGetData(res, filterString);
   } else {
     res.statusCode = 404;
@@ -108,8 +105,6 @@ const server = http.createServer((req, res) => {
   }
 });
 
-// dupa ce serverul este pornit o data, trebuie decomentata functiia si dat restart la server
-// importAllData();
 
 const port = 3000;
 server.listen(port, () => {
