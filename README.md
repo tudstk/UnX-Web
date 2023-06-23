@@ -15,4 +15,5 @@
 3. Din folderul proiectului, executati urmatoarele comenzi din terminal:
 - cd src/api
 - node server.js
-4. Din src/views/index.html, porniti extensia "Live Server".
+4. Dupa ce ati rulat o data serverul, trebuie inchis, apoi comentata functia "importAllData" din src/api/server.js, si trebuie repornit serverul.
+5. Din src/views/index.html, porniti extensia "Live Server".
