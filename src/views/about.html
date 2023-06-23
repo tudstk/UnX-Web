@@ -44,6 +44,8 @@
                 <li><a href="#abstract">Abstract</a></li>
                 <li><a href="#introduction">Introduction</a></li>
                 <li><a href="#overall-description">Overall Description</a></li>
+                <li><a href="#users-and-stakeholders">Users and Stakeholders</a></li>
+                <li><a href="#design-constraints">Design Constraints</a></li>
                 <li><a href="#external-interface-requirements">External Interface Requirements</a></li>
                 <li><a href="#system-features">System Features</a></li>
                 <li><a href="#other-nonfunctional-requirements">Other Nonfunctional Requirements</a></li>
@@ -53,90 +55,74 @@
         <main>
             <section id="abstract">
                 <h2>Abstract</h2>
-                <p>The goal of this project is to develop a web-based tool that visualizes and allows for multi-criteria
-                    comparison of
-                    public data on unemployment in Romania over the past 24 months (minimum 12 months). The tool will be
-                    built using
-                    REST/GraphQL API and will provide various statistical and cartographic visualizations, along with
-                    the ability to export
-                    data in CSV, SVG, and PDF formats.</p>
+                <p>The goal of this project is to develop a web-based tool that visualizes and allows for multi-criteria comparison of public data on unemployment in Romania over the past 24 months (minimum 12 months). The tool will be built using REST API and will provide various statistical and cartographic visualizations, along with the ability to export data in CSV, SVG, and PDF formats.</p>
             </section>
 
             <section id="introduction">
                 <h2>Introduction</h2>
-                <p>Welcome to Unemployment Explorer!<br> Unemployment Explorer is a web-based platform that offers a
-                    comprehensive analysis of unemployment data. We understand that unemployment is a critical
-                    socioeconomic
-                    issue that affects individuals, families, and communities. Our goal is to provide users with
-                    valuable
-                    insights into the dynamics of unemployment, including trends, demographics, and economic factors.
-                    Through interactive visualizations and data analysis tools, Unemployment Explorer aims to empower
-                    policymakers, researchers, and the general public with the information needed to better understand
-                    the
-                    complex issue of unemployment.</p>
+                <p>Welcome to Unemployment Explorer!<br> Unemployment Explorer is a web-based platform that offers a comprehensive analysis of unemployment data. We understand that unemployment is a critical socioeconomic issue that affects individuals, families, and communities. Our goal is to provide users with valuable insights into the dynamics of unemployment, including trends, demographics, and economic factors. Through interactive visualizations and data analysis tools, Unemployment Explorer aims to empower policymakers, researchers, and the general public with the information needed to better understand the complex issue of unemployment.</p>
             </section>
 
             <section id="overall-description">
                 <h2>Overall Description</h2>
-                <p>This product is developed in the context of unemployment being rampant and society being misinformed
-                    about it. It includes functionalities such as data retrieval, multi-criteria visualisation,
-                    cartographic
-                    visualisation and export functionality.
-                    Some of the user classes expected are the general public, goverment officials, researchers and
-                    journalists. The software operates on computers and mobile web browsers. The only design constrain
-                    that
-                    we have identified is the desire to use open-source tools only.
-                    This product depends on the information provided by the public website <a
+                <p>This product is developed in the context of unemployment being rampant and society being misinformed about it. It includes functionalities such as data retrieval, multi-criteria visualization, cartographic representation and export functionality. Some of the user types expected are the general public, government officials, researchers and journalists. The software operates on computers and mobile web browsers. The only design constrain that we have identified is the desire to use open-source tools only. This product depends on the information provided by the public website <a
                         href="https://data.gov.ro/dataset?q=somaj">data.gov.ro</a> .
                 </p>
             </section>
-
-            <section id="external-interface-requirements">
-                <h2>External Interface Requirements</h2>
-                <p>Our product utilises Google Charts in order to render the visual representations of the data.</p>
-            </section>
-
-            <section id="system-features">
-                <h2>System Features</h2>
-                <p>
-                    &#x2022;<b>Data Retrieval:</b> The tool will fetch unemployment data from a proprietary REST/GraphQL
-                    API
-                    that
-                    contains public data on unemployment in Romania. The data will be retrieved for the past L months
-                    (minimum 12 months) and will include information on counties, education levels, age groups,
-                    environment,
-                    time periods, and other relevant criteria.<br>
-
-                    <br> &#x2022;<b>Multi-Criteria Visualization:</b> The tool will provide multiple ways to visualize
-                    the
-                    unemployment data, allowing users to select and compare different criteria. The visualizations
-                    may
-                    include bar charts, line charts, pie charts, scatter plots, heatmaps, and other relevant visual
-                    representations. The tool will also allow users to customize the visualizations based on their
-                    preferences. <br>
-
-                    <br>&#x2022;<b>Cartographic Visualization:</b> The tool will incorporate cartographic visualizations
-                    using
-                    web-based mapping services to display the unemployment data on maps. Users will be able to view
-                    the
-                    data
-                    geographically, by county or other relevant geographic boundaries, and explore the data
-                    spatially.<br>
-
-                    <br> &#x2022;<b>Export Functionality:</b> The tool will allow users to export the visualized data in
-                    CSV,
-                    SVG,
-                    and PDF formats. This will enable users to download the data for further analysis or share it
-                    with
-                    others. <br>
+            <section id="users-and-stakeholders">
+                <h2>Users and Stakeholders</h2>
+                <p>The general public can access unemployment data and gain insights into the dynamics of unemployment in Romania. Government officials can leverage the tool to inform policy decisions and allocate resources effectively. Researchers can utilize Unemployment Explorer to conduct in-depth analyses and identify trends and patterns. Journalists can use the tool to gather data-driven information for reporting purposes. The stakeholders of Unemployment Explorer include the development team, end-users, data providers, and policymakers who benefit from the tool's accurate and accessible unemployment data.
                 </p>
             </section>
-
+            <section id="design-constraints">
+                <h2>Design Constraints</h2>
+                <p>Unemployment Explorer is developed using open-source tools to ensure transparency, flexibility, and wider accessibility. By adhering to this design constraint, the project promotes collaboration, allows for customization, and reduces dependency on proprietary software.
+                </p><br><br>
+            <section id="external-interface-requirements">
+                <h2>External Interface Requirements</h2>
+                <p>Unemployment Explorer utilizes Google Charts to render visual representations of data. This integration enables the generation of pie charts, line charts, and bar charts, enhancing data comprehension and analysis. The REST API integration with data.gov.ro facilitates seamless data retrieval, ensuring comprehensive and up-to-date unemployment statistics.
+                </p>
+            </section>
+            <br><br>
+            <section id="system-features">
+                <h2>System Features</h2><br>
+                <p>
+                    &#x2022;<b>Authentication:</b> The Authentication Module in Unemployment Explorer provides user registration and login functionality using JSON Web Tokens (JWT). This module ensures secure access to the website and stores user information in a database. User passwords are hashed before being stored to enhance security. The user registration process involves users providing their desired username, email address, and password, followed by validation and secure storage of their information in the database. Upon successful registration, users receive a unique authentication token (JWT) for future logins. The user login process involves users entering their registered username/email and password, which are then validated against existing accounts. If successful, a new JWT is generated and returned for authentication purposes.
+                    <br>
+                    <br>&#x2022;<b>Administration:</b> The Administration Module in UnX empowers authorized administrators with the ability to manage user accounts and feedback submissions. Administrators can efficiently add and delete user accounts, ensuring effective user management. Within the user management interface, administrators provide relevant user details, including username, email address, and password, which are then validated by the system. Duplicate username or email entries are carefully checked to prevent conflicts. Additionally, administrators can oversee feedback submissions, allowing them to review, analyze, and take appropriate actions based on the received feedback. This comprehensive administration module offers a streamlined approach to user and feedback management within Unemployment Explorer.
+                    <br>
+                    <br> &#x2022;<b>Account management for users:</b>  The Account Management Module allows users the ability to modify their personal information, including their first and last name and password. This module provides a convenient interface where users can update their details as needed. Upon accessing the account management section, users can edit their first and last name, ensuring their profile reflects accurate and up-to-date information. Furthermore, the module allows users to modify their password, ensuring enhanced account security. By offering these account management features, UnX enables users to maintain control over their personal information and ensures a personalized and secure user experience.
+                    <br>
+                    <br> &#x2022;<b>Data Retrieval:</b> The data retrieval feature in Unemployment Explorer (UnX) utilizes a proprietary REST API to fetch comprehensive and public data on unemployment in Romania. This tool provides users with the capability to access and analyze unemployment statistics based on various criteria, including counties, education levels, age groups, environment, time periods, and more. By leveraging the REST API, UnX seamlessly retrieves historical data for the past 12 months, enabling users to gain valuable insights into unemployment trends over time. The API integration seamlessly extracts detailed information, allowing users to explore specific data subsets and gain a deeper understanding of the complexities surrounding unemployment dynamics in Romania. UnX's data retrieval functionality serves as a valuable resource for users, offering comprehensive and customizable access to unemployment data for informed analysis and decision-making.
+                    <br>
+                    <br> &#x2022;<b>Multi-Chart Visualization:</b>The Multi-Chart Visualization feature in Unemployment Explorer (UnX) leverages Google Charts to provide a flexible and interactive visualization capability. This feature enables the generation of pie charts, line charts, and bar charts based on the retrieved unemployment data, allowing users to visually analyze and comprehend the information. With pie charts, users can easily grasp the distribution of data based on specific criteria such as counties, education levels, age groups, and more. Line charts provide a visual representation of trends and changes over time, aiding in identifying patterns and fluctuations in unemployment rates. Bar charts offer a comprehensive view of comparisons between different factors, such as unemployment rates across various counties or education levels. By utilizing Google Charts, UnX delivers visually appealing and dynamic charts that enhance data comprehension and support informed decision-making.
+                    <br>
+                    <br> &#x2022;<b>Dynamic filters:</b>The Dynamic Filters enhance the charting experience by intelligently adapting the available filters based on the selected category. Whether users opt for a pie chart, line chart, or bar chart, this module ensures that the provided filtration options, including category, county, and period, are specifically tailored to the chart type, offering the most relevant and meaningful data analysis capabilities. 
+                    <br>
+                    <br> &#x2022;<b>Cartographic Visualization:</b>The Cartographic Visualization feature allows users to explore and analyze statistical data for each county through interactive maps. This module was built using d3.js and provides a visually engaging representation of unemployment statistics across different regions. Users can navigate the map interface to view specific counties and access relevant statistics and insights related to unemployment rates. By leveraging cartographic visualization techniques, UnX enables users to grasp spatial patterns and variations in unemployment across the country, facilitating a comprehensive understanding of regional disparities. This feature enhances the exploratory and analytical capabilities of UnX, enabling users to gain valuable insights into unemployment trends at the county level.
+                    <br>
+                    <br> &#x2022;<b>Export Functionality:</b>The Export Module offers users the ability to export visualized data in multiple formats, including CSV, SVG, and PDF. This module provides a convenient and versatile way for users to save and share their visualized data in formats suitable for further analysis, presentations, or reporting purposes. With the CSV export option, users can obtain the underlying data in a structured and easily accessible format. The SVG export feature allows users to export vector-based images of the visualizations, ensuring scalability and high-quality resolution. Additionally, the PDF export functionality enables users to generate comprehensive reports or documents containing the visualized data for offline or archival purposes. By incorporating the Export Module, UnX offers users flexibility in preserving and utilizing their visualized data across various platforms and applications.
+                    <br><br>
+                </p>
+            </section>
             <section id="other-nonfunctional-requirements">
                 <h2>Other Nonfunctional Requirements</h2>
-                <p>As security requirements, we suggest that users utilise secure passwords, not shared by accounts with
-                    the same mail
-                    adress on other platforms.</p>
+                <br>&#x2022;<b>Performance:</b>Unemployment Explorer should provide a responsive and smooth user experience, with minimal latency in data retrieval and chart rendering.
+                <br>
+                <br>&#x2022;<b>Scalability:</b>The system should be capable of handling increasing data volumes and user traffic without compromising performance.
+                <br>
+                <br>&#x2022;<b>Security:</b> User authentication and data storage must adhere to industry-standard security practices to protect sensitive information.
+                <br>
+                <br>&#x2022;<b>Accessibility:</b> The tool should be accessible to users with disabilities, complying with accessibility guidelines and standards.
+                <br>
+                <br>&#x2022;<b>Compatibility:</b> Unemployment Explorer should support a wide range of web browsers and devices, ensuring compatibility and consistent functionality.
+                <br>
+                <br>&#x2022;<b>Reliability:</b>The system should maintain high availability and data integrity, minimizing downtime and ensuring accurate data representation.
+                <br>
+                <br>&#x2022;<b>Maintainability:</b>The codebase should be well-documented, modular, and follow coding best practices to facilitate future maintenance and updates.
+                <br>
+                <br>&#x2022;<b>Usability:</b> The user interface should be intuitive, user-friendly, and provide clear instructions for seamless user interaction.
+                <br>
             </section>
         </main>
         <footer>
