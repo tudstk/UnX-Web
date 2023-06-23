@@ -6,12 +6,18 @@
 - Leuștean Ștefan
 - Bejan Dragoș
 
-## Link Prezentare Video: https://drive.google.com/file/d/14ioRGFxeue_KGV9vrEtSNT_8OP1fytYD/view?usp=sharing
+## Link documentatie: https://drive.google.com/drive/folders/1GaekKkP3lfFu21oakAqjLyY2oQj_3rwH?usp=sharing
 
-## Link documentatie: https://docs.google.com/document/d/1yVfsVqmhpsUE8JxRrjS3ODMC-ihom5F0ZMwh5--W5nA/edit?usp=sharing
+## Link prezentare video: https://drive.google.com/file/d/14ioRGFxeue_KGV9vrEtSNT_8OP1fytYD/view?usp=sharing
 
 ## Instalare
 
-- Aplicația este hostată pe Vercel și poate fi accesată din link-ul din descrierea repo-ului, sau poate fi vizualizată cu ajutorul extensiei "Live Server" din VS Code, din sursa "src/views/index.html".
+1. Clonati repository-ul.
+2. Creati o baza de date PostgreSQL cu numele "unx", iar din pgAdmin: unx -> schemas -> tables -> click dreapta -> query tool, executati scriptul SQL de la urmatorul link: https://gist.github.com/tudstk/b9a34caa27a34a583d22d934640ba45f
+3. Din folderul proiectului, executati urmatoarele comenzi din terminal:
 
-(Documentația se află pe site la secțiunea "About", dar și in folderul "docs" ca document html.)
+- cd src/api
+- node server.js
+
+4. Dupa ce ati rulat o data serverul, trebuie inchis, apoi comentata functia "importAllData" din src/api/server.js, si trebuie repornit serverul.
+5. Din src/views/index.html, porniti extensia "Live Server".
