@@ -12,8 +12,8 @@ const pieChart = {
   options: {
     title: "Someri pe judete",
     is3D: true,
-    width: 500,
-    height: 300,
+    width: 660,
+    height: 370,
   },
 };
 
@@ -30,8 +30,8 @@ const barChart = {
   element: "#bar-chart",
   options: {
     title: "Someri pe judete",
-    width: 500,
-    height: 300,
+    width: 660,
+    height: 370,
   },
 };
 
@@ -48,8 +48,8 @@ const lineChart = {
   element: "#line-chart",
   options: {
     title: "Numarul total de someri din judetele selectate in lunile selectate",
-    width: 500,
-    height: 300,
+    width: 660,
+    height: 370,
   },
 };
 
@@ -90,7 +90,6 @@ google.charts.load("current", {
   callback: init,
 });
 
-
 function showDiv(id) {
   var charts = document.getElementsByClassName("chart");
   for (var i = 0; i < charts.length; i++) {
@@ -115,4 +114,3 @@ function showFilters() {
     showFiltersBtn.textContent = "Hide filters";
   }
 }
-

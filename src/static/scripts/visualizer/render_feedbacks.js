@@ -1,7 +1,17 @@
+function getUsernameFromToken() {
+  const token = localStorage.getItem("token");
+  if (token) {
+    const [, payload] = token.split(".");
+    const decodedPayload = atob(payload);
+    const { username } = JSON.parse(decodedPayload);
+    return username;
+  }
+  return null;
+}
+
 const username = getUsernameFromToken();
 const htmlUsername = document.querySelector(".username-text");
 htmlUsername.textContent = "@" + username;
-// make text italic
 htmlUsername.style.fontStyle = "italic";
 function getAllFeedbacks() {
   fetch("http://localhost:3000/visualizer/feedbacks")

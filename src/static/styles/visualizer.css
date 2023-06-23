@@ -81,6 +81,25 @@
     font-size: 0.8rem;
   }
 
+  .chart-btn {
+    background: #081b38;
+    color: #c5d6f0;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 0 0 0.7rem 0.7rem;
+    font-weight: 600;
+  }
+  #apply-filters-btn {
+    border-radius: 0 0 0.7rem 0;
+  }
+  #export-format {
+    text-align: center;
+  }
+  .chart-btn:hover {
+    background: #071230;
+    color: #fabc5f;
+  }
   .scrollable-list {
     background-color: lightgray;
     width: 8rem;
@@ -121,16 +140,13 @@
     align-items: center;
     flex-direction: row;
     background: rgba(8, 27, 56, 0.6);
-    padding: 3rem;
-    border-radius: 0.5rem;
+    padding: 2rem;
+    /* border-radius: 0.5rem; */
     margin-top: 1rem;
   }
 
   .chart {
     border: 0.5rem solid rgba(8, 27, 56);
-  }
-
-  .chart {
     display: none;
   }
 
@@ -144,7 +160,7 @@
   .filters {
     padding: 1.5rem;
     width: 10rem;
-    height: 20.3rem;
+    height: 22.75rem;
     overflow: auto;
     background: #081b38;
   }
@@ -211,10 +227,9 @@
     cursor: pointer;
   }
   .map-wrapper {
-    width: 43rem;
+    width: 50rem;
     height: 30rem;
     background: white;
-    overflow: auto;
     margin-top: 1rem;
   }
   .cartographic-visualizer-text {
@@ -232,7 +247,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 60rem;
+    width: 70rem;
     background: white;
   }
 }
@@ -368,7 +383,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 300px;
+    height: 320px;
   }
   .filters {
     width: 90vw;

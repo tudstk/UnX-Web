@@ -43,8 +43,8 @@ const judete = [
   "VRANCEA",
 ];
 
-var width = 900,
-  height = 450;
+var width = 1000,
+  height = 600;
 
 var svg = d3
   .select("#map_container")
@@ -91,7 +91,7 @@ function ready(error, counties) {
       let filterString = filterObjectToString(filterObject);
       console.log("Filter string:", filterString);
       let url = `http://localhost:3000/visualizer/charts/data/${filterString}`;
-  
+
       fetch(url, {
         method: "GET",
         headers: {
