@@ -65,7 +65,6 @@ queue().defer(d3.json, "../static/topojson/romania-counties.json").await(ready);
 
 function ready(error, counties) {
   var romania = topojson.feature(counties, counties.objects.ROU_adm1).features;
-  console.log(romania);
 
   svg
     .append("g")
@@ -89,7 +88,6 @@ function ready(error, counties) {
       };
 
       let filterString = filterObjectToString(filterObject);
-      console.log("Filter string:", filterString);
       let url = `http://localhost:3000/visualizer/charts/data/${filterString}`;
 
       // fetching data for the county
@@ -101,7 +99,6 @@ function ready(error, counties) {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data[0]);
           data = data[0];
           var divParagraph = document.getElementById("county_info");
           divParagraph.innerHTML = "";
