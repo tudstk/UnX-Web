@@ -8,23 +8,23 @@ function getIsAdminFromToken() {
   }
   return null;
 }
-// document.getElementById("get-users-btn").addEventListener("click", function () {
-//   fetch("http://localhost:3000/admin/users", {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       alert("Users fetched successfully!");
-//       // Handle the response data
-//       console.log(data); // You can perform further processing here
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//     });
-// });
+document.getElementById("get-users-btn").addEventListener("click", function () {
+  fetch("http://localhost:3000/admin/users", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      alert("Users fetched successfully!");
+      // Handle the response data
+      console.log(data); // You can perform further processing here
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+});
 
 document
   .getElementById("delete-user-button")
