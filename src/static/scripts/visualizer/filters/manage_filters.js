@@ -87,50 +87,54 @@ document
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Received data:", data);
 
-        (async () => {
-        })();
+        console.log("Received data:", data);
+        let beautifulData;
+        beautifulData = beautifyData(data, filterObject);
+        console.log("Beautiful data:", beautifulData);
 
         let selectedFilters = [];
         const genuriForm = document.getElementById("genuri");
         const mediiForm = document.getElementById("medii");
 
-        filteredData = data[0];
+        filteredData = beautifulData[0];
 
-        if (filterObject.categorie === "mediu") {
-          // prelucrarea filtrelor pentru mediu
-          if (genuriForm.parentElement.style.display !== "none") {
-            hasSelectedGender = true;
-            console.log("genuri form is not none");
-            const selectedGenuri = Array.from(
-              genuriForm.querySelectorAll('input[type="radio"]:checked')
-            ).map((radio) => radio.value.toLowerCase());
+        //if (filterObject.categorie === "mediu") {
+        // prelucrarea filtrelor pentru mediu
+        if (genuriForm.parentElement.style.display !== "none") {
+          hasSelectedGender = true;
+          console.log("genuri form is not none");
+          const selectedGenuri = Array.from(
+            genuriForm.querySelectorAll('input[type="radio"]:checked')
+          ).map((radio) => radio.value);
 
-            selectedFilters = selectedFilters.concat(selectedGenuri);
-            console.log("SELECTED filters:" + selectedFilters);
-            filteredData = data[0].filter((entry) => {
-              const key = entry[0];
-              return selectedFilters.some((filter) => key.includes(filter));
-            });
-          }
-
-          if (mediiForm.parentElement.style.display !== "none") {
-            const selectedMedii = Array.from(
-              mediiForm.querySelectorAll('input[type="radio"]:checked')
-            ).map((radio) => radio.value.toLowerCase());
-            selectedFilters = selectedFilters.concat(selectedMedii);
-            filteredData = data[0].filter((entry) => {
-              const key = entry[0];
-              return selectedFilters.some((filter) => key.includes(filter));
-            });
-          }
+          selectedFilters = selectedFilters.concat(selectedGenuri);
+          console.log("SELECTED filters:" + selectedFilters);
+          filteredData = beautifulData[0].filter((entry) => {
+            console.log("entry:", entry);
+            const key = entry[0];
+            
+            return selectedFilters.some((filter) => key.includes(filter));
+          });
         }
+
+        if (mediiForm.parentElement.style.display !== "none") {
+          const selectedMedii = Array.from(
+            mediiForm.querySelectorAll('input[type="radio"]:checked')
+          ).map((radio) => radio.value);
+          selectedFilters = selectedFilters.concat(selectedMedii);
+          console.log("SELECTED filters:" + selectedFilters);
+          filteredData = beautifulData[0].filter((entry) => {
+            const key = entry[0];
+            return selectedFilters.some((filter) => key.includes(filter));
+          });
+        }
+
 
         let total = 0;
         let targetArray = [];
         for (let i = 0; i < filteredData.length; i++) {
-          if (filteredData[i][0].includes("total")) {
+          if (filteredData[i][0].includes("Total")) {
             console.log(filteredData[i]);
             targetArray = filteredData[i];
             filteredData.splice(i, 1);
@@ -141,8 +145,17 @@ document
         total = targetArray[1];
         console.log("filtered DATA:", filteredData);
         console.log(targetArray[1]);
-        const title = "Total: " + targetArray[1];
-        filteredData.unshift(["Total", total.toString()]);
+        let title = "Total: " + targetArray[1];
+        console.log("title:", title);
+        console.log("unshiftul pulii:", filteredData)
+
+        filteredData.unshift(["Total", "Numar someri"]);
+
+        if(filterObject.categorie === "mediu") {
+          title = "Total: " + filteredData[1][1];
+          filteredData.splice(1, 1);
+        }
+
         pieChart.options.title = title;
 
         let pieChartData = filteredData;
@@ -172,9 +185,25 @@ document
 
         let monthIndex = lineChartData[0][1].length - 1;
         let startIndex = 0;
-        if (filterObject.categorie === "rate") {
-          startIndex = 5;
+
+        switch (filterObject.categorie) {
+          case "educatie":
+            lineChart.options.title = "Procente pe categoria de educatie";
+            break;
+          case "mediu":
+            lineChart.options.title = "Procente pe tipul de mediu si gen";
+            break;
+          case "rate":
+            lineChart.options.title = "Procente pe rata somajului in functie de gen";
+            startIndex = 5;
+            break;
+          case "varsta":
+            lineChart.options.title = "Procente pe grupe de varsta";
+            break;
+          default:
+            break;
         }
+
 
         for (
           let attributeIndex = startIndex;
