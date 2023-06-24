@@ -20,7 +20,6 @@ function getUsernameFromToken() {
     const [, payload] = token.split(".");
     const decodedPayload = atob(payload);
     const { username } = JSON.parse(decodedPayload);
-    // return email.split('@')[0];;
     return username;
   }
   return null;
