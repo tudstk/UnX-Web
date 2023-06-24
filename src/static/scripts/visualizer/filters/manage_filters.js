@@ -99,8 +99,7 @@ document
 
         filteredData = beautifulData[0];
 
-        //if (filterObject.categorie === "mediu") {
-        // prelucrarea filtrelor pentru mediu
+        // if gender filter is selected
         if (genuriForm.parentElement.style.display !== "none") {
           hasSelectedGender = true;
           console.log("genuri form is not none");
@@ -118,6 +117,7 @@ document
           });
         }
 
+        // if rural/urban filter is selected
         if (mediiForm.parentElement.style.display !== "none") {
           const selectedMedii = Array.from(
             mediiForm.querySelectorAll('input[type="radio"]:checked')
@@ -131,6 +131,7 @@ document
         }
 
 
+        // searching for "Total" entry and removing it
         let total = 0;
         let targetArray = [];
         for (let i = 0; i < filteredData.length; i++) {
