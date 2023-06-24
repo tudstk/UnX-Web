@@ -98,7 +98,6 @@ document.getElementById("categorii").addEventListener("change", function () {
 });
 function clearForm(formId) {
   const formElement = document.getElementById(formId);
-  // formElement.innerHTML = "";
   formElement.parentElement.style.display = "none";
 }
 
