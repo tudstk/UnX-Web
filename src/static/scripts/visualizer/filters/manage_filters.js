@@ -25,7 +25,6 @@ function filterObjectToString(filterObject) {
 
   // Convert the URLSearchParams to a string
   const queryString = params.toString();
-  console.log("Query string:", queryString);
   return queryString;
 }
 
@@ -76,7 +75,6 @@ document
     });
 
     let filterString = filterObjectToString(filterObject);
-    console.log("Filter string:", filterString);
     let url = `http://localhost:3000/visualizer/charts/data/${filterString}`;
 
     fetch(url, {
@@ -88,10 +86,9 @@ document
       .then((response) => response.json())
       .then((data) => {
 
-        console.log("Received data:", data);
         let beautifulData;
         beautifulData = beautifyData(data, filterObject);
-        console.log("Beautiful data:", beautifulData);
+        console.log("Received data:", beautifulData);
 
         let selectedFilters = [];
         const genuriForm = document.getElementById("genuri");
@@ -102,15 +99,12 @@ document
         // if gender filter is selected
         if (genuriForm.parentElement.style.display !== "none") {
           hasSelectedGender = true;
-          console.log("genuri form is not none");
           const selectedGenuri = Array.from(
             genuriForm.querySelectorAll('input[type="radio"]:checked')
           ).map((radio) => radio.value);
 
           selectedFilters = selectedFilters.concat(selectedGenuri);
-          console.log("SELECTED filters:" + selectedFilters);
           filteredData = beautifulData[0].filter((entry) => {
-            console.log("entry:", entry);
             const key = entry[0];
             
             return selectedFilters.some((filter) => key.includes(filter));
@@ -123,7 +117,6 @@ document
             mediiForm.querySelectorAll('input[type="radio"]:checked')
           ).map((radio) => radio.value);
           selectedFilters = selectedFilters.concat(selectedMedii);
-          console.log("SELECTED filters:" + selectedFilters);
           filteredData = beautifulData[0].filter((entry) => {
             const key = entry[0];
             return selectedFilters.some((filter) => key.includes(filter));
@@ -136,7 +129,6 @@ document
         let targetArray = [];
         for (let i = 0; i < filteredData.length; i++) {
           if (filteredData[i][0].includes("Total")) {
-            console.log(filteredData[i]);
             targetArray = filteredData[i];
             filteredData.splice(i, 1);
             break;
@@ -144,11 +136,7 @@ document
         }
 
         total = targetArray[1];
-        console.log("filtered DATA:", filteredData);
-        console.log(targetArray[1]);
         let title = "Total: " + targetArray[1];
-        console.log("title:", title);
-        console.log("unshiftul pulii:", filteredData)
 
         filteredData.unshift(["Total", "Numar someri"]);
 
@@ -167,8 +155,6 @@ document
 
         pieChart.data = pieChartData;
         barChart.data = pieChartData;
-
-        console.log("PIECHART DATA:", pieChart.data);
         pieChart.chart.draw(
           google.visualization.arrayToDataTable(pieChart.data),
           pieChart.options
