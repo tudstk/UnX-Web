@@ -3,6 +3,7 @@ const url = require("url");
 const crypto = require("crypto");
 const { parse } = require("querystring");
 const bcrypt = require("bcrypt");
+
 const generateSecretKey = () => {
   return crypto.randomBytes(32).toString("hex");
 };
@@ -41,6 +42,7 @@ const {
   handleDeleteUser,
   handleDeleteReview,
 } = require("./controllers/admin_controller/admin_controller");
+const { webScraper } = require("./utils/csv_data/web_scraper");
 
 const { importAllData } = require("./utils/csv_data/import_data");
 
@@ -93,10 +95,16 @@ const server = http.createServer((req, res) => {
     handleDeleteUser(username, res);
   } else if (reqPath === "/admin/users" && reqMethod === "POST") {
     handleAddUser(req, res);
-  } else if ( reqPath.startsWith("/admin/feedbacks/") && reqMethod === "DELETE") {
+  } else if (
+    reqPath.startsWith("/admin/feedbacks/") &&
+    reqMethod === "DELETE"
+  ) {
     let reviewId = reqPath.slice("/admin/feedbacks/".length);
     handleDeleteReview(reviewId, res);
-  } else if (reqPath.startsWith("/visualizer/charts/data/") && reqMethod === "GET") {
+  } else if (
+    reqPath.startsWith("/visualizer/charts/data/") &&
+    reqMethod === "GET"
+  ) {
     let filterString = reqPath.slice("/visualizer/charts/data/".length); // extracting filterString from url
     handleGetData(res, filterString);
   } else {
@@ -105,7 +113,8 @@ const server = http.createServer((req, res) => {
   }
 });
 
-
+// webScraper("D:/gitD/unx-web/src/api/utils/csv_data/target");
+importAllData();
 const port = 3000;
 server.listen(port, () => {
   console.log(`Server listening on port ${port} `);
