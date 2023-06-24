@@ -114,7 +114,7 @@ const server = http.createServer((req, res) => {
 });
 
 // webScraper("D:/gitD/unx-web/src/api/utils/csv_data/target");
-importAllData();
+// importAllData();
 const port = 3000;
 server.listen(port, () => {
   console.log(`Server listening on port ${port} `);
