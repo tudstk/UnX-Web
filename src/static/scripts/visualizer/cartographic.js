@@ -92,6 +92,7 @@ function ready(error, counties) {
       console.log("Filter string:", filterString);
       let url = `http://localhost:3000/visualizer/charts/data/${filterString}`;
 
+      // fetching data for the county
       fetch(url, {
         method: "GET",
         headers: {

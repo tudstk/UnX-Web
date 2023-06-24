@@ -113,6 +113,22 @@ function extractPieChartDataArray(data, table, judete, monthStatement) {
       getNumberOfMonths(monthStatement)
     );
   }
+  /*
+  return a data array depending on the criteria
+  this data is used for the pie chart and bar chart
+
+  example if the criteria is "educatie", judetul "Arges" si "ultimele_12_luni"
+  [
+  [ 'total', 96237 ],
+  [ 'fara_studii', 5083 ],
+  [ 'invatamant_primar', 24115 ],
+  [ 'invatamant_gimnazial', 31994 ],
+  [ 'invatamant_liceal', 15908 ],
+  [ 'invatamant_posticeal', 1296 ],
+  [ 'invatamant_profesional', 14167 ],
+  [ 'invatamant_universitar', 3674 ]
+]
+  */
   return transformedArray;
 }
 
@@ -157,6 +173,31 @@ function extractLineChartDataArray(data, monthStatement) {
 
     transformedArray.push(monthArray);
   }
+  /*
+  returns an array for every month selected in the criteria
+  this data is used for the line chart
+  example if the criteria is "educatie", judetul "Arges" si "ultima_luna"
+[
+  [
+    [
+      'total',
+      'fara_studii',
+      'invatamant_primar',
+      'invatamant_gimnazial',
+      'invatamant_liceal',
+      'invatamant_posticeal',
+      'invatamant_profesional',
+      'invatamant_universitar',
+      'month'
+    ],
+    [
+      4988,  391, 873,
+      1735, 1060,  47,
+       678,  204,  12
+    ]
+  ]
+]
+  */
   return transformedArray;
 }
 
@@ -169,21 +210,26 @@ async function extractDataArray(table, judete, monthStatement) {
 
     const result = await client.query(query);
 
+    // this returns an an array of data for every month and county selected
     const data = result.rows.map((row) => {
       const attributes = Object.keys(row).filter((key) => key !== "judet");
       const values = attributes.map((attr) => row[attr]);
       return [attributes, values];
     });
 
-    const pieChartDataArray = extractPieChartDataArray(
+
+    // this makes a sum and median  for all the months and counties selected
+    const pieChartandBarChartDataArray = extractPieChartDataArray(
       data,
       table,
       judete,
       monthStatement
     );
+
+    // this makes a sum just for every county selected
     const lineChartDataArray = extractLineChartDataArray(data, monthStatement);
 
-    responseArray = [pieChartDataArray, lineChartDataArray];
+    responseArray = [pieChartandBarChartDataArray, lineChartDataArray];
   } catch (error) {
     console.error("Error extracting data:", error);
   }
