@@ -20,4 +20,6 @@
 - node server.js
 
 4. Dupa ce ati rulat o data serverul, trebuie inchis, apoi comentata functia "importAllData" din src/api/server.js, si trebuie repornit serverul.
-5. Din src/views/index.html, porniti extensia "Live Server".
+5. Sunt doua optiuni de a da start la frontend:
+- din src/views/index.html, porniti extensia "Live Server".
+- sau puteti accesa link-ul din descrierea repository-ului (frontend-ul este deployed pe netlify)
